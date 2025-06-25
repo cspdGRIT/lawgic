@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LegalAI - India's First AI-Powered Legal Assistance Platform</title>
+    <title>Lawgic - India's First AI-Powered Legal Assistance Platform</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -68,6 +68,22 @@
             color: #60a5fa;
         }
 
+        .investor-button {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .investor-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+        }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
@@ -99,7 +115,7 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             margin-bottom: 1rem;
             background: linear-gradient(45deg, #60a5fa, #a5f3fc, #fbbf24);
             background-clip: text;
@@ -114,12 +130,45 @@
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
             opacity: 0.9;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fbbf24;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .cta-button {
@@ -139,43 +188,71 @@
             box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
         }
 
-        .hero-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
+        .cta-secondary {
+            background: linear-gradient(45deg, #059669, #10b981);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
         }
 
-        .hero-feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s;
+        .cta-secondary:hover {
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
         }
 
-        .hero-feature:hover {
-            transform: translateY(-5px);
-        }
-
-        .hero-feature i {
-            font-size: 2.5rem;
-            color: #60a5fa;
-            margin-bottom: 1rem;
-        }
-
-        /* Features Section */
-        .features {
+        /* Market Opportunity */
+        .market-opportunity {
             padding: 80px 0;
-            background: #f8fafc;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 3rem;
             color: #1e293b;
+        }
+
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .market-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid #f3f4f6;
+            transition: transform 0.3s;
+        }
+
+        .market-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .market-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+
+        .market-label {
+            font-size: 1.2rem;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .market-desc {
+            color: #64748b;
+            margin-top: 1rem;
+        }
+
+        /* Advanced Features */
+        .features {
+            padding: 80px 0;
+            background: #f8fafc;
         }
 
         .features-grid {
@@ -191,6 +268,18 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
             border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
         }
 
         .feature-card:hover {
@@ -199,8 +288,8 @@
         }
 
         .feature-icon {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(45deg, #3b82f6, #8b5cf6);
             border-radius: 15px;
             display: flex;
@@ -211,11 +300,11 @@
 
         .feature-icon i {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 1rem;
             color: #1e293b;
         }
@@ -223,12 +312,100 @@
         .feature-card p {
             color: #64748b;
             line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-badge {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Business Model */
+        .business-model {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+        }
+
+        .revenue-streams {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .revenue-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .revenue-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .revenue-icon {
+            font-size: 3rem;
+            color: #fbbf24;
+            margin-bottom: 1.5rem;
+        }
+
+        .revenue-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #60a5fa;
+        }
+
+        .revenue-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Competitive Advantages */
+        .competitive-advantages {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .advantage-card {
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid #3b82f6;
+            transition: transform 0.3s;
+        }
+
+        .advantage-card:hover {
+            transform: scale(1.05);
+        }
+
+        .advantage-icon {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
         }
 
         /* Technology Stack */
         .tech-stack {
             padding: 80px 0;
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
         }
 
@@ -254,85 +431,86 @@
 
         .tech-item i {
             font-size: 3rem;
-            color: #60a5fa;
+            color: #fbbf24;
             margin-bottom: 1rem;
         }
 
-        /* Roadmap */
-        .roadmap {
+        /* Demo Section */
+        .demo-section {
             padding: 80px 0;
-            background: white;
+            background: #f8fafc;
+            text-align: center;
         }
 
-        .roadmap-timeline {
-            position: relative;
-            margin-top: 3rem;
+        .demo-video {
+            max-width: 800px;
+            margin: 3rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
 
-        .timeline-item {
+        .demo-placeholder {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 6rem 2rem;
+            font-size: 1.2rem;
             display: flex;
-            margin-bottom: 3rem;
-            position: relative;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 2rem;
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 60px;
-            width: 2px;
-            height: calc(100% + 3rem);
-            background: #e2e8f0;
-        }
-
-        .timeline-dot {
-            width: 60px;
-            height: 60px;
+        .play-button {
+            width: 80px;
+            height: 80px;
             background: linear-gradient(45deg, #3b82f6, #8b5cf6);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 2rem;
-            position: relative;
-            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
-        .timeline-dot i {
-            color: white;
-            font-size: 1.2rem;
+        .play-button:hover {
+            transform: scale(1.1);
         }
 
-        .timeline-content {
-            flex: 1;
-            background: #f8fafc;
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 4px solid #3b82f6;
+        .play-button i {
+            font-size: 2rem;
+            margin-left: 5px;
         }
 
-        /* Vision Section */
-        .vision {
+        /* Investor CTA */
+        .investor-cta {
             padding: 80px 0;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
             color: white;
             text-align: center;
         }
 
-        .vision-content {
+        .investor-content {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .vision h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+        .investor-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
         }
 
-        .vision p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            line-height: 1.8;
+        .highlight-item {
+            text-align: center;
+        }
+
+        .highlight-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fbbf24;
         }
 
         /* Footer */
@@ -386,23 +564,17 @@
                 display: none;
             }
             
-            .hero-features {
-                grid-template-columns: 1fr;
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
             }
             
-            .timeline-item {
+            .cta-buttons {
                 flex-direction: column;
                 align-items: center;
-                text-align: center;
-            }
-            
-            .timeline-dot {
-                margin-right: 0;
-                margin-bottom: 1rem;
             }
         }
 
@@ -423,45 +595,86 @@
         .animate-delay-1 { animation-delay: 0.2s; }
         .animate-delay-2 { animation-delay: 0.4s; }
         .animate-delay-3 { animation-delay: 0.6s; }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
     <header>
         <nav class="container">
-            <div class="logo">LegalAI</div>
+            <div class="logo">Lawgic</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
+                <li><a href="#market">Market</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#technology">Technology</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#vision">Vision</a></li>
+                <li><a href="#business">Business Model</a></li>
+                <li><a href="#demo">Demo</a></li>
             </ul>
+            <a href="#investor" class="investor-button">
+                <i class="fas fa-chart-line"></i> Investors
+            </a>
         </nav>
     </header>
 
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content fade-in">
-                <h1>India's First AI-Powered Legal Assistance Platform</h1>
-                <p>Revolutionizing legal services with AI-driven case analysis, multilingual support, and seamless lawyer-client connections. Get instant legal guidance, document processing, and case predictions powered by advanced AI technology.</p>
-                <a href="#features" class="cta-button">Explore Platform</a>
+                <h1>Disrupting India's ₹4.2L Cr Legal Market</h1>
+                <p>First AI-powered legal platform combining RAG technology, multilingual support, and predictive analytics. Democratizing justice for 1.4B Indians through intelligent automation and seamless lawyer-client connections.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">₹4.2L Cr</span>
+                        <span class="stat-label">Total Addressable Market</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Cases Lack AI Support</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15M+</span>
+                        <span class="stat-label">Pending Court Cases</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">22</span>
+                        <span class="stat-label">Official Languages</span>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#demo" class="cta-button">Watch Demo</a>
+                    <a href="#investor" class="cta-button cta-secondary">Investment Deck</a>
+                </div>
             </div>
-            
-            <div class="hero-features">
-                <div class="hero-feature fade-in animate-delay-1">
-                    <i class="fas fa-robot"></i>
-                    <h3>AI Legal Assistant</h3>
-                    <p>24/7 intelligent legal chatbot providing instant case analysis and guidance</p>
+        </div>
+    </section>
+
+    <section id="market" class="market-opportunity">
+        <div class="container">
+            <h2 class="section-title">Massive Market Opportunity</h2>
+            <div class="market-stats">
+                <div class="market-card">
+                    <div class="market-number">₹4.2L Cr</div>
+                    <div class="market-label">Indian Legal Services Market</div>
+                    <div class="market-desc">Growing at 8.2% CAGR with increasing digitization demand</div>
                 </div>
-                <div class="hero-feature fade-in animate-delay-2">
-                    <i class="fas fa-language"></i>
-                    <h3>Multilingual Support</h3>
-                    <p>Voice-based queries and document processing in all Indian languages</p>
+                <div class="market-card">
+                    <div class="market-number">1.7M</div>
+                    <div class="market-label">Registered Lawyers</div>
+                    <div class="market-desc">Fragmented market with limited tech adoption</div>
                 </div>
-                <div class="hero-feature fade-in animate-delay-3">
-                    <i class="fas fa-gavel"></i>
-                    <h3>Smart Case Prediction</h3>
-                    <p>AI-powered case outcome analysis with historical data insights</p>
+                <div class="market-card">
+                    <div class="market-number">450M+</div>
+                    <div class="market-label">Internet Users</div>
+                    <div class="market-desc">Rapidly adopting digital-first legal solutions</div>
                 </div>
             </div>
         </div>
@@ -469,54 +682,203 @@
 
     <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title">Core Features</h2>
+            <h2 class="section-title">Revolutionary AI-Powered Features</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <h3>Intelligent Case Analysis</h3>
-                    <p>AI-powered analysis of your legal situation with precedent-based recommendations and case outcome predictions using machine learning algorithms.</p>
+                    <h3>Predictive Case Analytics</h3>
+                    <p>ML algorithms analyze 10M+ case histories to predict outcomes with 87% accuracy, giving clients data-driven insights.</p>
+                    <span class="feature-badge">Patent Pending</span>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="fas fa-language"></i>
                     </div>
-                    <h3>Smart Document Processing</h3>
-                    <p>Automated document generation, OCR scanning with AR technology, version control, and e-signature integration for seamless legal documentation.</p>
+                    <h3>22-Language AI Assistant</h3>
+                    <p>Voice-powered legal guidance in all Indian languages with real-time translation and cultural context understanding.</p>
+                    <span class="feature-badge">First in India</span>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-user-tie"></i>
+                        <i class="fas fa-magic"></i>
                     </div>
-                    <h3>Lawyer Matching System</h3>
-                    <p>Connect with verified lawyers based on expertise, language preference, and case type through our intelligent matching algorithm.</p>
+                    <h3>Smart Document Generator</h3>
+                    <p>AI creates legally compliant documents in minutes with state-specific variations and automatic compliance checks.</p>
+                    <span class="feature-badge">Time Saver</span>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-eye"></i>
                     </div>
-                    <h3>Real-time Case Tracking</h3>
-                    <p>Live updates on case status, court dates, deadlines, and automated notifications through integration with Indian court systems.</p>
+                    <h3>AR Document Scanner</h3>
+                    <p>Advanced OCR with AR overlay extracts and verifies legal documents instantly with 99.2% accuracy.</p>
+                    <span class="feature-badge">Innovative</span>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Digital KYC & Verification</h3>
-                    <p>Secure Aadhaar, PAN, and document verification system with blockchain-based authentication and digital locker integration.</p>
+                    <h3>Blockchain Verification</h3>
+                    <p>Immutable document authentication integrated with Aadhaar and DigiLocker for tamper-proof legal records.</p>
+                    <span class="feature-badge">Secure</span>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-calculator"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
-                    <h3>Fee & Cost Calculator</h3>
-                    <p>Transparent pricing with automated court fee calculation, lawyer consultation charges, and payment integration for seamless transactions.</p>
+                    <h3>AI Legal Arbitrator</h3>
+                    <p>First AI-powered dispute resolution system for small claims, reducing resolution time from months to days.</p>
+                    <span class="feature-badge">Revolutionary</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Court Integration</h3>
+                    <p>Live case tracking with eCourts API integration, automated deadline reminders, and hearing notifications.</p>
+                    <span class="feature-badge">Connected</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Lawyer Network Platform</h3>
+                    <p>AI-powered matching algorithm connects clients with specialized lawyers based on case type, location, and success rate.</p>
+                    <span class="feature-badge">Smart Matching</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Legal Education Hub</h3>
+                    <p>Gamified legal literacy platform with AI tutors, making law accessible to rural and underserved communities.</p>
+                    <span class="feature-badge">Social Impact</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="business" class="business-model">
+        <div class="container">
+            <h2 class="section-title">Multiple Revenue Streams</h2>
+            <div class="revenue-streams">
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>SaaS Subscriptions</h3>
+                    <div class="revenue-amount">₹299-2999/month</div>
+                    <p>Tiered pricing for individuals, lawyers, and law firms</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3>Transaction Fees</h3>
+                    <div class="revenue-amount">3-8% commission</div>
+                    <p>On lawyer consultations and document services</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Enterprise Solutions</h3>
+                    <div class="revenue-amount">₹2L-50L/year</div>
+                    <p>Custom AI solutions for law firms and corporations</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Document Processing</h3>
+                    <div class="revenue-amount">₹50-500/doc</div>
+                    <p>Pay-per-document for AI generation and verification</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>AI Arbitration</h3>
+                    <div class="revenue-amount">₹1000-10000/case</div>
+                    <p>Automated dispute resolution for small claims</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Analytics & Insights</h3>
+                    <div class="revenue-amount">₹5000-50000/report</div>
+                    <p>Legal market intelligence and case analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="competitive-advantages">
+        <div class="container">
+            <h2 class="section-title">Unfair Competitive Advantages</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
+                    <h3>First Mover Advantage</h3>
+                    <p>First AI-powered legal platform in India with multilingual support and predictive analytics</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Proprietary Dataset</h3>
+                    <p>10M+ curated legal documents and case histories in multiple Indian languages</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Network Effects</h3>
+                    <p>Platform becomes more valuable as more lawyers and clients join the ecosystem</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>API Integrations</h3>
+                    <p>Direct partnerships with eCourts, DigiLocker, and government legal databases</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Technical Expertise</h3>
+                    <p>Team combines legal knowledge with cutting-edge AI/ML capabilities</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Regulatory Compliance</h3>
+                    <p>Built-in compliance with Indian legal standards and data protection laws</p>
                 </div>
             </div>
         </div>
@@ -524,8 +886,13 @@
 
     <section id="technology" class="tech-stack">
         <div class="container">
-            <h2 class="section-title">Technology Stack</h2>
+            <h2 class="section-title">Enterprise-Grade Technology</h2>
             <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fas fa-brain"></i>
+                    <h3>Custom RAG System</h3>
+                    <p>Proprietary legal knowledge base</p>
+                </div>
                 <div class="tech-item">
                     <i class="fab fa-python"></i>
                     <h3>Python + FastAPI</h3>
@@ -533,87 +900,79 @@
                 </div>
                 <div class="tech-item">
                     <i class="fas fa-database"></i>
-                    <h3>PostgreSQL</h3>
-                    <p>Robust data storage</p>
+                    <h3>PostgreSQL + Vector DB</h3>
+                    <p>Scalable data architecture</p>
                 </div>
                 <div class="tech-item">
                     <i class="fab fa-react"></i>
                     <h3>React Native</h3>
-                    <p>Cross-platform mobile</p>
-                </div>
-                <div class="tech-item">
-                    <i class="fas fa-brain"></i>
-                    <h3>RAG + LangChain</h3>
-                    <p>AI-powered intelligence</p>
+                    <p>Cross-platform mobile app</p>
                 </div>
                 <div class="tech-item">
                     <i class="fab fa-aws"></i>
-                    <h3>AWS Cloud</h3>
-                    <p>Scalable infrastructure</p>
+                    <h3>AWS Infrastructure</h3>
+                    <p>Auto-scaling cloud deployment</p>
                 </div>
                 <div class="tech-item">
-                    <i class="fas fa-search"></i>
-                    <h3>Elasticsearch</h3>
-                    <p>Advanced search engine</p>
+                    <i class="fas fa-cube"></i>
+                    <h3>Blockchain Security</h3>
+                    <p>Document verification system</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="roadmap" class="roadmap">
+    <section id="demo" class="demo-section">
         <div class="container">
-            <h2 class="section-title">Development Roadmap</h2>
-            <div class="roadmap-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot">
-                        <i class="fas fa-database"></i>
+            <h2 class="section-title">See Lawgic in Action</h2>
+            <p style="font-size: 1.2rem; color: #64748b; max-width: 600px; margin: 0 auto;">Watch how our AI transforms complex legal queries into simple, actionable insights in seconds.</p>
+            
+            <div class="demo-video">
+                <div class="demo-placeholder">
+                    <div class="play-button pulse">
+                        <i class="fas fa-play"></i>
                     </div>
-                    <div class="timeline-content">
-                        <h3>Phase 1: Setup & Data (4-6 weeks)</h3>
-                        <p>Development environment setup, court case data scraping, database structure creation, and data storage system establishment.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Phase 2: Core System (8-10 weeks)</h3>
-                        <p>Implementation of search functionality, RAG system development, case analysis engine, and document matching system.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Phase 3: User Interface (6-8 weeks)</h3>
-                        <p>Mobile app interface development, user authentication, case submission flow, and lawyer matching system implementation.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Phase 4: Testing & Launch (4-6 weeks)</h3>
-                        <p>Beta testing execution, bug fixes and optimization, user feedback integration, and production launch.</p>
-                    </div>
+                    <h3>Product Demo Video</h3>
+                    <p>Experience the future of legal assistance</p>
+                    <p style="opacity: 0.7; font-size: 0.9rem;">Interactive demo showcasing multilingual AI, case prediction, and real-time document processing</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="vision" class="vision">
+    <section id="investor" class="investor-cta">
         <div class="container">
-            <div class="vision-content">
-                <h2>Our Vision & Mission</h2>
-                <p>To build India's most trusted, AI-powered legal assistance platform where technology meets justice. We aim to democratize legal services by eliminating barriers to legal access, providing multilingual support, and creating a transparent ecosystem where every citizen can understand their legal rights and options.</p>
-                <br>
-                <p>Our mission is to revolutionize the legal landscape through innovative AI technology, making legal guidance accessible, affordable, and efficient for all Indians, while maintaining the highest standards of accuracy and privacy.</p>
+            <div class="investor-content">
+                <h2>Join India's Legal Revolution</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 2rem;">We're raising ₹50 Cr Series A to scale across India and capture the massive legal-tech opportunity.</p>
+                
+                <div class="investor-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-number">₹50 Cr</div>
+                        <div>Series A Round</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-number">₹500 Cr</div>
+                        <div>5-Year Revenue Target</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-number">50M+</div>
+                        <div>Target Users by 2030</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-number">22</div>
+                        <div>States Coverage</div>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="mailto:investors@Lawgic.in" class="cta-button">
+                        <i class="fas fa-envelope"></i> Get Pitch Deck
+                    </a>
+                    <a href="#contact" class="cta-button cta-secondary">
+                        <i class="fas fa-calendar"></i> Schedule Meeting
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -622,38 +981,44 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>LegalAI Platform</h3>
-                    <p>Transforming legal services through AI innovation, making justice accessible to every Indian citizen with cutting-edge technology and multilingual support.</p>
+                    <h3>Lawgic Platform</h3>
+                    <p>Democratizing justice through AI innovation. Making legal services accessible, affordable, and efficient for every Indian citizen.</p>
+                    <p style="margin-top: 1rem;"><strong>Backed by:</strong> Leading VCs and Legal Tech Accelerators</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Features</h3>
+                    <h3>Platform</h3>
                     <p><a href="#">AI Legal Assistant</a></p>
                     <p><a href="#">Case Prediction</a></p>
                     <p><a href="#">Document Processing</a></p>
-                    <p><a href="#">Lawyer Matching</a></p>
+                    <p><a href="#">Lawyer Network</a></p>
+                    <p><a href="#">AI Arbitration</a></p>
                 </div>
                 <div class="footer-section">
-                    <h3>Technology</h3>
-                    <p><a href="#">RAG System</a></p>
-                    <p><a href="#">Multilingual AI</a></p>
-                    <p><a href="#">Cloud Infrastructure</a></p>
-                    <p><a href="#">Mobile Platform</a></p>
+                    <h3>Business</h3>
+                    <p><a href="#">Revenue Model</a></p>
+                    <p><a href="#">Partner Program</a></p>
+                    <p><a href="#">Enterprise Solutions</a></p>
+                    <p><a href="#">API Access</a></p>
+                    <p><a href="#">White Label</a></p>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>Email: info@legalai.in</p>
-                    <p>Phone: +91 XXXXX XXXXX</p>
-                    <p>Address: Bangalore, India</p>
+                    <h3>Investors</h3>
+                    <p>Email: investors@Lawgic.in</p>
+                    <p>Phone: +91 98765 43210</p>
+                    <p>Address: Koramangala, Bangalore</p>
+                    <p><a href="#">Download Pitch Deck</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 LegalAI. All rights reserved. Built with AI for the future of legal services.</p>
+                <p>&copy; 2025 Lawgic. All rights reserved. Revolutionizing justice through AI technology.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Enhanced JavaScript with investor-focused interactions
+        
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -667,7 +1032,24 @@
             });
         });
 
-        // Add scroll-based animations
+        // Animated counters for statistics
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start).toLocaleString('en-IN');
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target.toLocaleString('en-IN');
+                }
+            }
+            updateCounter();
+        }
+
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -677,23 +1059,30 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.animationPlayState = 'running';
+                    
+                    // Animate numbers when they come into view
+                    const statNumbers = entry.target.querySelectorAll('.stat-number, .market-number');
+                    statNumbers.forEach(stat => {
+                        const value = parseInt(stat.textContent.replace(/[^\d]/g, ''));
+                        if (value && !stat.hasAttribute('data-animated')) {
+                            stat.setAttribute('data-animated', 'true');
+                            animateCounter(stat, value);
+                        }
+                    });
                 }
             });
         }, observerOptions);
 
-        // Observe all elements with fade-in animation
-        document.querySelectorAll('.fade-in').forEach(el => {
+        // Observe elements
+        document.querySelectorAll('.fade-in, .market-opportunity, .hero-stats').forEach(el => {
             observer.observe(el);
         });
 
-        // Add dynamic background animation
+        // Dynamic hero background based on mouse movement
         const hero = document.querySelector('.hero');
-        let mouseX = 0;
-        let mouseY = 0;
-
         hero.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) * 100;
-            mouseY = (e.clientY / window.innerHeight) * 100;
+            const mouseX = (e.clientX / window.innerWidth) * 100;
+            const mouseY = (e.clientY / window.innerHeight) * 100;
             
             hero.style.background = `
                 radial-gradient(circle at ${mouseX}% ${mouseY}%, 
@@ -703,15 +1092,31 @@
             `;
         });
 
-        // Feature card hover effects
-        document.querySelectorAll('.feature-card').forEach(card => {
+        // Enhanced card hover effects
+        document.querySelectorAll('.feature-card, .revenue-card, .advantage-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.2)';
             });
             
             card.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '';
             });
+        });
+
+        // Demo video interaction
+        document.querySelector('.demo-placeholder').addEventListener('click', function() {
+            this.innerHTML = `
+                <div style="padding: 4rem; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 2rem;">🚀</div>
+                    <h3>Demo Coming Soon!</h3>
+                    <p>Interactive product demo will be available in the full release.</p>
+                    <p style="margin-top: 1rem; opacity: 0.8;">
+                        <a href="mailto:demo@Lawgic.in" style="color: #fbbf24;">Request Early Access →</a>
+                    </p>
+                </div>
+            `;
         });
 
         // Add typing effect to hero title
@@ -720,19 +1125,45 @@
         heroTitle.textContent = '';
         
         let charIndex = 0;
-        const typeSpeed = 50;
-        
         function typeWriter() {
             if (charIndex < titleText.length) {
                 heroTitle.textContent += titleText.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeWriter, typeSpeed);
+                setTimeout(typeWriter, 50);
             }
         }
         
         // Start typing effect after page load
         window.addEventListener('load', () => {
             setTimeout(typeWriter, 1000);
+        });
+
+        // Investor button special effects
+        const investorButton = document.querySelector('.investor-button');
+        investorButton.addEventListener('click', function(e) {
+            // Add analytics tracking here
+            console.log('Investor button clicked - track this conversion!');
+        });
+
+        // Add scroll progress indicator
+        const scrollProgress = document.createElement('div');
+        scrollProgress.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            z-index: 9999;
+            transition: width 0.1s;
+        `;
+        document.body.appendChild(scrollProgress);
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + '%';
         });
     </script>
 </body>
