@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalAI - India's First AI-Powered Legal Assistance Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #60a5fa, #a5f3fc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="50" r="0.5" fill="%23ffffff" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50%) translateY(-50%); }
+            100% { transform: translateX(-50%) translateY(-60%); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #60a5fa, #a5f3fc, #fbbf24);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .hero-feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .hero-feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .hero-feature i {
+            font-size: 2.5rem;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* Technology Stack */
+        .tech-stack {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.05);
+        }
+
+        .tech-item i {
+            font-size: 3rem;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+
+        /* Roadmap */
+        .roadmap {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            width: 2px;
+            height: calc(100% + 3rem);
+            background: #e2e8f0;
+        }
+
+        .timeline-dot {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-dot i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        /* Vision Section */
+        .vision {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .vision-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .vision h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .vision p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #60a5fa;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: #60a5fa;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #64748b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .timeline-dot {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-delay-1 { animation-delay: 0.2s; }
+        .animate-delay-2 { animation-delay: 0.4s; }
+        .animate-delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">LegalAI</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#vision">Vision</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>India's First AI-Powered Legal Assistance Platform</h1>
+                <p>Revolutionizing legal services with AI-driven case analysis, multilingual support, and seamless lawyer-client connections. Get instant legal guidance, document processing, and case predictions powered by advanced AI technology.</p>
+                <a href="#features" class="cta-button">Explore Platform</a>
+            </div>
+            
+            <div class="hero-features">
+                <div class="hero-feature fade-in animate-delay-1">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Legal Assistant</h3>
+                    <p>24/7 intelligent legal chatbot providing instant case analysis and guidance</p>
+                </div>
+                <div class="hero-feature fade-in animate-delay-2">
+                    <i class="fas fa-language"></i>
+                    <h3>Multilingual Support</h3>
+                    <p>Voice-based queries and document processing in all Indian languages</p>
+                </div>
+                <div class="hero-feature fade-in animate-delay-3">
+                    <i class="fas fa-gavel"></i>
+                    <h3>Smart Case Prediction</h3>
+                    <p>AI-powered case outcome analysis with historical data insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Intelligent Case Analysis</h3>
+                    <p>AI-powered analysis of your legal situation with precedent-based recommendations and case outcome predictions using machine learning algorithms.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Smart Document Processing</h3>
+                    <p>Automated document generation, OCR scanning with AR technology, version control, and e-signature integration for seamless legal documentation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Lawyer Matching System</h3>
+                    <p>Connect with verified lawyers based on expertise, language preference, and case type through our intelligent matching algorithm.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Case Tracking</h3>
+                    <p>Live updates on case status, court dates, deadlines, and automated notifications through integration with Indian court systems.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Digital KYC & Verification</h3>
+                    <p>Secure Aadhaar, PAN, and document verification system with blockchain-based authentication and digital locker integration.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Fee & Cost Calculator</h3>
+                    <p>Transparent pricing with automated court fee calculation, lawyer consultation charges, and payment integration for seamless transactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="tech-stack">
+        <div class="container">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fab fa-python"></i>
+                    <h3>Python + FastAPI</h3>
+                    <p>High-performance backend</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-database"></i>
+                    <h3>PostgreSQL</h3>
+                    <p>Robust data storage</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-react"></i>
+                    <h3>React Native</h3>
+                    <p>Cross-platform mobile</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-brain"></i>
+                    <h3>RAG + LangChain</h3>
+                    <p>AI-powered intelligence</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-aws"></i>
+                    <h3>AWS Cloud</h3>
+                    <p>Scalable infrastructure</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-search"></i>
+                    <h3>Elasticsearch</h3>
+                    <p>Advanced search engine</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <h2 class="section-title">Development Roadmap</h2>
+            <div class="roadmap-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Phase 1: Setup & Data (4-6 weeks)</h3>
+                        <p>Development environment setup, court case data scraping, database structure creation, and data storage system establishment.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Phase 2: Core System (8-10 weeks)</h3>
+                        <p>Implementation of search functionality, RAG system development, case analysis engine, and document matching system.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Phase 3: User Interface (6-8 weeks)</h3>
+                        <p>Mobile app interface development, user authentication, case submission flow, and lawyer matching system implementation.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Phase 4: Testing & Launch (4-6 weeks)</h3>
+                        <p>Beta testing execution, bug fixes and optimization, user feedback integration, and production launch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision" class="vision">
+        <div class="container">
+            <div class="vision-content">
+                <h2>Our Vision & Mission</h2>
+                <p>To build India's most trusted, AI-powered legal assistance platform where technology meets justice. We aim to democratize legal services by eliminating barriers to legal access, providing multilingual support, and creating a transparent ecosystem where every citizen can understand their legal rights and options.</p>
+                <br>
+                <p>Our mission is to revolutionize the legal landscape through innovative AI technology, making legal guidance accessible, affordable, and efficient for all Indians, while maintaining the highest standards of accuracy and privacy.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LegalAI Platform</h3>
+                    <p>Transforming legal services through AI innovation, making justice accessible to every Indian citizen with cutting-edge technology and multilingual support.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Features</h3>
+                    <p><a href="#">AI Legal Assistant</a></p>
+                    <p><a href="#">Case Prediction</a></p>
+                    <p><a href="#">Document Processing</a></p>
+                    <p><a href="#">Lawyer Matching</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Technology</h3>
+                    <p><a href="#">RAG System</a></p>
+                    <p><a href="#">Multilingual AI</a></p>
+                    <p><a href="#">Cloud Infrastructure</a></p>
+                    <p><a href="#">Mobile Platform</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@legalai.in</p>
+                    <p>Phone: +91 XXXXX XXXXX</p>
+                    <p>Address: Bangalore, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LegalAI. All rights reserved. Built with AI for the future of legal services.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with fade-in animation
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add dynamic background animation
+        const hero = document.querySelector('.hero');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        hero.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 100;
+            mouseY = (e.clientY / window.innerHeight) * 100;
+            
+            hero.style.background = `
+                radial-gradient(circle at ${mouseX}% ${mouseY}%, 
+                rgba(59, 130, 246, 0.3) 0%, 
+                transparent 50%),
+                linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)
+            `;
+        });
+
+        // Feature card hover effects
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add typing effect to hero title
+        const heroTitle = document.querySelector('.hero h1');
+        const titleText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        
+        let charIndex = 0;
+        const typeSpeed = 50;
+        
+        function typeWriter() {
+            if (charIndex < titleText.length) {
+                heroTitle.textContent += titleText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, typeSpeed);
+            }
+        }
+        
+        // Start typing effect after page load
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 1000);
+        });
+    </script>
+</body>
+</html>
