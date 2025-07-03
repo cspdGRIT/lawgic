@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawgic - India's First AI-Powered Legal Assistance Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Source+Serif+Pro:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #1e40af 75%, #1d4ed8 100%);
+            color: white;
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.5);
+            border-bottom: 2px solid #b59410;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-image {
+            height: 64px;
+            width: auto;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid #b59410;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.12) rotate(3deg);
+            box-shadow: 0 16px 50px rgba(181, 148, 16, 0.7);
+            border-color: #fbbf24;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3.5rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 10px 0;
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #fbbf24, #b59410);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #fbbf24;
+            transform: translateY(-2px);
+        }
+
+        .investor-button {
+            background: linear-gradient(135deg, #b59410 0%, #fbbf24 50%, #f59e0b 100%);
+            background-size: 200% 200%;
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.5s ease;
+            box-shadow: 0 12px 40px rgba(181, 148, 16, 0.5);
+            animation: goldShimmer 4s ease-in-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        @keyframes goldShimmer {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                transform: translateY(0px);
+                box-shadow: 0 12px 40px rgba(181, 148, 16, 0.5);
+            }
+            50% { 
+                background-position: 100% 50%; 
+                transform: translateY(-3px);
+                box-shadow: 0 20px 60px rgba(251, 191, 36, 0.7);
+            }
+        }
+
+        .investor-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(251, 191, 36, 0.8);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(ellipse at center top, #0f172a 0%, #1e293b 40%, #000000 100%);
+            color: white;
+            padding: 180px 0 140px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="scales" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M25 5 L35 25 L15 25 Z" fill="%23fbbf24" opacity="0.03"/><path d="M25 35 L35 15 L15 15 Z" fill="%23b59410" opacity="0.02"/></pattern><radialGradient id="legal-grad" cx="50%" cy="30%" r="60%"><stop offset="0%" style="stop-color:%231e40af;stop-opacity:0.1" /><stop offset="100%" style="stop-color:%23000000;stop-opacity:0" /></radialGradient></defs><rect width="100" height="100" fill="url(%23legal-grad)"/><rect width="100" height="100" fill="url(%23scales)"/></svg>');
+            animation: legalPattern 25s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes legalPattern {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-50px) translateY(-50px) rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(251, 191, 36, 0.1);
+            border: 2px solid #fbbf24;
+            color: #fbbf24;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        .hero-logo {
+            margin: 0 auto 3.5rem;
+            display: block;
+            height: 180px;
+            width: auto;
+            border-radius: 36px;
+            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.7);
+            animation: legalFloat 8s ease-in-out infinite;
+            border: 4px solid #b59410;
+        }
+
+        @keyframes legalFloat {
+            0%, 100% { 
+                transform: translateY(0px) scale(1);
+                box-shadow: 0 25px 100px rgba(181, 148, 16, 0.5);
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.05);
+                box-shadow: 0 35px 120px rgba(251, 191, 36, 0.7);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 25%, #d97706 50%, #b59410 75%, #fbbf24 100%);
+            background-size: 300% 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldFlow 10s ease infinite;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            text-shadow: 0 0 50px rgba(251, 191, 36, 0.4);
+        }
+
+        @keyframes goldFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 1.8rem;
+            margin-bottom: 3.5rem;
+            opacity: 0.95;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
+            margin: 6rem 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3.5rem 2.5rem;
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(181, 148, 16, 0.3);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #b59410, #fbbf24, #f59e0b);
+        }
+
+        .stat-item::after {
+            content: '⚖️';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            opacity: 0.2;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-15px) scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 35px 100px rgba(181, 148, 16, 0.4);
+            border-color: #fbbf24;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.4;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 4rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #2563eb 100%);
+            background-size: 200% 200%;
+            color: white;
+            padding: 22px 45px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(30, 64, 175, 0.5);
+            animation: blueFlow 5s ease-in-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        @keyframes blueFlow {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                transform: translateY(0px);
+            }
+            50% { 
+                background-position: 100% 50%; 
+                transform: translateY(-2px);
+            }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 30px 80px rgba(30, 64, 175, 0.7);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-secondary {
+            background: linear-gradient(135deg, #b59410 0%, #fbbf24 50%, #f59e0b 100%);
+            background-size: 200% 200%;
+            box-shadow: 0 20px 60px rgba(181, 148, 16, 0.5);
+        }
+
+        .cta-secondary:hover {
+            box-shadow: 0 30px 80px rgba(251, 191, 36, 0.7);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 4.2rem;
+            margin-bottom: 6rem;
+            color: #1e293b;
+            font-weight: 900;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 8px;
+            background: linear-gradient(90deg, #b59410, #fbbf24, #f59e0b);
+            border-radius: 4px;
+        }
+
+        /* Market Opportunity */
+        .market-opportunity {
+            padding: 140px 0;
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 30%, #fdba74 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-opportunity::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="legal-symbols" width="40" height="40" patternUnits="userSpaceOnUse"><text x="20" y="25" font-size="16" text-anchor="middle" fill="%23b59410" opacity="0.1">§</text><text x="10" y="15" font-size="12" text-anchor="middle" fill="%23f59e0b" opacity="0.08">⚖</text><text x="30" y="35" font-size="10" text-anchor="middle" fill="%23d97706" opacity="0.06">🏛</text></pattern></defs><rect width="100" height="100" fill="url(%23legal-symbols)"/></svg>');
+            animation: symbolFlow 30s linear infinite;
+        }
+
+        @keyframes symbolFlow {
+            from { transform: rotate(0deg) translateX(0px); }
+            to { transform: rotate(360deg) translateX(40px); }
+        }
+
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 4.5rem;
+            margin-top: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .market-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4.5rem;
+            border-radius: 36px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            border: 3px solid rgba(181, 148, 16, 0.2);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+        }
+
+        .market-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #b59410, #fbbf24, #f59e0b);
+        }
+
+        .market-card::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            right: 35px;
+            width: 70px;
+            height: 70px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 20px;
+            opacity: 0.08;
+        }
+
+        .market-card:hover {
+            transform: translateY(-25px) scale(1.03);
+            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.25);
+            border-color: #fbbf24;
+        }
+
+        .market-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #dc2626, #ef4444, #f87171);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2.5rem;
+            line-height: 1;
+        }
+
+        .market-label {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 1.6rem;
+            color: #1e293b;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+
+        .market-desc {
+            color: #64748b;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 140px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="legal-grid" width="25" height="25" patternUnits="userSpaceOnUse"><rect width="25" height="25" fill="none" stroke="%23cbd5e1" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23legal-grid)"/></svg>');
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 4.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 4rem;
+            border-radius: 36px;
+            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.12);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #1e40af, #2563eb, #3b82f6);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 15px;
+            opacity: 0.06;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 40px 150px rgba(0, 0, 0, 0.2);
+            border-color: #1e40af;
+        }
+
+        .feature-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 50px rgba(30, 64, 175, 0.3);
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 25px 70px rgba(30, 64, 175, 0.5);
+        }
+
+        .feature-icon i {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #1e293b;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .feature-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Business Model */
+        .business-model {
+            padding: 140px 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #374151 75%, #4b5563 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .business-model::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="money-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><text x="15" y="20" font-size="12" text-anchor="middle" fill="%23fbbf24" opacity="0.1">₹</text><text x="5" y="10" font-size="8" text-anchor="middle" fill="%23b59410" opacity="0.08">💰</text><text x="25" y="25" font-size="6" text-anchor="middle" fill="%23f59e0b" opacity="0.06">📊</text></pattern></defs><rect width="100" height="100" fill="url(%23money-pattern)"/></svg>');
+        }
+
+        .revenue-streams {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3.5rem;
+            margin-top: 6rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .revenue-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4rem;
+            border-radius: 36px;
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(181, 148, 16, 0.2);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .revenue-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #b59410, #fbbf24);
+        }
+
+        .revenue-card::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 12px;
+            opacity: 0.2;
+        }
+
+        .revenue-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            border-color: #fbbf24;
+        }
+
+        .revenue-icon {
+            font-size: 4.5rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3rem;
+        }
+
+        .revenue-card h3 {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #60a5fa;
+            font-weight: 800;
+        }
+
+        .revenue-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+
+        .revenue-card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /* Competitive Advantages */
+        .competitive-advantages {
+            padding: 140px 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%);
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3.5rem;
+            margin-top: 6rem;
+        }
+
+        .advantage-card {
+            padding: 3.5rem;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 10px solid #1e40af;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 15px 50px rgba(30, 64, 175, 0.1);
+            border: 2px solid rgba(30, 64, 175, 0.1);
+        }
+
+        .advantage-card::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 35px;
+            height: 35px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 10px;
+            opacity: 0.1;
+        }
+
+        .advantage-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 25px 80px rgba(30, 64, 175, 0.2);
+            border-left-color: #fbbf24;
+        }
+
+        .advantage-icon {
+            font-size: 4rem;
+            color: #1e40af;
+            margin-bottom: 2.5rem;
+        }
+
+        .advantage-card h3 {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #1e293b;
+            font-weight: 800;
+        }
+
+        .advantage-card p {
+            color: #64748b;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* Technology Stack */
+        .tech-stack {
+            padding: 140px 0;
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 25%, #3b82f6 75%, #60a5fa 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-stack::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tech-pattern" width="35" height="35" patternUnits="userSpaceOnUse"><text x="17" y="22" font-size="14" text-anchor="middle" fill="%23fbbf24" opacity="0.15">&lt;/&gt;</text><text x="8" y="12" font-size="10" text-anchor="middle" fill="%23ffffff" opacity="0.1">⚙</text><text x="26" y="30" font-size="8" text-anchor="middle" fill="%23f59e0b" opacity="0.08">🔧</text></pattern></defs><rect width="100" height="100" fill="url(%23tech-pattern)"/></svg>');
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
+            margin-top: 6rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 3.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+            position: relative;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 35px;
+            height: 35px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 10px;
+            opacity: 0.2;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.12) translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fbbf24;
+        }
+
+        .tech-item i {
+            font-size: 4.5rem;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tech-item h3 {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .tech-item p {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 140px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            text-align: center;
+        }
+
+        .demo-video {
+            max-width: 1200px;
+            margin: 6rem auto;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 40px 150px rgba(0, 0, 0, 0.3);
+            border: 6px solid #b59410;
+        }
+
+        .demo-placeholder {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 12rem 5rem;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 4rem;
+            position: relative;
+        }
+
+        .demo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            width: 80px;
+            height: 80px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 20px;
+            opacity: 0.3;
+        }
+
+        .play-button {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            box-shadow: 0 25px 80px rgba(30, 64, 175, 0.5);
+            border: 6px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .play-button:hover {
+            transform: scale(1.25);
+            box-shadow: 0 35px 100px rgba(30, 64, 175, 0.7);
+            border-color: #fbbf24;
+        }
+
+        .play-button i {
+            font-size: 3.5rem;
+            margin-left: 12px;
+        }
+
+        .demo-placeholder h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        /* Investor CTA */
+        .investor-cta {
+            padding: 140px 0;
+            background: linear-gradient(135deg, #059669 0%, #10b981 25%, #34d399 75%, #6ee7b7 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .investor-cta::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            width: 120px;
+            height: 120px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 30px;
+            opacity: 0.2;
+        }
+
+        .investor-cta::after {
+            content: '';
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            width: 120px;
+            height: 120px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 30px;
+            opacity: 0.2;
+        }
+
+        .investor-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .investor-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 3rem;
+            font-weight: 900;
+        }
+
+        .investor-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
+            margin: 6rem 0;
+        }
+
+        .highlight-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3.5rem 2.5rem;
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .highlight-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #fbbf24;
+        }
+
+        .highlight-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+
+        .highlight-item div:last-child {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 120px 0 50px;
+            position: relative;
+        }
+
+        .footer-logo {
+            height: 90px;
+            width: auto;
+            margin-bottom: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            border: 3px solid #b59410;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 6rem;
+            margin-bottom: 5rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Source Serif Pro', serif;
+            margin-bottom: 2.5rem;
+            color: #fbbf24;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 2.2;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #fbbf24;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 5rem;
+            border-top: 3px solid #334155;
+            color: #64748b;
+            position: relative;
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        .footer-bottom::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 15px;
+            opacity: 0.3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.4rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-logo {
+                height: 140px;
+            }
+
+            .logo-image {
+                height: 50px;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .container {
+                padding: 0 24px;
+            }
+
+            .market-stats,
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Enhanced Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(60px);
+            animation: fadeIn 1.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-delay-1 { animation-delay: 0.4s; }
+        .animate-delay-2 { animation-delay: 0.8s; }
+        .animate-delay-3 { animation-delay: 1.2s; }
+
+        .pulse {
+            animation: legalPulse 4s infinite;
+        }
+
+        @keyframes legalPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+
+        /* Premium Legal Watermarks */
+        .section-with-logo::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: 350px;
+            background: url('logo.jpg') center/cover;
+            border-radius: 40px;
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .section-with-logo {
+            position: relative;
+        }
+
+        .section-with-logo > .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Legal-themed decorative elements */
+        .legal-accent {
+            position: relative;
+        }
+
+        .legal-accent::before {
+            content: '§';
+            position: absolute;
+            font-size: 2rem;
+            color: #fbbf24;
+            opacity: 0.1;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Lawgic Logo" class="logo-image">
+                <div class="logo-text">Lawgic</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#market">Market</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#business">Business Model</a></li>
+                <li><a href="#demo">Demo</a></li>
+            </ul>
+            <a href="#investor" class="investor-button">
+                <i class="fas fa-chart-line"></i> Investors
+            </a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-badge">⚖️ India's Premier Legal AI Platform</div>
+                <img src="logo.jpg" alt="Lawgic - AI Legal Platform" class="hero-logo">
+                <h1>Disrupting India's ₹1.8L Cr Legal Market</h1>
+                <p>First AI-powered legal platform combining RAG technology, multilingual support, and predictive analytics. Democratizing justice for 1.4B Indians through intelligent automation and seamless lawyer-client connections.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">₹1.8L Cr</span>
+                        <span class="stat-label">Total Addressable Market</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">97%</span>
+                        <span class="stat-label">Legal Processes Still Manual</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5 Cr+</span>
+                        <span class="stat-label">Pending Court Cases</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3.2 Years</span>
+                        <span class="stat-label">Average Case Resolution</span>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#demo" class="cta-button">
+                        <i class="fas fa-play"></i> Watch Demo
+                    </a>
+                    <a href="#investor" class="cta-button cta-secondary">
+                        <i class="fas fa-chart-line"></i> Investment Deck
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="market" class="market-opportunity section-with-logo">
+        <div class="container">
+            <h2 class="section-title">Massive Market Opportunity</h2>
+            <div class="market-stats">
+                <div class="market-card">
+                    <div class="market-number">₹1.8L Cr</div>
+                    <div class="market-label">Indian Legal Services Market</div>
+                    <div class="market-desc">Growing at 15% CAGR with accelerating digitization post-pandemic. Only 3% digital adoption creates massive opportunity for AI transformation.</div>
+                </div>
+                <div class="market-card">
+                    <div class="market-number">1.8M</div>
+                    <div class="market-label">Registered Lawyers</div>
+                    <div class="market-desc">Highly fragmented market with 97% still using manual processes - prime for AI-driven transformation and efficiency gains.</div>
+                </div>
+                <div class="market-card">
+                    <div class="market-number">45M+</div>
+                    <div class="market-label">Potential Digital Legal Users</div>
+                    <div class="market-desc">Rising middle class and smartphone penetration creating unprecedented demand for accessible, affordable legal solutions.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Revolutionary AI-Powered Features</h2>
+            <div class="features-grid">
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Predictive Case Analytics</h3>
+                    <p>Advanced ML algorithms analyze 8M+ case histories to predict outcomes with 89% accuracy, providing clients with data-driven strategic insights for better legal decisions.</p>
+                    <span class="feature-badge">Patent Pending</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>22-Language AI Assistant</h3>
+                    <p>Voice-powered legal guidance in all Indian languages with real-time translation and cultural context - reaching rural India like never before with legal literacy.</p>
+                    <span class="feature-badge">First in India</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Smart Document Generator</h3>
+                    <p>AI creates state-compliant legal documents in minutes with automatic error-checking - reducing lawyer drafting time by 85% and costs by 70%.</p>
+                    <span class="feature-badge">Time Saver</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>AR Document Scanner</h3>
+                    <p>Advanced OCR with AR overlay extracts and verifies legal documents instantly with 98.7% accuracy across 12 Indian languages and scripts.</p>
+                    <span class="feature-badge">Innovative</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Blockchain Verification</h3>
+                    <p>Immutable document authentication integrated with Aadhaar and DigiLocker - creating India's first tamper-proof legal record system with government backing.</p>
+                    <span class="feature-badge">Secure</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Legal Arbitrator</h3>
+                    <p>Revolutionary AI-powered dispute resolution for claims up to ₹5L - reducing resolution time from 3.2 years to 30 days with 94% client satisfaction.</p>
+                    <span class="feature-badge">Game Changer</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Court Integration</h3>
+                    <p>Live case tracking across 2.8K+ Indian courts with eCourts API - automated reminders, hearing notifications, and status updates for seamless case management.</p>
+                    <span class="feature-badge">Connected</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Lawyer Network Platform</h3>
+                    <p>AI-powered matching with 25K+ verified lawyers based on specialization, success rate, location, and budget - Uber for legal services with transparent pricing.</p>
+                    <span class="feature-badge">Smart Matching</span>
+                </div>
+                
+                <div class="feature-card legal-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Legal Education Hub</h3>
+                    <p>Gamified legal literacy platform making law accessible to rural communities - bridging the justice gap across digital divides with interactive learning.</p>
+                    <span class="feature-badge">Social Impact</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="business" class="business-model">
+        <div class="container">
+            <h2 class="section-title">Multiple Revenue Streams</h2>
+            <div class="revenue-streams">
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>SaaS Subscriptions</h3>
+                    <div class="revenue-amount">₹149-4K/month</div>
+                    <p>Freemium model: Basic (₹149), Professional (₹799), Enterprise (₹3999) with 30-day free trials and flexible pricing</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3>Transaction Fees</h3>
+                    <div class="revenue-amount">2-5% commission</div>
+                    <p>Competitive rates on lawyer consultations, document services, and legal marketplace transactions with volume discounts</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Enterprise Solutions</h3>
+                    <div class="revenue-amount">₹2L-50L/year</div>
+                    <p>Custom AI implementations for law firms, corporations, and government departments with white-label options and dedicated support</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Document Processing</h3>
+                    <div class="revenue-amount">₹15-500/doc</div>
+                    <p>Pay-per-use AI document generation, verification, and compliance checking with bulk discounts for high-volume users</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>AI Arbitration</h3>
+                    <div class="revenue-amount">₹299-8K/case</div>
+                    <p>Automated dispute resolution for small claims, contract disputes, and consumer grievances with guaranteed resolution timelines</p>
+                </div>
+                
+                <div class="revenue-card">
+                    <div class="revenue-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Legal Analytics</h3>
+                    <div class="revenue-amount">₹1.5K-25K/report</div>
+                    <p>Market intelligence, case trend analysis, and predictive insights for legal professionals, corporates, and government agencies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="competitive-advantages section-with-logo">
+        <div class="container">
+            <h2 class="section-title">Unfair Competitive Advantages</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>First Mover Advantage</h3>
+                    <p>First comprehensive AI legal platform in India with 18-month head start on competitors and deep market penetration across tier-2 cities</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Proprietary Legal Dataset</h3>
+                    <p>8M+ curated legal documents in 22 languages - largest legal AI training dataset in South Asia with continuous growth and validation</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Network Effects</h3>
+                    <p>Platform value increases exponentially with each lawyer and client - creating virtually unbreachable competitive moats and switching costs</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Government Partnerships</h3>
+                    <p>Strategic integrations with eCourts, DigiLocker, and 12 state legal departments - regulatory backing, data access, and institutional trust</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>World-Class Team</h3>
+                    <p>Founding team combines 60+ years legal expertise with cutting-edge AI talent from IITs, NLUs, and top global tech companies</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Regulatory Compliance</h3>
+                    <p>Built-in compliance with Indian legal standards, GDPR, and emerging AI regulations - future-proofed for scale and international expansion</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="tech-stack">
+        <div class="container">
+            <h2 class="section-title">Enterprise-Grade Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fas fa-brain"></i>
+                    <h3>Custom RAG System</h3>
+                    <p>Proprietary legal knowledge base with continuous learning capabilities</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-python"></i>
+                    <h3>Python + FastAPI</h3>
+                    <p>High-performance microservices architecture with auto-scaling</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-database"></i>
+                    <h3>PostgreSQL + Vector DB</h3>
+                    <p>Scalable data architecture with AI embeddings and real-time sync</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-react"></i>
+                    <h3>React + React Native</h3>
+                    <p>Cross-platform web and mobile applications with offline support</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-aws"></i>
+                    <h3>AWS + Kubernetes</h3>
+                    <p>Auto-scaling cloud infrastructure with 99.9% uptime guarantee</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-cube"></i>
+                    <h3>Blockchain Security</h3>
+                    <p>Immutable document verification with government integration</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2 class="section-title">See Lawgic in Action</h2>
+            <p style="font-size: 1.4rem; color: #64748b; max-width: 700px; margin: 0 auto; font-family: 'Source Serif Pro', serif;">Experience how our AI transforms complex legal processes into simple, intuitive workflows in real-time across multiple Indian languages.</p>
+            
+            <div class="demo-video">
+                <div class="demo-placeholder">
+                    <div class="play-button pulse">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <h3>Interactive Product Demo</h3>
+                    <p>See AI legal assistance in 22 Indian languages</p>
+                    <p style="opacity: 0.7; font-size: 1.1rem;">Live demonstration of case prediction, document generation, and lawyer matching with real-time results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="investor" class="investor-cta">
+        <div class="container">
+            <div class="investor-content">
+                <h2>Join India's Legal Revolution</h2>
+                <p style="font-size: 1.5rem; margin-bottom: 3rem; font-family: 'Source Serif Pro', serif;">We're raising ₹25 Cr Series A to scale across India and capture the massive legal-tech opportunity with proven traction.</p>
+                
+                <div class="investor-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-number">₹25 Cr</div>
+                        <div>Series A Round</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-number">₹180 Cr</div>
+                        <div>Revenue Target by 2030</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-number">15M+</div>
+                        <div>Target Users by 2030</div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-number">28</div>
+                        <div>States Coverage</div>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="mailto:investors@Lawgic.in" class="cta-button">
+                        <i class="fas fa-envelope"></i> Get Pitch Deck
+                    </a>
+                    <a href="#contact" class="cta-button cta-secondary">
+                        <i class="fas fa-calendar"></i> Schedule Meeting
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="logo.jpg" alt="Lawgic Logo" class="footer-logo">
+                    <h3>Lawgic Legal AI Platform</h3>
+                    <p>Democratizing justice through artificial intelligence innovation. Making legal services accessible, affordable, and efficient for every Indian citizen through cutting-edge technology and human expertise.</p>
+                    <p style="margin-top: 2rem;"><strong>Backed by:</strong> Leading VCs, Legal Tech Accelerators, and Government Partners</p>
+                </div>
+                <div class="footer-section">
+                    <h3>AI Legal Platform</h3>
+                    <p><a href="#">Legal AI Assistant</a></p>
+                    <p><a href="#">Case Outcome Prediction</a></p>
+                    <p><a href="#">Smart Document Processing</a></p>
+                    <p><a href="#">Lawyer Marketplace</a></p>
+                    <p><a href="#">AI Arbitration Services</a></p>
+                    <p><a href="#">Legal Education Hub</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Business Solutions</h3>
+                    <p><a href="#">Enterprise AI Platform</a></p>
+                    <p><a href="#">API Integration</a></p>
+                    <p><a href="#">White Label Solutions</a></p>
+                    <p><a href="#">Legal Analytics Dashboard</a></p>
+                    <p><a href="#">Compliance Management</a></p>
+                    <p><a href="#">Government Solutions</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Investor Relations</h3>
+                    <p>Email: investors@Lawgic.in</p>
+                    <p>Phone: +91 98765 43210</p>
+                    <p>Address: Aparna Sarovar Zenith, Hyderabad, Telangana</p>
+                    <p><a href="#">Download Pitch Deck</a></p>
+                    <p><a href="#">Financial Reports</a></p>
+                    <p><a href="#">Press Releases</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Lawgic Technologies Private Limited. All rights reserved. Transforming justice through artificial intelligence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Premium JavaScript with enhanced legal-themed interactions
+        
+        // Smooth scrolling with enhanced easing
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced counter animation with proper number formatting
+        function animateCounter(element, finalText, duration = 3000) {
+            const startTime = performance.now();
+            
+            function updateCounter(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Premium easing function
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                
+                // Extract number and format accordingly
+                if (finalText === '₹1.8L Cr') {
+                    const current = (1.8 * easeOutQuart).toFixed(1);
+                    element.textContent = `₹${current}L Cr`;
+                } else if (finalText === '97%') {
+                    const current = Math.floor(97 * easeOutQuart);
+                    element.textContent = `${current}%`;
+                } else if (finalText === '5 Cr+') {
+                    const current = Math.floor(5 * easeOutQuart);
+                    element.textContent = `${current} Cr+`;
+                } else if (finalText === '3.2 Years') {
+                    const current = (3.2 * easeOutQuart).toFixed(1);
+                    element.textContent = `${current} Years`;
+                } else if (finalText === '1.8M') {
+                    const current = (1.8 * easeOutQuart).toFixed(1);
+                    element.textContent = `${current}M`;
+                } else if (finalText === '45M+') {
+                    const current = Math.floor(45 * easeOutQuart);
+                    element.textContent = `${current}M+`;
+                } else if (finalText === '₹25 Cr') {
+                    const current = Math.floor(25 * easeOutQuart);
+                    element.textContent = `₹${current} Cr`;
+                } else if (finalText === '₹180 Cr') {
+                    const current = Math.floor(180 * easeOutQuart);
+                    element.textContent = `₹${current} Cr`;
+                } else if (finalText === '15M+') {
+                    const current = Math.floor(15 * easeOutQuart);
+                    element.textContent = `${current}M+`;
+                } else if (finalText === '28') {
+                    const current = Math.floor(28 * easeOutQuart);
+                    element.textContent = `${current}`;
+                } else {
+                    // Fallback for any other numbers
+                    const current = Math.floor(parseInt(finalText.replace(/[^\d]/g, '')) * easeOutQuart);
+                    element.textContent = current.toLocaleString('en-IN');
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = finalText; // Ensure final text is exact
+                }
+            }
+            requestAnimationFrame(updateCounter);
+        }
+
+        // Enhanced Intersection Observer with legal-themed animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    
+                    // Animate stat numbers with proper legal formatting
+                    const statNumbers = entry.target.querySelectorAll('.stat-number, .market-number, .highlight-number');
+                    statNumbers.forEach(stat => {
+                        if (!stat.hasAttribute('data-animated')) {
+                            stat.setAttribute('data-animated', 'true');
+                            const finalText = stat.textContent.trim();
+                            animateCounter(stat, finalText);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe animated elements
+        document.querySelectorAll('.fade-in, .market-opportunity, .hero-stats, .investor-highlights').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Legal-themed parallax hero background
+        const hero = document.querySelector('.hero');
+        hero.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) * 100;
+            const mouseY = (e.clientY / window.innerHeight) * 100;
+            
+            hero.style.background = `
+                radial-gradient(circle at ${mouseX}% ${mouseY}%, 
+                rgba(30, 64, 175, 0.4) 0%, 
+                transparent 50%),
+                radial-gradient(ellipse at center top, #0f172a 0%, #1e293b 40%, #000000 100%)
+            `;
+        });
+
+        // Premium card hover effects with legal theming
+        document.querySelectorAll('.feature-card, .revenue-card, .advantage-card, .market-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const isMarketCard = this.classList.contains('market-card');
+                this.style.transform = isMarketCard 
+                    ? 'translateY(-25px) scale(1.03)' 
+                    : 'translateY(-20px) scale(1.02)';
+                
+                // Add subtle legal-themed glow
+                this.style.boxShadow = isMarketCard
+                    ? '0 50px 150px rgba(181, 148, 16, 0.25)'
+                    : '0 40px 150px rgba(30, 64, 175, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Enhanced demo video interaction
+        document.querySelector('.demo-placeholder').addEventListener('click', function() {
+            this.innerHTML = `
+                <div style="padding: 10rem; text-align: center;">
+                    <div style="font-size: 6rem; margin-bottom: 3rem;">⚖️</div>
+                    <h3 style="font-size: 3.5rem; margin-bottom: 2rem; font-family: 'Playfair Display', serif;">Live Demo Available Soon!</h3>
+                    <p style="font-size: 1.6rem; margin-bottom: 2rem; font-family: 'Source Serif Pro', serif;">Experience our AI legal assistant across 22 Indian languages</p>
+                    <p style="margin-top: 3rem; opacity: 0.8;">
+                        <a href="mailto:demo@Lawgic.in" style="color: #fbbf24; font-weight: bold; font-size: 1.4rem; text-decoration: underline; font-family: 'Source Serif Pro', serif;">Request Private Demo →</a>
+                    </p>
+                </div>
+            `;
+        });
+
+        // Legal-themed typing effect for hero title
+        const heroTitle = document.querySelector('.hero h1');
+        const titleText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        
+        let charIndex = 0;
+        function legalTypeWriter() {
+            if (charIndex < titleText.length) {
+                heroTitle.textContent += titleText.charAt(charIndex);
+                charIndex++;
+                setTimeout(legalTypeWriter, 90); // Slightly slower for legal gravitas
+            }
+        }
+        
+        // Start typing effect after page load
+        window.addEventListener('load', () => {
+            setTimeout(legalTypeWriter, 2000);
+        });
+
+        // Enhanced scroll progress indicator with legal theming
+        const scrollProgress = document.createElement('div');
+        scrollProgress.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 6px;
+            background: linear-gradient(90deg, #b59410, #fbbf24, #f59e0b, #b59410);
+            z-index: 9999;
+            transition: width 0.3s ease;
+            box-shadow: 0 3px 15px rgba(181, 148, 16, 0.5);
+        `;
+        document.body.appendChild(scrollProgress);
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        });
+
+        // Legal-themed logo animation
+        const logoImage = document.querySelector('.logo-image');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.15;
+            const scale = 1 + (scrolled * 0.0001);
+            logoImage.style.transform = `translateY(${rate}px) scale(${Math.min(scale, 1.08)})`;
+        });
+
+        // Legal-themed floating elements
+        function createLegalParticle() {
+            const particles = ['⚖️', '§', '🏛️', '📜', '⚖'];
+            const particle = document.createElement('div');
+            const symbol = particles[Math.floor(Math.random() * particles.length)];
+            const size = Math.random() * 20 + 15;
+            
+            particle.style.cssText = `
+                position: fixed;
+                font-size: ${size}px;
+                color: rgba(181, 148, 16, ${Math.random() * 0.4 + 0.1});
+                pointer-events: none;
+                z-index: 1;
+                font-family: 'Playfair Display', serif;
+            `;
+            
+            particle.textContent = symbol;
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 5000 + 4000;
+            const drift = (Math.random() - 0.5) * 300;
+            
+            particle.animate([
+                { 
+                    transform: `translateY(0px) translateX(0px) rotate(0deg)`, 
+                    opacity: particle.style.opacity 
+                },
+                { 
+                    transform: `translateY(-${window.innerHeight + 300}px) translateX(${drift}px) rotate(360deg)`, 
+                    opacity: 0 
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            }).addEventListener('finish', () => {
+                particle.remove();
+            });
+        }
+
+        // Create legal particles periodically
+        setInterval(createLegalParticle, 4000);
+
+        // Premium ripple effects for buttons
+        document.querySelectorAll('.cta-button, .investor-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(251, 191, 36, 0.7);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: legalRipple 0.8s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 800);
+            });
+        });
+
+        // Add legal ripple animation CSS
+        const legalStyle = document.createElement('style');
+        legalStyle.textContent = `
+            @keyframes legalRipple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(legalStyle);
+
+        // Performance optimization for legal animations
+        const legalAnimationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('legal-animate');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .revenue-card, .advantage-card').forEach(card => {
+            legalAnimationObserver.observe(card);
+        });
+
+        // Legal-themed console message
+        console.log('%c⚖️ Lawgic - Democratizing Justice Through AI ⚖️', 'color: #fbbf24; font-size: 16px; font-weight: bold;');
+        console.log('%cTransforming India\'s legal landscape with cutting-edge technology', 'color: #1e40af; font-size: 12px;');
+    </script>
+</body>
+</html>
