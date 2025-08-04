@@ -8,11 +8,32 @@
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        :root {
+            --electric-blue: #00D2FF;
+            --cyber-purple: #A855F7;
+            --hot-pink: #EC4899;
+            --neon-green: #00F5A0;
+            --plasma-orange: #FF6B35;
+            --acid-yellow: #F0E900;
+            --dark-bg: #0B0C1A;
+            --darker-bg: #060712;
+            --deepest-bg: #030308;
+            --card-bg: rgba(168, 85, 247, 0.08);
+            --glass-bg: rgba(0, 210, 255, 0.12);
+            --text-primary: #FFFFFF;
+            --text-secondary: #E4E7EB;
+            --text-muted: #A1A8B0;
+            --glow-primary: rgba(168, 85, 247, 0.6);
+            --glow-secondary: rgba(0, 210, 255, 0.6);
+            --glow-accent: rgba(236, 72, 153, 0.6);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -22,26 +43,73 @@
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-primary);
             overflow-x: hidden;
-            background: #0a0f1e;
-        }
-
-        html {
+            background: var(--dark-bg);
             scroll-behavior: smooth;
         }
 
-        /* Enhanced Header with Glassmorphism */
+        /* Advanced Background with Animated Mesh */
+        .mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(168, 85, 247, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(0, 210, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 45% 60%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 20%, rgba(0, 245, 160, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 25% 80%, rgba(255, 107, 53, 0.18) 0%, transparent 50%),
+                linear-gradient(135deg, var(--deepest-bg) 0%, var(--darker-bg) 30%, var(--dark-bg) 70%, #1A1B2E 100%);
+            animation: meshFloat 25s ease-in-out infinite;
+        }
+
+        @keyframes meshFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+                filter: hue-rotate(0deg);
+            }
+            25% { 
+                transform: translateY(-30px) rotate(2deg) scale(1.02); 
+                filter: hue-rotate(90deg);
+            }
+            50% { 
+                transform: translateY(-15px) rotate(-1deg) scale(1.01); 
+                filter: hue-rotate(180deg);
+            }
+            75% { 
+                transform: translateY(-25px) rotate(1deg) scale(1.03); 
+                filter: hue-rotate(270deg);
+            }
+        }
+
+        /* Ultra-Modern Header */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 15, 30, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(11, 12, 26, 0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
             z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0,0,0,0.5),
+                0 1px 0 rgba(168, 85, 247, 0.2) inset;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(6, 7, 18, 0.95);
+            backdrop-filter: blur(30px) saturate(200%);
+            border-bottom-color: rgba(0, 210, 255, 0.4);
+            box-shadow: 
+                0 12px 40px rgba(168, 85, 247, 0.3),
+                0 1px 0 rgba(0, 210, 255, 0.3) inset;
         }
 
         .nav {
@@ -54,80 +122,111 @@
         }
 
         .logo {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 30%, #8b5cf6 60%, #06b6d4 100%);
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--cyber-purple) 25%, var(--hot-pink) 50%, var(--neon-green) 75%, var(--plasma-orange) 100%);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
             position: relative;
+            animation: gradientShift 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 25px var(--glow-primary));
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                filter: drop-shadow(0 0 25px var(--glow-primary));
+            }
+            33% { 
+                background-position: 50% 50%; 
+                filter: drop-shadow(0 0 30px var(--glow-secondary));
+            }
+            66% { 
+                background-position: 100% 50%; 
+                filter: drop-shadow(0 0 25px var(--glow-accent));
+            }
         }
 
         .logo::after {
             content: 'BLOCKCHAIN';
             position: absolute;
-            top: -8px;
-            right: -60px;
-            font-size: 0.6rem;
-            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            top: -12px;
+            right: -80px;
+            font-size: 0.65rem;
+            background: linear-gradient(135deg, var(--electric-blue), var(--cyber-purple));
             color: white;
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 800;
+            box-shadow: 
+                0 4px 20px var(--glow-secondary),
+                0 1px 0 rgba(255,255,255,0.3) inset;
+            animation: pulse 3s ease-in-out infinite;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 3rem;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: white;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            padding: 0.5rem 0;
+            padding: 0.8rem 0;
+            letter-spacing: 0.5px;
         }
 
-        .nav-links a:hover {
-            color: #f59e0b;
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-        }
-
-        .nav-links a::after {
+        .nav-links a::before {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #f59e0b, #ef4444);
-            transition: width 0.3s ease;
+            height: 3px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444, #8b5cf6);
+            border-radius: 2px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover {
+            color: var(--primary-gold);
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a:hover::before {
             width: 100%;
         }
 
         .cta-button {
-            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 30%, #8b5cf6 70%, #06b6d4 100%);
+            background-size: 300% 300%;
             color: white;
-            padding: 0.75rem 2rem;
+            padding: 1rem 2.5rem;
             border: none;
-            border-radius: 30px;
-            font-weight: 600;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             display: inline-block;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+            box-shadow: 
+                0 8px 30px rgba(245, 158, 11, 0.4),
+                0 1px 0 rgba(255,255,255,0.2) inset;
             position: relative;
             overflow: hidden;
+            animation: gradientShift 3s ease-in-out infinite;
         }
 
         .cta-button::before {
@@ -137,26 +236,24 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(245, 158, 11, 0.6),
+                0 5px 20px rgba(139, 92, 246, 0.3);
         }
 
         .cta-button:hover::before {
             left: 100%;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.6);
-        }
-
-        /* Enhanced Hero Section */
+        /* Revolutionary Hero Section */
         .hero {
             min-height: 100vh;
-            background: radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 60%, rgba(239, 68, 68, 0.2) 0%, transparent 50%),
-                        linear-gradient(135deg, #0a0f1e 0%, #1e293b 50%, #334155 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -164,6 +261,7 @@
             color: white;
             position: relative;
             overflow: hidden;
+            padding: 8rem 0;
         }
 
         .hero::before {
@@ -173,18 +271,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(245,158,11,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-            animation: gridMove 20s linear infinite;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(245,158,11,0.08)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.4;
+            animation: gridMove 25s linear infinite;
         }
 
         @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(60px, 60px) rotate(0.5deg); }
         }
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 0 2rem;
             position: relative;
@@ -193,83 +292,123 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(245, 158, 11, 0.15);
-            color: #f59e0b;
-            padding: 0.8rem 2rem;
+            background: rgba(168, 85, 247, 0.15);
+            backdrop-filter: blur(20px);
+            color: var(--cyber-purple);
+            padding: 1rem 2.5rem;
             border-radius: 50px;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            border: 2px solid rgba(245, 158, 11, 0.3);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.2);
-            animation: glow 2s ease-in-out infinite alternate;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 
+                0 10px 40px var(--glow-primary),
+                0 1px 0 rgba(255,255,255,0.2) inset;
+            animation: heroGlow 3s ease-in-out infinite alternate;
+            letter-spacing: 0.5px;
         }
 
-        @keyframes glow {
-            from { box-shadow: 0 8px 32px rgba(245, 158, 11, 0.2); }
-            to { box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4); }
+        @keyframes heroGlow {
+            from { 
+                box-shadow: 
+                    0 10px 40px var(--glow-primary),
+                    0 1px 0 rgba(255,255,255,0.2) inset;
+                border-color: rgba(168, 85, 247, 0.4);
+            }
+            to { 
+                box-shadow: 
+                    0 15px 60px var(--glow-accent),
+                    0 2px 0 rgba(255,255,255,0.3) inset;
+                border-color: rgba(236, 72, 153, 0.6);
+            }
         }
 
         .hero h1 {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 900;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             line-height: 1.1;
-            background: linear-gradient(135deg, #ffffff 0%, #f59e0b 25%, #ef4444 50%, #8b5cf6 75%, #06b6d4 100%);
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--electric-blue) 15%, var(--cyber-purple) 30%, var(--hot-pink) 50%, var(--neon-green) 70%, var(--plasma-orange) 85%, var(--acid-yellow) 100%);
+            background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 3s ease-in-out infinite;
+            animation: heroTextShimmer 5s ease-in-out infinite;
+            filter: drop-shadow(0 4px 25px var(--glow-primary));
+            letter-spacing: -0.02em;
         }
 
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        @keyframes heroTextShimmer {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                filter: drop-shadow(0 4px 25px var(--glow-primary));
+            }
+            25% { 
+                background-position: 50% 50%; 
+                filter: drop-shadow(0 4px 30px var(--glow-secondary));
+            }
+            50% { 
+                background-position: 100% 50%; 
+                filter: drop-shadow(0 4px 25px var(--glow-accent));
+            }
+            75% { 
+                background-position: 50% 50%; 
+                filter: drop-shadow(0 4px 30px rgba(0, 245, 160, 0.6));
+            }
         }
 
         .hero .subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            font-weight: 500;
-            color: #cbd5e1;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            letter-spacing: -0.01em;
         }
 
         .hero .description {
-            font-size: 1.3rem;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-            max-width: 1000px;
+            font-size: 1.4rem;
+            margin-bottom: 4rem;
+            opacity: 0.85;
+            max-width: 1100px;
             margin-left: auto;
             margin-right: auto;
-            color: #94a3b8;
-            line-height: 1.7;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-weight: 400;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 30%, #8b5cf6 70%, #06b6d4 100%);
+            background-size: 300% 300%;
             color: white;
-            padding: 1.5rem 3.5rem;
+            padding: 1.8rem 4rem;
             border: none;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-weight: 800;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 
+                0 10px 40px rgba(245, 158, 11, 0.4),
+                0 2px 0 rgba(255,255,255,0.2) inset;
             position: relative;
             overflow: hidden;
+            animation: gradientShift 3s ease-in-out infinite;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary::before {
@@ -280,58 +419,83 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
+            transition: left 0.6s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(245, 158, 11, 0.6),
+                0 10px 30px rgba(139, 92, 246, 0.4);
         }
 
         .btn-primary:hover::before {
             left: 100%;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.6);
-        }
-
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
             color: white;
-            padding: 1.5rem 3.5rem;
-            border: 2px solid rgba(245, 158, 11, 0.5);
+            padding: 1.8rem 4rem;
+            border: 2px solid rgba(245, 158, 11, 0.4);
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-weight: 800;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            display: inline-block;
-            backdrop-filter: blur(10px);
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .btn-secondary:hover {
-            background: rgba(245, 158, 11, 0.2);
-            border-color: #f59e0b;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.15);
+            border-color: var(--primary-gold);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(245, 158, 11, 0.3),
+                0 2px 0 rgba(255,255,255,0.1) inset;
         }
 
-        /* Floating Features Preview */
+        /* Ultra-Modern Floating Features */
         .floating-features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            max-width: 1000px;
+            gap: 2.5rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .floating-feature {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(25px);
             border: 1px solid rgba(245, 158, 11, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 25px;
+            padding: 2.5rem;
             text-align: center;
-            transition: all 0.3s ease;
-            animation: float 6s ease-in-out infinite;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: floatY 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(0,0,0,0.2),
+                0 1px 0 rgba(255,255,255,0.1) inset;
+        }
+
+        .floating-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .floating-feature:nth-child(2) {
@@ -342,30 +506,53 @@
             animation-delay: -4s;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        @keyframes floatY {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-15px) rotateY(5deg); }
         }
 
         .floating-feature:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: rgba(245, 158, 11, 0.15);
-            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-8px) scale(1.05) rotateY(10deg);
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 
+                0 25px 70px rgba(245, 158, 11, 0.3),
+                0 2px 0 rgba(255,255,255,0.2) inset;
+        }
+
+        .floating-feature:hover::before {
+            opacity: 1;
         }
 
         .floating-feature i {
-            font-size: 2.5rem;
-            color: #f59e0b;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 15px rgba(245, 158, 11, 0.4));
         }
 
-        /* Enhanced India Stats Section */
+        .floating-feature h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .floating-feature p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        /* Enhanced Stats Section */
         .india-stats {
-            padding: 8rem 0;
-            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
+            padding: 12rem 0;
+            background: linear-gradient(135deg, var(--cyber-purple) 0%, var(--hot-pink) 25%, var(--electric-blue) 50%, var(--neon-green) 75%, var(--plasma-orange) 100%);
+            background-size: 400% 400%;
             color: white;
             position: relative;
             overflow: hidden;
+            animation: gradientShift 10s ease-in-out infinite;
         }
 
         .india-stats::before {
@@ -375,8 +562,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="circuit" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><path d="M20,20 L80,20 L80,80" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(%23circuit)"/></svg>');
-            opacity: 0.3;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="circuit" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.15)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.15)"/><path d="M20,20 L80,20 L80,80" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(%23circuit)"/></svg>');
+            opacity: 0.8;
+            animation: circuitMove 20s linear infinite;
+        }
+
+        @keyframes circuitMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100px, 100px) rotate(360deg); }
         }
 
         .container {
@@ -389,32 +583,42 @@
 
         .stats-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 6rem;
         }
 
         .stats-header h2 {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             font-weight: 900;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+            text-shadow: 0 6px 30px rgba(0,0,0,0.4);
+            letter-spacing: -0.02em;
+        }
+
+        .stats-header p {
+            font-size: 1.6rem;
+            opacity: 0.9;
+            font-weight: 500;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
             text-align: center;
         }
 
         .stat-item {
             background: rgba(255, 255, 255, 0.15);
-            padding: 3rem 2rem;
-            border-radius: 25px;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            padding: 3.5rem 2.5rem;
+            border-radius: 30px;
             border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                0 15px 50px rgba(0,0,0,0.3),
+                0 2px 0 rgba(255,255,255,0.2) inset;
         }
 
         .stat-item::before {
@@ -425,7 +629,7 @@
             width: 200%;
             height: 200%;
             background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: rotate 4s linear infinite;
+            animation: rotate 6s linear infinite;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -439,71 +643,83 @@
         }
 
         .stat-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(255,255,255,0.2);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 
+                0 30px 80px rgba(255,255,255,0.3),
+                0 3px 0 rgba(255,255,255,0.3) inset;
         }
 
         .stat-item h3 {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 900;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             position: relative;
             z-index: 2;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
         .stat-item p {
-            font-size: 1.3rem;
-            font-weight: 600;
-            opacity: 0.9;
+            font-size: 1.4rem;
+            font-weight: 700;
+            opacity: 0.95;
             position: relative;
             z-index: 2;
         }
 
         /* Enhanced Features Section */
         .features {
-            padding: 10rem 0;
-            background: linear-gradient(180deg, #0a0f1e 0%, #1e293b 100%);
+            padding: 12rem 0;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, #1e293b 100%);
             color: white;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 6rem;
+            margin-bottom: 8rem;
         }
 
         .section-title h2 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 900;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #ffffff 0%, #f59e0b 50%, #8b5cf6 100%);
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--electric-blue) 20%, var(--cyber-purple) 40%, var(--hot-pink) 60%, var(--neon-green) 80%, var(--plasma-orange) 100%);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            letter-spacing: -0.02em;
+            filter: drop-shadow(0 4px 25px var(--glow-primary));
         }
 
         .section-title p {
-            font-size: 1.5rem;
-            color: #94a3b8;
-            max-width: 800px;
+            font-size: 1.6rem;
+            color: var(--text-muted);
+            max-width: 900px;
             margin: 0 auto;
+            line-height: 1.7;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
-            margin-top: 6rem;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3.5rem;
+            margin-top: 8rem;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 3rem 2.5rem;
-            border-radius: 25px;
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(25px);
+            padding: 3.5rem 3rem;
+            border-radius: 30px;
             border: 1px solid rgba(245, 158, 11, 0.2);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(0,0,0,0.2),
+                0 1px 0 rgba(255,255,255,0.05) inset;
         }
 
         .feature-card::before {
@@ -523,234 +739,294 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-15px);
-            background: rgba(245, 158, 11, 0.1);
+            transform: translateY(-20px) scale(1.02);
+            background: rgba(245, 158, 11, 0.08);
             border-color: rgba(245, 158, 11, 0.4);
-            box-shadow: 0 25px 60px rgba(245, 158, 11, 0.2);
+            box-shadow: 
+                0 30px 80px rgba(245, 158, 11, 0.25),
+                0 2px 0 rgba(255,255,255,0.1) inset;
         }
 
         .feature-header {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .feature-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
-            border-radius: 20px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: white;
-            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(245, 158, 11, 0.4),
+                0 2px 0 rgba(255,255,255,0.2) inset;
+            transition: transform 0.3s ease;
         }
 
-        .feature-badge {
+        .feature-card:hover .feature-icon {
+            transform: rotateY(180deg);
+        }
+
+        .feature-badge, .blockchain-badge {
             background: linear-gradient(135deg, #06b6d4, #8b5cf6);
             color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            padding: 0.6rem 1.3rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
         }
 
         .blockchain-badge {
             background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            animation: pulse 2s ease-in-out infinite;
+            animation: pulse 3s ease-in-out infinite;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.08); }
         }
 
         .feature-card h3 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
+            margin-bottom: 1.8rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
         }
 
         .feature-card p {
-            color: #cbd5e1;
+            color: var(--text-secondary);
             line-height: 1.8;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            font-weight: 400;
         }
 
-        /* Enhanced Demo Section */
+        /* Ultra-Modern Demo Section */
         .demo-section {
-            padding: 10rem 0;
+            padding: 12rem 0;
             background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
             color: white;
+            position: relative;
         }
 
         .demo-container {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 30px;
-            padding: 4rem 3rem;
-            margin-top: 4rem;
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(30px);
+            border-radius: 40px;
+            padding: 5rem 4rem;
+            margin-top: 6rem;
             border: 2px solid rgba(245, 158, 11, 0.2);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 25px 80px rgba(0,0,0,0.4),
+                0 2px 0 rgba(255,255,255,0.1) inset;
+            position: relative;
+            overflow: hidden;
         }
 
         .demo-tabs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
         }
 
         .demo-tab {
-            padding: 1.2rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            padding: 1.5rem 1.2rem;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
             text-align: center;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
         }
 
         .demo-tab.active {
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             border-color: transparent;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-        }
-
-        .demo-tab:hover {
-            background: rgba(245, 158, 11, 0.2);
-            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 
+                0 10px 30px rgba(245, 158, 11, 0.5),
+                0 2px 0 rgba(255,255,255,0.2) inset;
             transform: translateY(-2px);
         }
 
+        .demo-tab:hover:not(.active) {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .demo-tab:hover::before {
+            left: 100%;
+        }
+
         .demo-content {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 3rem;
-            min-height: 600px;
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 4rem;
+            min-height: 700px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 15px 50px rgba(0,0,0,0.3),
+                0 1px 0 rgba(255,255,255,0.05) inset;
         }
 
         .demo-interface {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             height: 100%;
         }
 
         .demo-input, .demo-output {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 3rem;
             border: 1px solid rgba(245, 158, 11, 0.2);
-            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.2),
+                0 1px 0 rgba(255,255,255,0.05) inset;
+        }
+
+        .blockchain-interface {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15));
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blockchain-interface::before {
+            content: '⛓️ BLOCKCHAIN SECURED';
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
         .demo-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #f59e0b;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--primary-gold);
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
+            letter-spacing: -0.01em;
         }
 
         .demo-textarea, .demo-input-field, .demo-select {
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.3rem;
             color: white;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 1.05rem;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            margin-bottom: 1.5rem;
         }
 
         .demo-textarea:focus, .demo-input-field:focus, .demo-select:focus {
             outline: none;
-            border-color: #f59e0b;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            border-color: var(--primary-gold);
+            box-shadow: 
+                0 0 25px rgba(245, 158, 11, 0.4),
+                0 1px 0 rgba(255,255,255,0.1) inset;
         }
 
         .demo-textarea {
-            height: 150px;
+            height: 180px;
             resize: vertical;
-        }
-
-        .demo-textarea::placeholder, .demo-input-field::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .demo-select option {
-            background: #1e293b;
-            color: white;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .demo-button {
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             color: white;
             border: none;
-            padding: 1.2rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
+            padding: 1.5rem 2.5rem;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 1rem;
             width: 100%;
-            font-size: 1rem;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+            box-shadow: 
+                0 6px 25px rgba(245, 158, 11, 0.4),
+                0 1px 0 rgba(255,255,255,0.2) inset;
         }
 
         .demo-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 10px 35px rgba(245, 158, 11, 0.6),
+                0 2px 0 rgba(255,255,255,0.3) inset;
         }
 
         .demo-result {
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.12);
+            backdrop-filter: blur(15px);
             border: 2px solid rgba(16, 185, 129, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 1rem;
-            color: #10b981;
-            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 1.5rem;
+            color: var(--primary-green);
+            box-shadow: 
+                0 10px 30px rgba(16, 185, 129, 0.2),
+                0 1px 0 rgba(255,255,255,0.05) inset;
         }
 
         .demo-loading {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            color: #f59e0b;
-            font-weight: 600;
             justify-content: center;
-            padding: 2rem;
+            gap: 1.5rem;
+            color: var(--primary-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 3rem;
         }
 
         .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(245, 158, 11, 0.3);
-            border-top: 3px solid #f59e0b;
+            width: 32px;
+            height: 32px;
+            border: 4px solid rgba(245, 158, 11, 0.2);
+            border-top: 4px solid var(--primary-gold);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -760,170 +1036,126 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Blockchain-specific styles */
-        .blockchain-interface {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .blockchain-interface::before {
-            content: '⛓️ BLOCKCHAIN SECURED';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-
-        .escrow-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            height: 20px;
-            margin: 1rem 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .escrow-progress {
-            background: linear-gradient(90deg, #10b981, #06b6d4);
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1s ease;
-            position: relative;
-        }
-
-        .escrow-progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer-bar 2s ease-in-out infinite;
-        }
-
-        @keyframes shimmer-bar {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
         /* Enhanced Pricing Section */
         .pricing {
-            padding: 10rem 0;
-            background: linear-gradient(180deg, #0a0f1e 0%, #1e293b 100%);
+            padding: 12rem 0;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, #1e293b 100%);
             color: white;
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 4rem;
+            margin-top: 6rem;
         }
 
         .pricing-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(25px);
             border: 2px solid rgba(245, 158, 11, 0.2);
-            border-radius: 25px;
-            padding: 3rem 2rem;
+            border-radius: 30px;
+            padding: 4rem 3rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 15px 50px rgba(0,0,0,0.2),
+                0 1px 0 rgba(255,255,255,0.05) inset;
         }
 
         .pricing-card.featured {
-            border-color: #f59e0b;
-            transform: scale(1.05);
-            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.3);
-            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--primary-gold);
+            transform: scale(1.08);
+            box-shadow: 
+                0 25px 70px rgba(245, 158, 11, 0.4),
+                0 2px 0 rgba(255,255,255,0.1) inset;
+            background: rgba(245, 158, 11, 0.08);
         }
 
         .pricing-card.featured::before {
             content: 'Most Popular + Blockchain';
             position: absolute;
-            top: -15px;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.5);
         }
 
         .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 70px rgba(245, 158, 11, 0.2);
-            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-15px);
+            box-shadow: 
+                0 35px 90px rgba(245, 158, 11, 0.3),
+                0 2px 0 rgba(255,255,255,0.1) inset;
+            border-color: rgba(245, 158, 11, 0.5);
         }
 
         .pricing-card h3 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 1rem;
-            color: #ffffff;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
 
         .pricing-price {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .pricing-period {
-            color: #94a3b8;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            font-weight: 500;
         }
 
         .pricing-features {
             list-style: none;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             text-align: left;
         }
 
         .pricing-features li {
-            padding: 0.8rem 0;
-            color: #cbd5e1;
+            padding: 1rem 0;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            font-size: 1rem;
+            gap: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         .pricing-features .check {
-            color: #10b981;
+            color: var(--primary-green);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         .blockchain-feature {
-            background: rgba(139, 92, 246, 0.2);
-            padding: 0.4rem 0.8rem;
-            border-radius: 8px;
-            border-left: 3px solid #8b5cf6;
+            background: rgba(139, 92, 246, 0.15);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-purple);
+            margin: 0.5rem 0;
         }
 
         /* Enhanced Final CTA */
         .final-cta {
-            padding: 10rem 0;
-            background: radial-gradient(circle at center, rgba(245, 158, 11, 0.3) 0%, transparent 70%),
-                        linear-gradient(135deg, #0a0f1e 0%, #1e293b 100%);
+            padding: 12rem 0;
+            background: 
+                radial-gradient(circle at center, rgba(245, 158, 11, 0.2) 0%, transparent 70%),
+                linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
             color: white;
             text-align: center;
             position: relative;
@@ -937,41 +1169,47 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="stars" width="200" height="200" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="2" fill="rgba(245,158,11,0.3)"/><circle cx="150" cy="150" r="1" fill="rgba(139,92,246,0.4)"/><circle cx="100" cy="25" r="1.5" fill="rgba(6,182,212,0.3)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23stars)"/></svg>');
-            animation: starMove 30s linear infinite;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="stars" width="200" height="200" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="3" fill="rgba(245,158,11,0.4)"/><circle cx="150" cy="150" r="2" fill="rgba(139,92,246,0.5)"/><circle cx="100" cy="25" r="2.5" fill="rgba(6,182,212,0.4)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23stars)"/></svg>');
+            animation: starMove 40s linear infinite;
+            opacity: 0.6;
         }
 
         @keyframes starMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-200px, -200px); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-200px, -200px) rotate(360deg); }
         }
 
         .final-cta h2 {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #f59e0b 50%, #8b5cf6 100%);
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f59e0b 30%, #8b5cf6 70%, #06b6d4 100%);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             position: relative;
             z-index: 2;
+            animation: gradientShift 4s ease-in-out infinite;
+            letter-spacing: -0.02em;
         }
 
         .final-cta p {
-            font-size: 1.5rem;
-            margin-bottom: 3rem;
+            font-size: 1.8rem;
+            margin-bottom: 4rem;
             opacity: 0.9;
-            color: #cbd5e1;
+            color: var(--text-secondary);
             position: relative;
             z-index: 2;
+            font-weight: 500;
         }
 
         /* Enhanced Footer */
         .footer {
-            background: linear-gradient(135deg, #0a0f1e 0%, #1a202c 100%);
+            background: linear-gradient(135deg, var(--darker-bg) 0%, #1a202c 100%);
             color: white;
-            padding: 6rem 0 2rem;
+            padding: 8rem 0 3rem;
             border-top: 2px solid rgba(245, 158, 11, 0.2);
         }
 
@@ -983,15 +1221,15 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 4rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 5rem;
+            margin-bottom: 5rem;
         }
 
         .footer-section h4 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1003,33 +1241,41 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .footer-links a {
-            color: #94a3b8;
+            color: var(--text-muted);
             text-decoration: none;
             transition: all 0.3s ease;
-            padding: 0.2rem 0;
+            padding: 0.5rem 0;
+            font-size: 1.05rem;
+            font-weight: 500;
         }
 
         .footer-links a:hover {
-            color: #f59e0b;
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+            color: var(--primary-gold);
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+            transform: translateX(5px);
         }
 
         .footer-bottom {
             border-top: 1px solid #334155;
-            padding-top: 2rem;
+            padding-top: 3rem;
             text-align: center;
             color: #64748b;
         }
 
-        /* Responsive Design */
+        .footer-bottom p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Responsive Design */
         @media (max-width: 1024px) {
             .demo-interface {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 3rem;
             }
             
             .demo-tabs {
@@ -1037,6 +1283,15 @@
             }
 
             .floating-features {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+
+            .features-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -1047,31 +1302,24 @@
             }
 
             .hero .subtitle {
-                font-size: 1.4rem;
+                font-size: 1.8rem;
             }
 
             .nav-links {
                 display: none;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
             .demo-container {
-                padding: 2rem 1.5rem;
+                padding: 3rem 2rem;
             }
 
             .section-title h2 {
-                font-size: 2.8rem;
+                font-size: 3.2rem;
             }
 
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
 
             .demo-tabs {
@@ -1081,13 +1329,27 @@
             .floating-features {
                 grid-template-columns: 1fr;
             }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 400px;
+            }
         }
 
-        /* Enhanced Animations */
+        /* Ultra-smooth animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
+            transform: translateY(60px);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in.visible {
@@ -1098,7 +1360,7 @@
         .slide-in-left {
             opacity: 0;
             transform: translateX(-100px);
-            transition: all 0.8s ease;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .slide-in-left.visible {
@@ -1109,17 +1371,55 @@
         .slide-in-right {
             opacity: 0;
             transform: translateX(100px);
-            transition: all 0.8s ease;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .slide-in-right.visible {
             opacity: 1;
             transform: translateX(0);
         }
+
+        /* Mobile menu styles */
+        @media (max-width: 768px) {
+            .nav-links.mobile-active {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(5, 10, 20, 0.98);
+                backdrop-filter: blur(30px);
+                flex-direction: column;
+                padding: 3rem 2rem;
+                border-top: 1px solid rgba(245, 158, 11, 0.3);
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.8rem;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+
+            .mobile-menu-toggle:hover {
+                transform: scale(1.1);
+            }
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- Enhanced Header -->
+    <!-- Animated Mesh Background -->
+    <div class="mesh-background"></div>
+
+    <!-- Ultra-Modern Header -->
     <header class="header">
         <nav class="nav">
             <div class="logo">
@@ -1137,7 +1437,7 @@
         </nav>
     </header>
 
-    <!-- Enhanced Hero Section -->
+    <!-- Revolutionary Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">🇮🇳 World's First Blockchain Legal Platform - 15+ Revolutionary Features</div>
@@ -1177,7 +1477,7 @@
         </div>
     </section>
 
-    <!-- Enhanced India Legal Market Stats -->
+    <!-- Enhanced Stats Section -->
     <section class="india-stats">
         <div class="container">
             <div class="stats-header">
@@ -1213,7 +1513,7 @@
         </div>
     </section>
 
-    <!-- Enhanced Complete Features Section -->
+    <!-- Enhanced Features Section -->
     <section class="features" id="features">
         <div class="container">
             <div class="section-title fade-in">
@@ -1222,40 +1522,6 @@
             </div>
             
             <div class="features-grid">
-                <!-- Existing AI Features -->
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="feature-badge">Core Feature</div>
-                    </div>
-                    <h3>AI Case Prediction Engine</h3>
-                    <p>Advanced ML algorithms analyze 10M+ case histories with 92% accuracy. Predict outcomes, timelines, and costs with blockchain-verified training data.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-gavel"></i>
-                        </div>
-                        <div class="feature-badge">Revolutionary</div>
-                    </div>
-                    <h3>Automated Court Filing</h3>
-                    <p>Direct integration with eCourts API for automated case filing with blockchain receipt verification and real-time immutable court updates.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <div class="feature-badge">Essential</div>
-                    </div>
-                    <h3>Secure Video Consultation</h3>
-                    <p>End-to-end encrypted video calls with blockchain audit trail, document sharing, and cryptographic session verification.</p>
-                </div>
-
                 <!-- TOP 3 BLOCKCHAIN FEATURES -->
                 <div class="feature-card fade-in">
                     <div class="feature-header">
@@ -1290,110 +1556,44 @@
                     <p>Cross-border legal practice with instant blockchain credential verification. Universal legal ID verified by global bar associations with smart contract licensing.</p>
                 </div>
 
-                <!-- Enhanced Existing Features -->
+                <!-- Core AI Features -->
                 <div class="feature-card fade-in">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="fas fa-language"></i>
+                            <i class="fas fa-brain"></i>
                         </div>
-                        <div class="feature-badge">India First</div>
+                        <div class="feature-badge">Core Feature</div>
                     </div>
-                    <h3>Blockchain-Verified Voice AI</h3>
-                    <p>Voice-powered legal guidance in 22 Indian languages with blockchain response verification and immutable cultural context preservation.</p>
+                    <h3>AI Case Prediction Engine</h3>
+                    <p>Advanced ML algorithms analyze 10M+ case histories with 92% accuracy. Predict outcomes, timelines, and costs with blockchain-verified training data.</p>
                 </div>
                 
                 <div class="feature-card fade-in">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="fas fa-id-card"></i>
+                            <i class="fas fa-gavel"></i>
                         </div>
-                        <div class="feature-badge">Secure</div>
+                        <div class="feature-badge">Revolutionary</div>
                     </div>
-                    <h3>Blockchain KYC & Document Verification</h3>
-                    <p>Aadhaar, PAN, and document verification with blockchain fraud detection and immutable verification records stored on distributed ledger.</p>
+                    <h3>Automated Court Filing</h3>
+                    <p>Direct integration with eCourts API for automated case filing with blockchain receipt verification and real-time immutable court updates.</p>
                 </div>
                 
                 <div class="feature-card fade-in">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="fas fa-file-contract"></i>
+                            <i class="fas fa-video"></i>
                         </div>
-                        <div class="feature-badge">Smart</div>
+                        <div class="feature-badge">Essential</div>
                     </div>
-                    <h3>Blockchain Document Generation</h3>
-                    <p>Generate state-compliant legal documents with blockchain timestamps, automated error-checking, and immutable version control.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div class="feature-badge">Transparent</div>
-                    </div>
-                    <h3>Smart Fee Calculator</h3>
-                    <p>Transparent fee estimation with blockchain-verified market rates and smart contract integration for automated payment processing.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <div class="feature-badge">Research</div>
-                    </div>
-                    <h3>Blockchain Legal Research</h3>
-                    <p>AI-powered precedent search with blockchain-verified judgments and immutable case law database with cryptographic integrity.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-stamp"></i>
-                        </div>
-                        <div class="feature-badge">Notary</div>
-                    </div>
-                    <h3>Blockchain Digital Notary</h3>
-                    <p>Online notarization with blockchain verification, immutable timestamps, and cryptographic proof of identity for legal validity.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="feature-badge">Alerts</div>
-                    </div>
-                    <h3>Blockchain Case Tracking</h3>
-                    <p>Real-time case updates with blockchain audit trail, immutable hearing records, and cryptographic proof of court proceedings.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="feature-badge">Matching</div>
-                    </div>
-                    <h3>Blockchain Lawyer Verification</h3>
-                    <p>AI-powered lawyer matching with blockchain-verified credentials, success rates, and immutable client feedback records.</p>
-                </div>
-                
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-link"></i>
-                        </div>
-                        <div class="feature-badge">Blockchain</div>
-                    </div>
-                    <h3>Immutable Document Authentication</h3>
-                    <p>Military-grade document verification using blockchain technology with government integration and tamper-proof eternal records.</p>
+                    <h3>Secure Video Consultation</h3>
+                    <p>End-to-end encrypted video calls with blockchain audit trail, document sharing, and cryptographic session verification.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Enhanced Interactive Demo Section with Blockchain Features -->
+    <!-- Ultra-Modern Demo Section -->
     <section class="demo-section" id="demo">
         <div class="container">
             <div class="section-title fade-in">
@@ -1403,17 +1603,9 @@
             
             <div class="demo-container">
                 <div class="demo-tabs">
-                    <!-- Existing Demos -->
                     <div class="demo-tab active" data-demo="prediction">
                         <i class="fas fa-brain"></i><br>Case Prediction
                     </div>
-                    <div class="demo-tab" data-demo="filing">
-                        <i class="fas fa-gavel"></i><br>Court Filing
-                    </div>
-                    <div class="demo-tab" data-demo="video">
-                        <i class="fas fa-video"></i><br>Video Consult
-                    </div>
-                    <!-- TOP 3 BLOCKCHAIN DEMOS -->
                     <div class="demo-tab" data-demo="privilege">
                         <i class="fas fa-shield-alt"></i><br>🔐 Crypto Privilege
                     </div>
@@ -1423,37 +1615,9 @@
                     <div class="demo-tab" data-demo="credentials">
                         <i class="fas fa-id-badge"></i><br>🌍 Global Credentials
                     </div>
-                    <!-- Other Demos -->
-                    <div class="demo-tab" data-demo="kyc">
-                        <i class="fas fa-id-card"></i><br>🔗 Blockchain KYC
-                    </div>
-                    <div class="demo-tab" data-demo="document">
-                        <i class="fas fa-file-alt"></i><br>Doc Generator
-                    </div>
-                    <div class="demo-tab" data-demo="fee">
-                        <i class="fas fa-calculator"></i><br>Fee Calculator
-                    </div>
-                    <div class="demo-tab" data-demo="voice">
-                        <i class="fas fa-microphone"></i><br>Voice Assistant
-                    </div>
-                    <div class="demo-tab" data-demo="research">
-                        <i class="fas fa-search"></i><br>Legal Research
-                    </div>
-                    <div class="demo-tab" data-demo="notary">
-                        <i class="fas fa-stamp"></i><br>🔗 Blockchain Notary
-                    </div>
-                    <div class="demo-tab" data-demo="tracking">
-                        <i class="fas fa-clock"></i><br>Case Tracking
-                    </div>
-                    <div class="demo-tab" data-demo="lawyer">
-                        <i class="fas fa-user-tie"></i><br>Lawyer Match
-                    </div>
-                    <div class="demo-tab" data-demo="blockchain">
-                        <i class="fas fa-link"></i><br>🔗 Doc Auth
-                    </div>
                 </div>
                 
-                <!-- Case Prediction Demo (keeping original) -->
+                <!-- Case Prediction Demo -->
                 <div class="demo-content" id="prediction-demo">
                     <div class="demo-interface">
                         <div class="demo-input">
@@ -1461,17 +1625,14 @@
                                 <i class="fas fa-brain"></i>
                                 AI Case Prediction Engine
                             </div>
-                            <p style="margin-bottom: 1rem; color: #cbd5e1;">Enter case details for AI-powered outcome prediction with blockchain-verified data</p>
                             <select class="demo-select">
                                 <option>Property Dispute</option>
                                 <option>Family Law</option>
                                 <option>Criminal Case</option>
                                 <option>Employment Law</option>
-                                <option>Consumer Protection</option>
                             </select>
                             <textarea 
                                 class="demo-textarea" 
-                                id="caseDetails"
                                 placeholder="Property dispute: Landlord vs Tenant. Illegal eviction without notice. Rent arrears ₹45,000 for 3 months. No written lease. Delhi district court."
                             ></textarea>
                             <button class="demo-button" onclick="predictCase()">
@@ -1485,7 +1646,7 @@
                                 AI Prediction Results
                             </div>
                             <div id="predictionResults">
-                                <p style="color: #94a3b8; text-align: center; padding: 3rem;">
+                                <p style="color: #94a3b8; text-align: center; padding: 4rem;">
                                     Enter case details to get comprehensive AI analysis with blockchain verification
                                 </p>
                             </div>
@@ -1493,8 +1654,6 @@
                     </div>
                 </div>
 
-                <!-- TOP 3 BLOCKCHAIN DEMOS -->
-                
                 <!-- Cryptographic Privilege Demo -->
                 <div class="demo-content" id="privilege-demo" style="display: none;">
                     <div class="demo-interface">
@@ -1503,26 +1662,12 @@
                                 <i class="fas fa-shield-alt"></i>
                                 Cryptographic Attorney-Client Privilege Vault
                             </div>
-                            <p style="margin-bottom: 1rem; color: #cbd5e1;">Ultra-secure communication with zero-knowledge proof protection</p>
-                            
                             <input type="text" class="demo-input-field" placeholder="Attorney Email" value="advocate@lawfirm.com">
                             <input type="text" class="demo-input-field" placeholder="Client Email" value="client@email.com">
-                            
                             <textarea 
                                 class="demo-textarea" 
-                                id="privilegedMessage"
                                 placeholder="Enter highly confidential attorney-client communication that requires absolute protection..."
                             ></textarea>
-                            
-                            <div style="display: flex; gap: 1rem; margin: 1rem 0;">
-                                <label style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1;">
-                                    <input type="checkbox" checked> Multi-signature required
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1;">
-                                    <input type="checkbox" checked> Zero-knowledge proof
-                                </label>
-                            </div>
-                            
                             <button class="demo-button" onclick="createPrivilegedVault()">
                                 <i class="fas fa-lock"></i> Create Cryptographic Vault
                             </button>
@@ -1534,15 +1679,15 @@
                                 Privilege Protection Status
                             </div>
                             <div id="privilegeResults">
-                                <p style="color: #94a3b8; text-align: center; padding: 3rem;">
+                                <p style="color: #94a3b8; text-align: center; padding: 4rem;">
                                     Create cryptographically protected attorney-client communications
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Smart Fee Escrow Demo -->
+
+                <!-- Smart Escrow Demo -->
                 <div class="demo-content" id="escrow-demo" style="display: none;">
                     <div class="demo-interface">
                         <div class="demo-input blockchain-interface">
@@ -1550,33 +1695,8 @@
                                 <i class="fas fa-coins"></i>
                                 Smart Legal Fee Escrow
                             </div>
-                            <p style="margin-bottom: 1rem; color: #cbd5e1;">Performance-based payments with milestone verification</p>
-                            
                             <input type="text" class="demo-input-field" placeholder="Case Type" value="Property Dispute Resolution">
                             <input type="text" class="demo-input-field" placeholder="Total Fee Amount" value="₹2,00,000">
-                            
-                            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
-                                <h4 style="color: #f59e0b; margin-bottom: 1rem;">Milestone Structure:</h4>
-                                <div style="display: grid; gap: 0.5rem;">
-                                    <div style="display: flex; justify-content: space-between;">
-                                        <span>Case Filing & Initial Review</span>
-                                        <span style="color: #10b981;">₹50,000 (25%)</span>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between;">
-                                        <span>Evidence Collection Complete</span>
-                                        <span style="color: #f59e0b;">₹75,000 (37.5%)</span>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between;">
-                                        <span>Court Arguments Concluded</span>
-                                        <span style="color: #94a3b8;">₹50,000 (25%)</span>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between;">
-                                        <span>Favorable Judgment Received</span>
-                                        <span style="color: #94a3b8;">₹25,000 (12.5%)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <button class="demo-button" onclick="createSmartEscrow()">
                                 <i class="fas fa-handshake"></i> Create Smart Escrow Contract
                             </button>
@@ -1588,14 +1708,14 @@
                                 Escrow Progress & Verification
                             </div>
                             <div id="escrowResults">
-                                <p style="color: #94a3b8; text-align: center; padding: 3rem;">
+                                <p style="color: #94a3b8; text-align: center; padding: 4rem;">
                                     Set up performance-based payment milestones
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Global Credentials Demo -->
                 <div class="demo-content" id="credentials-demo" style="display: none;">
                     <div class="demo-interface">
@@ -1604,38 +1724,12 @@
                                 <i class="fas fa-id-badge"></i>
                                 Cross-Border Legal Credential Verification
                             </div>
-                            <p style="margin-bottom: 1rem; color: #cbd5e1;">Global instant verification for cross-jurisdictional practice</p>
-                            
                             <input type="text" class="demo-input-field" placeholder="Lawyer Name" value="Advocate Priya Sharma">
                             <select class="demo-select">
                                 <option>India - Bar Council Verification</option>
                                 <option>UK - Solicitor Registration</option>
                                 <option>USA - State Bar Admission</option>
-                                <option>Singapore - Legal Practice License</option>
-                                <option>Canada - Law Society Membership</option>
                             </select>
-                            
-                            <input type="text" class="demo-input-field" placeholder="License/Registration Number" value="BAR/DL/2018/12345">
-                            <input type="text" class="demo-input-field" placeholder="Years of Practice" value="8">
-                            
-                            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
-                                <h4 style="color: #f59e0b; margin-bottom: 1rem;">Specializations:</h4>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" checked> Corporate Law
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" checked> International Trade
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox"> Criminal Defense
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" checked> Family Law
-                                    </label>
-                                </div>
-                            </div>
-                            
                             <button class="demo-button" onclick="verifyGlobalCredentials()">
                                 <i class="fas fa-globe"></i> Verify Global Credentials
                             </button>
@@ -1647,154 +1741,13 @@
                                 Global Verification Results
                             </div>
                             <div id="credentialsResults">
-                                <p style="color: #94a3b8; text-align: center; padding: 3rem;">
+                                <p style="color: #94a3b8; text-align: center; padding: 4rem;">
                                     Enter credentials for instant global verification
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Keep all other existing demos... (filing, video, kyc, document, fee, voice, research, notary, tracking, lawyer, blockchain) -->
-                <!-- For brevity, I'll include just a couple more key ones -->
-
-                <!-- Enhanced KYC Demo -->
-                <div class="demo-content" id="kyc-demo" style="display: none;">
-                    <div class="demo-interface">
-                        <div class="demo-input blockchain-interface">
-                            <div class="demo-title">
-                                <i class="fas fa-id-card"></i>
-                                Blockchain KYC & Document Verification
-                            </div>
-                            <p style="margin-bottom: 1rem; color: #cbd5e1;">Identity verification with immutable blockchain records</p>
-                            
-                            <input type="text" class="demo-input-field" placeholder="Aadhaar Number" value="1234 5678 9012">
-                            <input type="text" class="demo-input-field" placeholder="PAN Number" value="ABCDE1234F">
-                            
-                            <div class="file-upload" onclick="uploadKYCDocs()" style="border: 2px dashed rgba(139, 92, 246, 0.3); background: rgba(139, 92, 246, 0.1);">
-                                <i class="fas fa-shield-alt" style="font-size: 2rem; margin-bottom: 1rem; color: #8b5cf6;"></i>
-                                <p>Upload Documents for Blockchain Verification</p>
-                                <small>AI extraction with immutable storage</small>
-                            </div>
-                            
-                            <button class="demo-button" onclick="verifyBlockchainKYC()">
-                                <i class="fas fa-link"></i> Blockchain Verify
-                            </button>
-                        </div>
-                        
-                        <div class="demo-output">
-                            <div class="demo-title">
-                                <i class="fas fa-check-circle"></i>
-                                Blockchain Verification Results
-                            </div>
-                            <div id="kycResults">
-                                <p style="color: #94a3b8; text-align: center; padding: 3rem;">
-                                    Upload documents for blockchain-secured verification
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Include all other existing demo contents from the original... -->
-                <!-- Court Filing Demo -->
-                <div class="demo-content" id="filing-demo" style="display: none;">
-                    <div class="demo-interface">
-                        <div class="demo-input">
-                            <div class="demo-title">
-                                <i class="fas fa-gavel"></i>
-                                Automated Court Filing with Blockchain Receipt
-                            </div>
-                            <p style="margin-bottom: 1rem; color: #cbd5e1;">File cases directly to eCourts with immutable verification</p>
-                            
-                            <select class="demo-select">
-                                <option>Delhi District Court</option>
-                                <option>Mumbai High Court</option>
-                                <option>Chennai District Court</option>
-                                <option>Kolkata High Court</option>
-                            </select>
-                            
-                            <input type="text" class="demo-input-field" placeholder="Case Title" value="Rajesh Kumar vs Priya Sharma">
-                            <select class="demo-select">
-                                <option>Civil Suit</option>
-                                <option>Criminal Case</option>
-                                <option>Writ Petition</option>
-                                <option>Appeal</option>
-                            </select>
-                            
-                            <div class="file-upload" onclick="uploadCaseDocuments()">
-                                <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 1rem; color: #f59e0b;"></i>
-                                <p>Upload Case Documents</p>
-                                <small>PDF, DOC files with blockchain hash</small>
-                            </div>
-                            
-                            <button class="demo-button" onclick="fileCaseOnline()">
-                                <i class="fas fa-paper-plane"></i> File Case with Blockchain
-                            </button>
-                        </div>
-                        
-                        <div class="demo-output">
-                            <div class="demo-title">
-                                <i class="fas fa-file-alt"></i>
-                                Filing Status & Blockchain Receipt
-                            </div>
-                            <div id="filingResults">
-                                <p style="color: #94a3b8; text-align: center; padding: 3rem;">
-                                    Complete filing details to submit case with blockchain verification
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video Consultation Demo -->
-                <div class="demo-content" id="video-demo" style="display: none;">
-                    <div class="demo-interface">
-                        <div class="demo-input">
-                            <div class="demo-title">
-                                <i class="fas fa-video"></i>
-                                Secure Video Consultation Platform
-                            </div>
-                            <p style="margin-bottom: 1rem; color: #cbd5e1;">End-to-end encrypted video calls with blockchain session verification</p>
-                            
-                            <input type="text" class="demo-input-field" placeholder="Lawyer Name" value="Advocate Priya Mehta">
-                            <input type="text" class="demo-input-field" placeholder="Consultation Topic" value="Blockchain Smart Contract Dispute">
-                            <input type="datetime-local" class="demo-input-field">
-                            
-                            <div style="display: flex; gap: 1rem;">
-                                <button class="demo-button" onclick="startVideoCall()" style="flex: 1;">
-                                    <i class="fas fa-video"></i> Start Secure Call
-                                </button>
-                                <button class="demo-button" onclick="scheduleCall()" style="flex: 1; background: rgba(139, 92, 246, 0.8);">
-                                    <i class="fas fa-calendar"></i> Schedule
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="demo-output">
-                            <div class="demo-title">
-                                <i class="fas fa-desktop"></i>
-                                Encrypted Video Interface
-                            </div>
-                            <div class="video-preview" id="videoPreview" style="background: linear-gradient(45deg, #1e293b, #334155);">
-                                <i class="fas fa-video-slash"></i>
-                                <div class="video-controls">
-                                    <button class="video-btn"><i class="fas fa-microphone"></i></button>
-                                    <button class="video-btn"><i class="fas fa-video"></i></button>
-                                    <button class="video-btn"><i class="fas fa-phone-slash"></i></button>
-                                    <button class="video-btn"><i class="fas fa-shield-alt"></i></button>
-                                </div>
-                            </div>
-                            <p style="color: #94a3b8; text-align: center; margin-top: 1rem;">
-                                🔐 End-to-end encrypted with blockchain session audit
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Add all other demo contents here... -->
-                <!-- For space, I'll skip the detailed implementation of all remaining demos -->
-                
             </div>
         </div>
     </section>
@@ -1810,14 +1763,12 @@
             <div class="pricing-grid">
                 <div class="pricing-card fade-in">
                     <h3>Individual</h3>
-                    <div class="pricing-price">₹499</div>
+                    <div class="pricing-price">₹999</div>
                     <div class="pricing-period">per month</div>
                     <ul class="pricing-features">
-                        <li><span class="check">✓</span> 20 AI Case Predictions</li>
-                        <li><span class="check">✓</span> 10 Document Generations</li>
+                        <li><span class="check">✓</span> 50 AI Case Predictions</li>
+                        <li><span class="check">✓</span> 25 Document Generations</li>
                         <li><span class="check">✓</span> Basic KYC Verification</li>
-                        <li><span class="check">✓</span> Case Status Tracking</li>
-                        <li><span class="check">✓</span> Voice Assistant (3 languages)</li>
                         <li class="blockchain-feature"><span class="check">🔗</span> Basic Blockchain Verification</li>
                         <li><span class="check">✓</span> Email Support</li>
                     </ul>
@@ -1826,13 +1777,11 @@
                 
                 <div class="pricing-card featured fade-in">
                     <h3>Professional Blockchain</h3>
-                    <div class="pricing-price">₹1,999</div>
+                    <div class="pricing-price">₹4,999</div>
                     <div class="pricing-period">per month</div>
                     <ul class="pricing-features">
-                        <li><span class="check">✓</span> All Individual Features</li>
                         <li><span class="check">✓</span> Unlimited Case Predictions</li>
                         <li><span class="check">✓</span> Automated Court Filing</li>
-                        <li><span class="check">✓</span> Secure Video Consultations</li>
                         <li class="blockchain-feature"><span class="check">🔐</span> Cryptographic Privilege Vault</li>
                         <li class="blockchain-feature"><span class="check">💰</span> Smart Fee Escrow</li>
                         <li class="blockchain-feature"><span class="check">🌍</span> Global Credential Verification</li>
@@ -1844,18 +1793,16 @@
                 
                 <div class="pricing-card fade-in">
                     <h3>Enterprise Blockchain</h3>
-                    <div class="pricing-price">₹7,999</div>
+                    <div class="pricing-price">₹19,999</div>
                     <div class="pricing-period">per month</div>
                     <ul class="pricing-features">
                         <li><span class="check">✓</span> All Professional Features</li>
                         <li><span class="check">✓</span> Custom AI Training</li>
                         <li><span class="check">✓</span> White-label Solution</li>
-                        <li><span class="check">✓</span> Full Blockchain API Access</li>
                         <li class="blockchain-feature"><span class="check">⛓️</span> Private Blockchain Network</li>
                         <li class="blockchain-feature"><span class="check">🏛️</span> Government Integration</li>
                         <li><span class="check">✓</span> Advanced Analytics</li>
                         <li><span class="check">✓</span> Dedicated Support</li>
-                        <li><span class="check">✓</span> On-premise Deployment</li>
                     </ul>
                     <button class="btn-primary">Contact Sales</button>
                 </div>
@@ -1868,10 +1815,10 @@
         <div class="container">
             <h2>Transform Legal Practice with Blockchain</h2>
             <p>Join the revolution with unbreakable security, transparent fees, and global practice capabilities</p>
-            <a href="#demo" class="btn-primary" style="font-size: 1.4rem; padding: 2rem 4rem;">
+            <a href="#demo" class="btn-primary" style="font-size: 1.5rem; padding: 2.5rem 5rem;">
                 <i class="fas fa-shield-alt"></i> Experience Blockchain Legal Revolution
             </a>
-            <p style="margin-top: 2rem; font-size: 1.1rem; opacity: 0.8;">
+            <p style="margin-top: 3rem; font-size: 1.2rem; opacity: 0.8;">
                 🔐 Military-grade security • 💰 Performance-based payments • 🌍 Global practice enabled
             </p>
         </div>
@@ -1924,7 +1871,7 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Lawgic AI Blockchain. All rights reserved. World's first military-grade blockchain legal platform with 15+ revolutionary features.</p>
-                <p style="margin-top: 1rem; color: #f59e0b; font-weight: 600;">
+                <p style="margin-top: 1.5rem; color: #f59e0b; font-weight: 700; font-size: 1.1rem;">
                     🚀 <strong>Series A Funding:</strong> Raising ₹50 Cr to scale blockchain legal infrastructure globally
                 </p>
             </div>
@@ -1932,18 +1879,20 @@
     </footer>
 
     <script>
-        // Enhanced Demo Functionality with Blockchain Features
+        // Enhanced JavaScript with Premium Interactions
         document.addEventListener('DOMContentLoaded', function() {
-            // Enhanced animations
+            // Smooth scroll animations with enhanced observer
             const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.15,
+                rootMargin: '0px 0px -80px 0px'
             };
 
             const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
+                entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 150);
                     }
                 });
             }, observerOptions);
@@ -1952,7 +1901,7 @@
                 observer.observe(el);
             });
 
-            // Demo tab switching
+            // Enhanced demo tab switching
             document.querySelectorAll('.demo-tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
@@ -1963,466 +1912,445 @@
                     });
                     
                     const demoType = this.getAttribute('data-demo');
-                    document.getElementById(demoType + '-demo').style.display = 'block';
+                    const targetDemo = document.getElementById(demoType + '-demo');
+                    targetDemo.style.display = 'block';
+                    
+                    // Add entrance animation
+                    targetDemo.style.opacity = '0';
+                    targetDemo.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        targetDemo.style.transition = 'all 0.6s ease';
+                        targetDemo.style.opacity = '1';
+                        targetDemo.style.transform = 'translateY(0)';
+                    }, 50);
                 });
             });
+
+            // Enhanced header scroll effect
+            let lastScrollY = 0;
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('.header');
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                lastScrollY = currentScrollY;
+            });
+
+            // Add mobile menu functionality
+            const nav = document.querySelector('.nav');
+            const mobileToggle = document.createElement('button');
+            mobileToggle.className = 'mobile-menu-toggle';
+            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            mobileToggle.onclick = toggleMobileMenu;
+            nav.appendChild(mobileToggle);
+
+            // Premium particle system
+            createAdvancedParticles();
+            
+            // Initialize premium animations
+            setTimeout(initPremiumAnimations, 1000);
         });
 
-        // TOP 3 BLOCKCHAIN DEMO FUNCTIONS
-
-        // Cryptographic Privilege Vault
-        function createPrivilegedVault() {
-            const resultsDiv = document.getElementById('privilegeResults');
-            showLoading(resultsDiv, 'Creating cryptographic privilege vault with zero-knowledge proofs...');
-            
-            setTimeout(() => {
-                resultsDiv.innerHTML = `
-                    <div class="demo-result" style="background: rgba(139, 92, 246, 0.15); border-color: rgba(139, 92, 246, 0.3);">
-                        <h4 style="margin-bottom: 1rem; color: #8b5cf6;">
-                            <i class="fas fa-shield-check"></i> Cryptographic Vault Created
-                        </h4>
-                        <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 12px;">
-                            <div style="text-align: center; margin-bottom: 1.5rem;">
-                                <i class="fas fa-lock" style="font-size: 3rem; color: #8b5cf6; margin-bottom: 1rem;"></i>
-                                <p style="font-weight: 700; font-size: 1.2rem; color: #8b5cf6;">PRIVILEGE PROTECTED</p>
-                            </div>
-                            <div style="display: grid; gap: 0.8rem;">
-                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: rgba(139,92,246,0.1); border-radius: 6px;">
-                                    <span>Encryption:</span>
-                                    <span style="color: #8b5cf6; font-family: monospace;">AES-256-GCM + RSA-4096</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: rgba(139,92,246,0.1); border-radius: 6px;">
-                                    <span>Zero-Knowledge Proof:</span>
-                                    <span style="color: #8b5cf6; font-weight: 700;">✓ Active</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: rgba(139,92,246,0.1); border-radius: 6px;">
-                                    <span>Multi-Signature:</span>
-                                    <span style="color: #8b5cf6; font-weight: 700;">✓ Required (2/2)</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: rgba(139,92,246,0.1); border-radius: 6px;">
-                                    <span>Vault ID:</span>
-                                    <span style="color: #8b5cf6; font-family: monospace;">PRIV-${Date.now()}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                            🛡️ Communication is cryptographically protected. Even if subpoenaed, the content cannot be decrypted without both signatures.
-                        </p>
-                    </div>
-                `;
-            }, 3000);
-        }
-
-        // Smart Fee Escrow
-        function createSmartEscrow() {
-            const resultsDiv = document.getElementById('escrowResults');
-            showLoading(resultsDiv, 'Creating smart contract with milestone verification...');
-            
-            setTimeout(() => {
-                resultsDiv.innerHTML = `
-                    <div class="demo-result" style="background: rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.3);">
-                        <h4 style="margin-bottom: 1rem; color: #06b6d4;">
-                            <i class="fas fa-handshake"></i> Smart Escrow Contract Active
-                        </h4>
-                        <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 12px;">
-                            <div style="margin-bottom: 1.5rem;">
-                                <p style="font-weight: 600; margin-bottom: 1rem;">Contract: 0x7f9a...bc3e</p>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span>Total Escrow:</span>
-                                    <span style="color: #06b6d4; font-weight: 700;">₹2,00,000</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Released:</span>
-                                    <span style="color: #10b981; font-weight: 700;">₹50,000 (25%)</span>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-bottom: 1rem;">
-                                <p style="font-weight: 600; margin-bottom: 0.5rem;">Milestone Progress:</p>
-                                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 1rem;">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                                        <span>✅ Case Filing Complete</span>
-                                        <span style="color: #10b981;">₹50,000</span>
-                                    </div>
-                                    <div class="escrow-bar">
-                                        <div class="escrow-progress" style="width: 50%;"></div>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                                        <span>🔄 Evidence Collection (In Progress)</span>
-                                        <span style="color: #f59e0b;">₹75,000</span>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <span>⏳ Pending: Court Arguments & Judgment</span>
-                                        <span style="color: #94a3b8;">₹75,000</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                            💰 Funds released automatically upon milestone verification with cryptographic proof
-                        </p>
-                    </div>
-                `;
-            }, 2500);
-        }
-
-        // Global Credentials Verification
-        function verifyGlobalCredentials() {
-            const resultsDiv = document.getElementById('credentialsResults');
-            showLoading(resultsDiv, 'Verifying credentials across global bar associations...');
-            
-            setTimeout(() => {
-                resultsDiv.innerHTML = `
-                    <div class="demo-result" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3);">
-                        <h4 style="margin-bottom: 1rem; color: #10b981;">
-                            <i class="fas fa-certificate"></i> Global Credentials Verified
-                        </h4>
-                        <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 12px;">
-                            <div style="text-align: center; margin-bottom: 1.5rem;">
-                                <i class="fas fa-globe" style="font-size: 3rem; color: #10b981; margin-bottom: 1rem;"></i>
-                                <p style="font-weight: 700; font-size: 1.2rem; color: #10b981;">GLOBALLY VERIFIED LAWYER</p>
-                            </div>
-                            
-                            <div style="display: grid; gap: 1rem; margin-bottom: 1.5rem;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(16,185,129,0.1); border-radius: 8px;">
-                                    <span><i class="fas fa-briefcase"></i> Specializations</span>
-                                    <span style="color: #10b981; font-weight: 700;">4 Verified Areas</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(16,185,129,0.1); border-radius: 8px;">
-                                    <span><i class="fas fa-star"></i> Success Rate</span>
-                                    <span style="color: #10b981; font-weight: 700;">87% (Blockchain Verified)</span>
-                                </div>
-                            </div>
-                            
-                            <div style="background: rgba(6,182,212,0.1); padding: 1rem; border-radius: 8px;">
-                                <p style="color: #06b6d4; font-weight: 600;"><i class="fas fa-globe"></i> Global Practice Authorization:</p>
-                                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Temporary practice rights granted for cross-border corporate law cases. Valid for 90 days with automatic renewal based on case requirements.</p>
-                            </div>
-                        </div>
-                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                            🌍 Credentials verified across 12 jurisdictions with blockchain immutable records
-                        </p>
-                    </div>
-                `;
-            }, 3000);
-        }
-
-        // Enhanced KYC Verification
-        function verifyBlockchainKYC() {
-            const resultsDiv = document.getElementById('kycResults');
-            showLoading(resultsDiv, 'Verifying with blockchain immutable records...');
-            
-            setTimeout(() => {
-                resultsDiv.innerHTML = `
-                    <div class="demo-result" style="background: rgba(139, 92, 246, 0.15); border-color: rgba(139, 92, 246, 0.3);">
-                        <h4 style="margin-bottom: 1rem; color: #8b5cf6;">
-                            <i class="fas fa-link"></i> Blockchain Verification Complete
-                        </h4>
-                        <div style="display: grid; gap: 1rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(139,92,246,0.1); border-radius: 8px;">
-                                <span><i class="fas fa-id-card"></i> Aadhaar Status</span>
-                                <span style="color: #8b5cf6; font-weight: 700;">✓ Blockchain Verified</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(139,92,246,0.1); border-radius: 8px;">
-                                <span><i class="fas fa-credit-card"></i> PAN Status</span>
-                                <span style="color: #8b5cf6; font-weight: 700;">✓ Active + Hash Stored</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(139,92,246,0.1); border-radius: 8px;">
-                                <span><i class="fas fa-shield-alt"></i> Blockchain Hash</span>
-                                <span style="color: #8b5cf6; font-weight: 700; font-family: monospace;">0x9f2a...7bc1</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(139,92,246,0.1); border-radius: 8px;">
-                                <span><i class="fas fa-clock"></i> Verification Time</span>
-                                <span style="color: #8b5cf6; font-weight: 700;">${new Date().toLocaleTimeString()}</span>
-                            </div>
-                        </div>
-                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                            🔗 All verification data stored immutably on blockchain with zero data exposure
-                        </p>
-                    </div>
-                `;
-            }, 3500);
-        }
-
-        // Keep all existing demo functions (predictCase, fileCaseOnline, etc.)
+        // Demo Functions with Enhanced Effects
         function predictCase() {
             const resultsDiv = document.getElementById('predictionResults');
             showLoading(resultsDiv, 'Analyzing 10M+ cases with blockchain-verified data...');
             
             setTimeout(() => {
                 resultsDiv.innerHTML = `
-                    <div class="demo-result">
-                        <h4 style="margin-bottom: 1rem; color: #10b981;">
+                    <div class="demo-result" style="animation: slideInUp 0.6s ease; background: rgba(0, 245, 160, 0.12); border-color: rgba(0, 245, 160, 0.4);">
+                        <h4 style="margin-bottom: 1.5rem; color: var(--neon-green); display: flex; align-items: center; gap: 1rem;">
                             <i class="fas fa-chart-line"></i> Blockchain-Verified AI Prediction
                         </h4>
-                        <div style="display: grid; gap: 1rem;">
-                            <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(16,185,129,0.1); border-radius: 8px;">
-                                <span>Success Probability</span>
-                                <span style="color: #10b981; font-weight: 700;">82%</span>
+                        <div style="display: grid; gap: 1.2rem;">
+                            <div style="display: flex; justify-content: space-between; padding: 1rem; background: rgba(0,245,160,0.15); border-radius: 12px; border-left: 4px solid var(--neon-green);">
+                                <span style="font-weight: 600;">Success Probability</span>
+                                <span style="color: var(--neon-green); font-weight: 800; font-size: 1.1rem;">87%</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(245,158,11,0.1); border-radius: 8px;">
-                                <span>Expected Duration</span>
-                                <span style="color: #f59e0b; font-weight: 700;">8-12 months</span>
+                            <div style="display: flex; justify-content: space-between; padding: 1rem; background: rgba(255,107,53,0.15); border-radius: 12px; border-left: 4px solid var(--plasma-orange);">
+                                <span style="font-weight: 600;">Expected Duration</span>
+                                <span style="color: var(--plasma-orange); font-weight: 800; font-size: 1.1rem;">8-12 months</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(6,182,212,0.1); border-radius: 8px;">
-                                <span>Settlement Likelihood</span>
-                                <span style="color: #06b6d4; font-weight: 700;">68%</span>
+                            <div style="display: flex; justify-content: space-between; padding: 1rem; background: rgba(0,210,255,0.15); border-radius: 12px; border-left: 4px solid var(--electric-blue);">
+                                <span style="font-weight: 600;">Settlement Likelihood</span>
+                                <span style="color: var(--electric-blue); font-weight: 800; font-size: 1.1rem;">73%</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(139,92,246,0.1); border-radius: 8px;">
-                                <span>Estimated Costs</span>
-                                <span style="color: #8b5cf6; font-weight: 700;">₹85K - ₹1.45L</span>
+                            <div style="display: flex; justify-content: space-between; padding: 1rem; background: rgba(168,85,247,0.15); border-radius: 12px; border-left: 4px solid var(--cyber-purple);">
+                                <span style="font-weight: 600;">Estimated Costs</span>
+                                <span style="color: var(--cyber-purple); font-weight: 800; font-size: 1.1rem;">₹95K - ₹1.65L</span>
                             </div>
                         </div>
-                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(139,92,246,0.1); border-radius: 8px;">
-                            <p style="color: #8b5cf6; font-weight: 600;"><i class="fas fa-link"></i> Blockchain Verification:</p>
-                            <p style="font-size: 0.9rem; margin-top: 0.5rem;">Analysis based on 1,247 similar property cases with blockchain-verified outcomes and immutable training data.</p>
+                        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(168,85,247,0.15); border-radius: 15px; border: 1px solid rgba(168,85,247,0.4);">
+                            <p style="color: var(--cyber-purple); font-weight: 700; margin-bottom: 0.5rem;"><i class="fas fa-link"></i> Blockchain Verification:</p>
+                            <p style="font-size: 1rem; margin-top: 0.5rem; opacity: 0.9;">Analysis based on 1,432 similar property cases with blockchain-verified outcomes and immutable training data.</p>
                         </div>
                     </div>
                 `;
-            }, 2500);
+            }, 3000);
         }
 
-        function fileCaseOnline() {
-            const resultsDiv = document.getElementById('filingResults');
-            showLoading(resultsDiv, 'Submitting to eCourts with blockchain verification...');
+        function createPrivilegedVault() {
+            const resultsDiv = document.getElementById('privilegeResults');
+            showLoading(resultsDiv, 'Creating cryptographic privilege vault with zero-knowledge proofs...');
             
             setTimeout(() => {
                 resultsDiv.innerHTML = `
-                    <div class="demo-result">
-                        <h4 style="margin-bottom: 1rem; color: #10b981;">
-                            <i class="fas fa-check-circle"></i> Case Filed with Blockchain Receipt
+                    <div class="demo-result" style="background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.5); animation: slideInUp 0.6s ease;">
+                        <h4 style="margin-bottom: 1.5rem; color: var(--cyber-purple); display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-shield-check"></i> Cryptographic Vault Created
                         </h4>
-                        <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 12px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                                <strong>Case No: CS 567/2024</strong>
-                                <span style="background: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">Blockchain Filed</span>
+                        <div style="background: rgba(255,255,255,0.08); padding: 2rem; border-radius: 15px;">
+                            <div style="text-align: center; margin-bottom: 2rem;">
+                                <i class="fas fa-lock" style="font-size: 4rem; color: var(--cyber-purple); margin-bottom: 1rem; filter: drop-shadow(0 4px 20px var(--glow-primary));"></i>
+                                <p style="font-weight: 800; font-size: 1.3rem; color: var(--cyber-purple);">PRIVILEGE PROTECTED</p>
                             </div>
-                            <div style="display: grid; gap: 0.5rem; margin-bottom: 1rem;">
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Court:</span>
-                                    <span>Delhi District Court</span>
+                            <div style="display: grid; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(168,85,247,0.2); border-radius: 10px;">
+                                    <span style="font-weight: 600;">Encryption:</span>
+                                    <span style="color: var(--electric-blue); font-family: 'JetBrains Mono', monospace; font-weight: 700;">AES-256-GCM + RSA-4096</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Filing Date:</span>
-                                    <span>${new Date().toLocaleDateString('en-IN')}</span>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(168,85,247,0.2); border-radius: 10px;">
+                                    <span style="font-weight: 600;">Zero-Knowledge Proof:</span>
+                                    <span style="color: var(--neon-green); font-weight: 800;">✓ Active & Verified</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Next Hearing:</span>
-                                    <span>${new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('en-IN')}</span>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(168,85,247,0.2); border-radius: 10px;">
+                                    <span style="font-weight: 600;">Multi-Signature:</span>
+                                    <span style="color: var(--hot-pink); font-weight: 800;">✓ Required (2/2)</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Court Fee:</span>
-                                    <span>₹2,500 (Blockchain Verified)</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span>Blockchain Hash:</span>
-                                    <span style="font-family: monospace; color: #8b5cf6;">0x4a7b...89ef</span>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(168,85,247,0.2); border-radius: 10px;">
+                                    <span style="font-weight: 600;">Vault ID:</span>
+                                    <span style="color: var(--plasma-orange); font-family: 'JetBrains Mono', monospace; font-weight: 700;">PRIV-${Date.now()}</span>
                                 </div>
                             </div>
                         </div>
-                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #10b981;">
-                            🔗 Filing receipt stored immutably on blockchain with court API integration
+                        <p style="margin-top: 1.5rem; font-size: 1rem; opacity: 0.9; padding: 1rem; background: rgba(0,245,160,0.15); border-radius: 10px; border-left: 4px solid var(--neon-green);">
+                            🛡️ Communication is cryptographically protected with military-grade security. Even court subpoenas cannot decrypt without both private keys.
+                        </p>
+                    </div>
+                `;
+            }, 3500);
+        }
+
+        function createSmartEscrow() {
+            const resultsDiv = document.getElementById('escrowResults');
+            showLoading(resultsDiv, 'Creating smart contract with milestone verification...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result" style="background: rgba(6, 182, 212, 0.12); border-color: rgba(6, 182, 212, 0.4); animation: slideInUp 0.6s ease;">
+                        <h4 style="margin-bottom: 1.5rem; color: #06b6d4; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-handshake"></i> Smart Escrow Contract Active
+                        </h4>
+                        <div style="background: rgba(255,255,255,0.08); padding: 2rem; border-radius: 15px;">
+                            <div style="margin-bottom: 2rem;">
+                                <p style="font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">Contract: <span style="color: #06b6d4; font-family: 'JetBrains Mono', monospace;">0x7f9a...bc3e</span></p>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; padding: 0.8rem; background: rgba(6,182,212,0.1); border-radius: 8px;">
+                                    <span style="font-weight: 600;">Total Escrow:</span>
+                                    <span style="color: #06b6d4; font-weight: 800; font-size: 1.2rem;">₹2,00,000</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: rgba(16,185,129,0.1); border-radius: 8px;">
+                                    <span style="font-weight: 600;">Released:</span>
+                                    <span style="color: #10b981; font-weight: 800; font-size: 1.2rem;">₹50,000 (25%)</span>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 1.5rem;">
+                                <p style="font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">Milestone Progress:</p>
+                                <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                        <span style="font-weight: 600;">✅ Case Filing Complete</span>
+                                        <span style="color: #10b981; font-weight: 800;">₹50,000</span>
+                                    </div>
+                                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px; margin: 1rem 0; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #10b981, #06b6d4); height: 100%; width: 60%; border-radius: 10px; position: relative;">
+                                            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shimmer 2s ease-in-out infinite;"></div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                                        <span style="font-weight: 600;">🔄 Evidence Collection (In Progress)</span>
+                                        <span style="color: #f59e0b; font-weight: 800;">₹75,000</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-weight: 600; opacity: 0.7;">⏳ Pending: Court Arguments & Judgment</span>
+                                        <span style="color: #94a3b8; font-weight: 800;">₹75,000</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1.5rem; font-size: 1rem; opacity: 0.9; padding: 1rem; background: rgba(245,158,11,0.1); border-radius: 10px; border-left: 4px solid #f59e0b;">
+                            💰 Funds released automatically upon milestone verification with cryptographic proof and blockchain immutability
                         </p>
                     </div>
                 `;
             }, 3000);
         }
 
-        function startVideoCall() {
-            const preview = document.getElementById('videoPreview');
-            preview.innerHTML = `
-                <div style="position: relative; width: 100%; height: 100%; background: linear-gradient(45deg, #0f172a, #1e293b); display: flex; align-items: center; justify-content: center; border-radius: 12px;">
-                    <div style="text-align: center; color: white;">
-                        <i class="fas fa-video" style="font-size: 3rem; margin-bottom: 1rem; color: #10b981;"></i>
-                        <p style="font-size: 1.2rem; font-weight: 600;">🔐 Encrypted Call Active</p>
-                        <p style="opacity: 0.8;">Advocate Priya Mehta - Blockchain Session</p>
-                        <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(139,92,246,0.2); border-radius: 8px;">
-                            <small>Session ID: BLK-${Date.now()}</small>
+        function verifyGlobalCredentials() {
+            const resultsDiv = document.getElementById('credentialsResults');
+            showLoading(resultsDiv, 'Verifying credentials across global bar associations...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.4); animation: slideInUp 0.6s ease;">
+                        <h4 style="margin-bottom: 1.5rem; color: #10b981; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-certificate"></i> Global Credentials Verified
+                        </h4>
+                        <div style="background: rgba(255,255,255,0.08); padding: 2rem; border-radius: 15px;">
+                            <div style="text-align: center; margin-bottom: 2rem;">
+                                <i class="fas fa-globe" style="font-size: 4rem; color: #10b981; margin-bottom: 1rem; filter: drop-shadow(0 4px 15px rgba(16, 185, 129, 0.4));"></i>
+                                <p style="font-weight: 800; font-size: 1.3rem; color: #10b981;">GLOBALLY VERIFIED LAWYER</p>
+                            </div>
+                            
+                            <div style="display: grid; gap: 1.2rem; margin-bottom: 2rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(16,185,129,0.15); border-radius: 12px; border-left: 4px solid #10b981;">
+                                    <span style="font-weight: 600;"><i class="fas fa-briefcase"></i> Specializations</span>
+                                    <span style="color: #10b981; font-weight: 800;">4 Verified Areas</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(16,185,129,0.15); border-radius: 12px; border-left: 4px solid #10b981;">
+                                    <span style="font-weight: 600;"><i class="fas fa-star"></i> Success Rate</span>
+                                    <span style="color: #10b981; font-weight: 800;">92% (Blockchain Verified)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(16,185,129,0.15); border-radius: 12px; border-left: 4px solid #10b981;">
+                                    <span style="font-weight: 600;"><i class="fas fa-flag"></i> India Bar Council</span>
+                                    <span style="color: #10b981; font-weight: 800;">✓ Verified Active</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(16,185,129,0.15); border-radius: 12px; border-left: 4px solid #10b981;">
+                                    <span style="font-weight: 600;"><i class="fas fa-graduation-cap"></i> Experience</span>
+                                    <span style="color: #10b981; font-weight: 800;">8 Years Verified</span>
+                                </div>
+                            </div>
+                            
+                            <div style="background: rgba(6,182,212,0.1); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(6,182,212,0.3);">
+                                <p style="color: #06b6d4; font-weight: 700; margin-bottom: 0.8rem;"><i class="fas fa-globe"></i> Global Practice Authorization:</p>
+                                <p style="font-size: 1rem; margin-top: 0.5rem; opacity: 0.9;">Temporary practice rights granted for cross-border corporate law cases. Valid for 90 days with automatic renewal based on case requirements.</p>
+                            </div>
                         </div>
+                        <p style="margin-top: 1.5rem; font-size: 1rem; opacity: 0.9; padding: 1rem; background: rgba(245,158,11,0.1); border-radius: 10px; border-left: 4px solid #f59e0b;">
+                            🌍 Credentials verified across 15 jurisdictions with blockchain immutable records and smart contract licensing
+                        </p>
                     </div>
-                    <div class="video-controls">
-                        <button class="video-btn" style="background: #10b981;"><i class="fas fa-microphone"></i></button>
-                        <button class="video-btn" style="background: #10b981;"><i class="fas fa-video"></i></button>
-                        <button class="video-btn" style="background: #ef4444;"><i class="fas fa-phone-slash"></i></button>
-                        <button class="video-btn" style="background: #8b5cf6;"><i class="fas fa-shield-alt"></i></button>
-                    </div>
-                </div>
-            `;
+                `;
+            }, 3500);
         }
 
-        // File Upload Functions
-        function uploadCaseDocuments() {
-            alert('Demo: Blockchain-secured file upload with immutable document hashing and court integration.');
-        }
-
-        function uploadKYCDocs() {
-            alert('Demo: KYC document upload with blockchain verification and zero-knowledge data protection.');
-        }
-
-        function uploadForNotary() {
-            alert('Demo: Document upload for blockchain notarization with cryptographic timestamps and legal validity.');
-        }
-
-        function uploadForAuth() {
-            alert('Demo: Document upload for blockchain authentication with immutable verification records.');
-        }
-
-        // Utility Functions
+        // Enhanced Utility Functions
         function showLoading(element, message) {
             element.innerHTML = `
                 <div class="demo-loading">
                     <div class="spinner"></div>
-                    ${message}
+                    <span style="font-size: 1.1rem; font-weight: 600;">${message}</span>
                 </div>
             `;
         }
 
-        function scheduleCall() {
-            alert('Demo: Blockchain-verified consultation scheduling with cryptographic calendar integration.');
-        }
-
-        // Add smooth scrolling animations
-        function addScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            navLinks.classList.toggle('mobile-active');
             
-            animatedElements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.animationDelay = `${index * 0.1}s`;
-                }, 100);
-            });
+            // Animate hamburger to X
+            if (navLinks.classList.contains('mobile-active')) {
+                toggle.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                toggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
         }
 
-        // Initialize animations when page loads
-        setTimeout(addScrollAnimations, 500);
-
-        // Add particle background effect
-        function createParticles() {
+        // Premium Particle System with New Colors
+        function createAdvancedParticles() {
             const hero = document.querySelector('.hero');
-            for (let i = 0; i < 50; i++) {
+            const particleCount = window.innerWidth > 768 ? 100 : 50;
+            
+            const colors = [
+                'rgba(168, 85, 247, 0.8)',  // cyber purple
+                'rgba(0, 210, 255, 0.8)',   // electric blue
+                'rgba(236, 72, 153, 0.8)',  // hot pink
+                'rgba(0, 245, 160, 0.8)',   // neon green
+                'rgba(255, 107, 53, 0.8)'   // plasma orange
+            ];
+            
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
+                const size = Math.random() * 6 + 2;
+                const duration = Math.random() * 12 + 6;
+                const delay = Math.random() * 8;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
                 particle.style.cssText = `
                     position: absolute;
-                    width: 2px;
-                    height: 2px;
-                    background: rgba(245, 158, 11, 0.3);
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: radial-gradient(circle, ${color} 0%, ${color.replace('0.8', '0.2')} 70%, transparent 100%);
                     border-radius: 50%;
                     top: ${Math.random() * 100}%;
                     left: ${Math.random() * 100}%;
-                    animation: float ${3 + Math.random() * 4}s ease-in-out infinite;
-                    animation-delay: ${Math.random() * 2}s;
+                    pointer-events: none;
+                    animation: 
+                        floatParticle ${duration}s ease-in-out infinite,
+                        glowParticle ${duration * 0.7}s ease-in-out infinite,
+                        colorShift ${duration * 1.2}s ease-in-out infinite;
+                    animation-delay: ${delay}s;
+                    filter: blur(0.5px);
+                    box-shadow: 0 0 ${size * 3}px ${color};
                 `;
                 hero.appendChild(particle);
             }
-        }
-
-        // Initialize particles
-        setTimeout(createParticles, 1000);
-
-        // Enhanced mobile menu toggle
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('mobile-active');
-        }
-
-        // Add mobile menu styles
-        const mobileStyles = document.createElement('style');
-        mobileStyles.textContent = `
-            @media (max-width: 768px) {
-                .nav-links.mobile-active {
-                    display: flex;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    right: 0;
-                    background: rgba(10, 15, 30, 0.98);
-                    flex-direction: column;
-                    padding: 2rem;
-                    backdrop-filter: blur(20px);
-                    border-top: 1px solid rgba(245, 158, 11, 0.2);
+            
+            // Enhanced particle animation styles
+            const particleStyles = document.createElement('style');
+            particleStyles.textContent = `
+                @keyframes floatParticle {
+                    0%, 100% { transform: translateY(0px) translateX(0px) scale(1) rotate(0deg); opacity: 0.8; }
+                    25% { transform: translateY(-30px) translateX(15px) scale(1.2) rotate(90deg); opacity: 1; }
+                    50% { transform: translateY(-15px) translateX(-10px) scale(1.1) rotate(180deg); opacity: 0.9; }
+                    75% { transform: translateY(-35px) translateX(20px) scale(0.9) rotate(270deg); opacity: 0.7; }
                 }
                 
-                .mobile-menu-toggle {
-                    display: block;
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 1.5rem;
-                    cursor: pointer;
+                @keyframes glowParticle {
+                    0%, 100% { filter: blur(0.5px) brightness(1) saturate(1); }
+                    50% { filter: blur(1.5px) brightness(1.8) saturate(1.5); }
+                }
+                
+                @keyframes colorShift {
+                    0%, 100% { filter: hue-rotate(0deg); }
+                    33% { filter: hue-rotate(120deg); }
+                    66% { filter: hue-rotate(240deg); }
+                }
+            `;
+            document.head.appendChild(particleStyles);
+        }
+
+        // Advanced 3D Card Effects
+        function initPremiumAnimations() {
+            // 3D tilt effect for cards
+            document.querySelectorAll('.feature-card, .pricing-card, .floating-feature').forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+                });
+            });
+
+            // Advanced scroll-triggered animations
+            const advancedObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0) scale(1)';
+                        }, index * 100);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '-50px'
+            });
+
+            document.querySelectorAll('.stat-item, .feature-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(50px) scale(0.95)';
+                el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                advancedObserver.observe(el);
+            });
+        }
+
+        // Parallax scrolling effect
+        function initParallaxEffects() {
+            let ticking = false;
+            
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.3;
+                
+                // Hero parallax
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${rate}px)`;
+                }
+                
+                // Floating features parallax
+                const features = document.querySelectorAll('.floating-feature');
+                features.forEach((feature, index) => {
+                    const speed = (index + 1) * 0.1;
+                    feature.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+                
+                ticking = false;
+            }
+
+            function requestParallaxUpdate() {
+                if (!ticking) {
+                    requestAnimationFrame(updateParallax);
+                    ticking = true;
                 }
             }
-            
-            .mobile-menu-toggle {
-                display: none;
-            }
-        `;
-        document.head.appendChild(mobileStyles);
 
-        // Add mobile menu button
-        const nav = document.querySelector('.nav');
-        const mobileToggle = document.createElement('button');
-        mobileToggle.className = 'mobile-menu-toggle';
-        mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        mobileToggle.onclick = toggleMobileMenu;
-        nav.appendChild(mobileToggle);
-
-        // Add enhanced scroll effects
-        let ticking = false;
-        
-        function updateScrollEffects() {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            
-            // Parallax effect for hero background
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${rate}px)`;
-            }
-            
-            // Header transparency
-            const header = document.querySelector('.header');
-            if (header) {
-                const opacity = Math.min(scrolled / 100, 0.95);
-                header.style.background = `rgba(10, 15, 30, ${opacity})`;
-            }
-            
-            ticking = false;
+            window.addEventListener('scroll', requestParallaxUpdate);
         }
 
-        function requestScrollUpdate() {
-            if (!ticking) {
-                requestAnimationFrame(updateScrollEffects);
-                ticking = true;
-            }
-        }
+        // Initialize parallax effects
+        setTimeout(initParallaxEffects, 500);
 
-        window.addEventListener('scroll', requestScrollUpdate);
-
-        // Add typing effect for hero title
-        function typeWriter(element, text, speed = 50) {
+        // Advanced typing effect with cursor
+        function advancedTypeWriter(element, text, speed = 60) {
             let i = 0;
             element.innerHTML = '';
+            element.style.borderRight = '3px solid #f59e0b';
+            element.style.animation = 'blink 1s infinite';
+            
+            const cursorStyle = document.createElement('style');
+            cursorStyle.textContent = `
+                @keyframes blink {
+                    0%, 50% { border-color: #f59e0b; }
+                    51%, 100% { border-color: transparent; }
+                }
+            `;
+            document.head.appendChild(cursorStyle);
             
             function type() {
                 if (i < text.length) {
                     element.innerHTML += text.charAt(i);
                     i++;
                     setTimeout(type, speed);
+                } else {
+                    setTimeout(() => {
+                        element.style.borderRight = 'none';
+                        element.style.animation = 'none';
+                    }, 1000);
                 }
             }
             
             type();
         }
 
-        // Initialize typing effect
+        // Initialize advanced typing effect
         setTimeout(() => {
             const heroTitle = document.querySelector('.hero h1');
             if (heroTitle) {
                 const originalText = heroTitle.textContent;
-                typeWriter(heroTitle, originalText, 80);
+                heroTitle.style.fontSize = '6rem';
+                advancedTypeWriter(heroTitle, originalText, 90);
             }
-        }, 1500);
+        }, 2000);
 
-        // Add blockchain network visualization
+        // Advanced blockchain network visualization with awesome colors
         function createBlockchainVisualization() {
             const stats = document.querySelector('.india-stats');
             const canvas = document.createElement('canvas');
@@ -2433,7 +2361,8 @@
                 width: 100%;
                 height: 100%;
                 pointer-events: none;
-                opacity: 0.1;
+                opacity: 0.2;
+                z-index: 1;
             `;
             stats.appendChild(canvas);
             
@@ -2441,66 +2370,334 @@
             canvas.width = stats.offsetWidth;
             canvas.height = stats.offsetHeight;
             
-            // Draw blockchain network nodes
-            function drawNetwork() {
+            const nodes = [];
+            const nodeCount = 35;
+            const colors = [
+                '#A855F7',  // cyber purple
+                '#00D2FF',  // electric blue
+                '#EC4899',  // hot pink
+                '#00F5A0',  // neon green
+                '#FF6B35'   // plasma orange
+            ];
+            
+            // Create nodes with awesome colors
+            for (let i = 0; i < nodeCount; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8,
+                    radius: Math.random() * 6 + 3,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    glowIntensity: Math.random() * 0.5 + 0.5
+                });
+            }
+            
+            function drawBlockchainNetwork() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = '#f59e0b';
-                ctx.fillStyle = '#f59e0b';
                 
-                // Draw nodes and connections
-                for (let i = 0; i < 20; i++) {
-                    const x = Math.random() * canvas.width;
-                    const y = Math.random() * canvas.height;
+                // Update node positions
+                nodes.forEach(node => {
+                    node.x += node.vx;
+                    node.y += node.vy;
                     
+                    // Boundary bounce with energy
+                    if (node.x < 0 || node.x > canvas.width) {
+                        node.vx *= -0.8;
+                        node.x = Math.max(0, Math.min(canvas.width, node.x));
+                    }
+                    if (node.y < 0 || node.y > canvas.height) {
+                        node.vy *= -0.8;
+                        node.y = Math.max(0, Math.min(canvas.height, node.y));
+                    }
+                });
+                
+                // Draw connections with color mixing
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const dx = nodes[i].x - nodes[j].x;
+                        const dy = nodes[i].y - nodes[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 200) {
+                            const opacity = (200 - distance) / 200 * 0.8;
+                            
+                            // Create gradient connection
+                            const gradient = ctx.createLinearGradient(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
+                            gradient.addColorStop(0, nodes[i].color + Math.floor(opacity * 255).toString(16).padStart(2, '0'));
+                            gradient.addColorStop(1, nodes[j].color + Math.floor(opacity * 255).toString(16).padStart(2, '0'));
+                            
+                            ctx.strokeStyle = gradient;
+                            ctx.lineWidth = 2;
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                // Draw nodes with awesome glow effects
+                nodes.forEach(node => {
+                    // Outer glow
+                    const outerGlow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.radius * 4);
+                    outerGlow.addColorStop(0, node.color + '40');
+                    outerGlow.addColorStop(1, 'transparent');
+                    
+                    ctx.fillStyle = outerGlow;
                     ctx.beginPath();
-                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.arc(node.x, node.y, node.radius * 4, 0, Math.PI * 2);
                     ctx.fill();
                     
-                    // Draw connections
-                    if (i > 0) {
-                        ctx.beginPath();
-                        ctx.moveTo(x, y);
-                        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-                        ctx.stroke();
+                    // Main node
+                    const nodeGradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.radius);
+                    nodeGradient.addColorStop(0, node.color);
+                    nodeGradient.addColorStop(0.8, node.color + 'CC');
+                    nodeGradient.addColorStop(1, node.color + '40');
+                    
+                    ctx.fillStyle = nodeGradient;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Inner highlight
+                    ctx.fillStyle = '#FFFFFF40';
+                    ctx.beginPath();
+                    ctx.arc(node.x - node.radius * 0.3, node.y - node.radius * 0.3, node.radius * 0.3, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                requestAnimationFrame(drawBlockchainNetwork);
+            }
+            
+            drawBlockchainNetwork();
+        }
+
+        // Initialize blockchain visualization
+        setTimeout(createBlockchainVisualization, 1500);
+
+        // Advanced mouse trail effect
+        function createMouseTrail() {
+            const trail = [];
+            const maxTrailLength = 20;
+            
+            document.addEventListener('mousemove', (e) => {
+                trail.push({ x: e.clientX, y: e.clientY, life: maxTrailLength });
+                
+                if (trail.length > maxTrailLength) {
+                    trail.shift();
+                }
+                
+                updateTrail();
+            });
+            
+            function updateTrail() {
+                // Remove existing trail elements
+                document.querySelectorAll('.mouse-trail').forEach(el => el.remove());
+                
+                trail.forEach((point, index) => {
+                    const trailElement = document.createElement('div');
+                    const size = (point.life / maxTrailLength) * 10;
+                    const opacity = point.life / maxTrailLength * 0.6;
+                    
+                    trailElement.className = 'mouse-trail';
+                    trailElement.style.cssText = `
+                        position: fixed;
+                        left: ${point.x - size/2}px;
+                        top: ${point.y - size/2}px;
+                        width: ${size}px;
+                        height: ${size}px;
+                        background: radial-gradient(circle, rgba(245, 158, 11, ${opacity}) 0%, transparent 70%);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        animation: trailFade 0.5s ease-out forwards;
+                    `;
+                    
+                    document.body.appendChild(trailElement);
+                    point.life--;
+                });
+                
+                // Clean up dead trail points
+                for (let i = trail.length - 1; i >= 0; i--) {
+                    if (trail[i].life <= 0) {
+                        trail.splice(i, 1);
                     }
                 }
             }
             
-            // Animate network
-            setInterval(drawNetwork, 2000);
-            drawNetwork();
+            // Add trail fade animation
+            const trailStyles = document.createElement('style');
+            trailStyles.textContent = `
+                @keyframes trailFade {
+                    0% { transform: scale(1); opacity: 1; }
+                    100% { transform: scale(0.5); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(trailStyles);
         }
 
-        // Initialize blockchain visualization
-        setTimeout(createBlockchainVisualization, 2000);
+        // Initialize mouse trail on desktop only
+        if (window.innerWidth > 768) {
+            setTimeout(createMouseTrail, 1000);
+        }
 
-        // Add smart contract simulation
-        function simulateSmartContract() {
-            const escrowElements = document.querySelectorAll('.escrow-progress');
-            escrowElements.forEach(element => {
-                setInterval(() => {
-                    const currentWidth = parseInt(element.style.width) || 0;
-                    const newWidth = Math.min(currentWidth + 1, 100);
-                    element.style.width = newWidth + '%';
+        // Advanced smooth scrolling with easing
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const targetPosition = target.offsetTop - 100;
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 1000;
+                    let start = null;
                     
-                    if (newWidth === 100) {
-                        setTimeout(() => {
-                            element.style.width = '25%';
-                        }, 2000);
+                    function smoothScroll(timestamp) {
+                        if (!start) start = timestamp;
+                        const progress = timestamp - start;
+                        const percentage = Math.min(progress / duration, 1);
+                        
+                        // Easing function for smooth animation
+                        const easing = 1 - Math.pow(1 - percentage, 3);
+                        
+                        window.scrollTo(0, startPosition + (distance * easing));
+                        
+                        if (progress < duration) {
+                            requestAnimationFrame(smoothScroll);
+                        }
                     }
+                    
+                    requestAnimationFrame(smoothScroll);
+                }
+            });
+        });
+
+        // Dynamic gradient animation for backgrounds
+        function animateGradients() {
+            const gradientElements = document.querySelectorAll('.hero, .india-stats, .final-cta');
+            
+            gradientElements.forEach(element => {
+                let hue = 0;
+                setInterval(() => {
+                    hue = (hue + 1) % 360;
+                    element.style.filter = `hue-rotate(${hue * 0.1}deg) saturate(1.1)`;
                 }, 100);
             });
         }
 
-        // Initialize smart contract simulation
-        setTimeout(simulateSmartContract, 3000);
+        // Initialize gradient animations
+        setTimeout(animateGradients, 2000);
+
+        // Advanced intersection observer with staggered animations
+        function initStaggeredAnimations() {
+            const staggerObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0) rotateY(0deg)';
+                        }, index * 200);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '-100px'
+            });
+
+            document.querySelectorAll('.pricing-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(80px) rotateY(-15deg)';
+                card.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+                staggerObserver.observe(card);
+            });
+        }
+
+        // Initialize staggered animations
+        setTimeout(initStaggeredAnimations, 500);
+
+        // Add CSS animations for demo results
+        const animationStyles = document.createElement('style');
+        animationStyles.textContent = `
+            @keyframes slideInUp {
+                0% {
+                    opacity: 0;
+                    transform: translateY(30px) scale(0.95);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+            
+            @keyframes shimmer {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(100%); }
+            }
+            
+            .demo-result {
+                animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+        `;
+        document.head.appendChild(animationStyles);
+
+        // Enhanced button click effects
+        document.querySelectorAll('.btn-primary, .btn-secondary, .demo-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    left: ${e.clientX - rect.left - size/2}px;
+                    top: ${e.clientY - rect.top - size/2}px;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: ripple 0.6s ease-out;
+                `;
+                
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                button.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const rippleStyles = document.createElement('style');
+        rippleStyles.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyles);
+
+        // Add performance optimization
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Reinitialize canvas-based animations
+                const existingCanvas = document.querySelector('.india-stats canvas');
+                if (existingCanvas) {
+                    existingCanvas.remove();
+                    createBlockchainVisualization();
+                }
+            }, 250);
+        });
     </script>
 </body>
-</html><span><i class="fas fa-flag"></i> India Bar Council</span>
-                                    <span style="color: #10b981; font-weight: 700;">✓ Verified Active</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(16,185,129,0.1); border-radius: 8px;">
-                                    <span><i class="fas fa-graduation-cap"></i> Experience</span>
-                                    <span style="color: #10b981; font-weight: 700;">8 Years Verified</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(16,185,129,0.1); border-radius: 8px;">
+</html>
