@@ -1460,7 +1460,511 @@
                     </div>
                 </div>
 
-                <!-- Add other demo contents here with similar professional styling... -->
+                <!-- Court Filing Demo -->
+                <div class="demo-content" id="filing-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-file-alt"></i>
+                                Automated Court Filing System
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">File cases directly to eCourts with blockchain verification</p>
+                            
+                            <select class="demo-select">
+                                <option>Delhi District Court</option>
+                                <option>Mumbai High Court</option>
+                                <option>Chennai District Court</option>
+                                <option>Kolkata High Court</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Case Title" value="Rajesh Kumar vs Priya Sharma">
+                            <select class="demo-select">
+                                <option>Civil Suit</option>
+                                <option>Criminal Case</option>
+                                <option>Writ Petition</option>
+                                <option>Appeal</option>
+                            </select>
+                            
+                            <div class="file-upload" onclick="uploadCaseDocuments()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Upload Case Documents</p>
+                                <small>PDF, DOC files with blockchain verification</small>
+                            </div>
+                            
+                            <button class="demo-button" onclick="fileCaseOnline()">
+                                <i class="fas fa-paper-plane"></i> File Case Online
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-file-alt"></i>
+                                Filing Status & Receipt
+                            </div>
+                            <div id="filingResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Complete filing details to submit case with blockchain verification
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Consultation Demo -->
+                <div class="demo-content" id="video-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-video"></i>
+                                Secure Video Consultation Platform
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Professional encrypted video consultations</p>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Lawyer Name" value="Advocate Priya Mehta">
+                            <input type="text" class="demo-input-field" placeholder="Consultation Topic" value="Property Dispute Consultation">
+                            <input type="datetime-local" class="demo-input-field">
+                            
+                            <div style="display: flex; gap: 1rem;">
+                                <button class="demo-button" onclick="startVideoCall()" style="flex: 1;">
+                                    <i class="fas fa-video"></i> Start Call
+                                </button>
+                                <button class="demo-button" onclick="scheduleCall()" style="flex: 1; background: #666;">
+                                    <i class="fas fa-calendar"></i> Schedule
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-desktop"></i>
+                                Encrypted Video Interface
+                            </div>
+                            <div class="video-preview" id="videoPreview">
+                                <i class="fas fa-video-slash"></i>
+                                <div class="video-controls">
+                                    <button class="video-btn"><i class="fas fa-microphone"></i></button>
+                                    <button class="video-btn"><i class="fas fa-video"></i></button>
+                                    <button class="video-btn"><i class="fas fa-phone-slash"></i></button>
+                                    <button class="video-btn"><i class="fas fa-shield-alt"></i></button>
+                                </div>
+                            </div>
+                            <p style="color: #666; text-align: center; margin-top: 1rem;">
+                                🔐 End-to-end encrypted with blockchain audit trail
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Credentials Demo -->
+                <div class="demo-content" id="credentials-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input blockchain-interface">
+                            <div class="demo-title">
+                                <i class="fas fa-certificate"></i>
+                                Cross-Border Legal Credential Verification
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Global verification for cross-jurisdictional practice</p>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Lawyer Name" value="Advocate Priya Sharma">
+                            <select class="demo-select">
+                                <option>India - Bar Council Verification</option>
+                                <option>UK - Solicitor Registration</option>
+                                <option>USA - State Bar Admission</option>
+                                <option>Singapore - Legal Practice License</option>
+                                <option>Canada - Law Society Membership</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="License Number" value="BAR/DL/2018/12345">
+                            <input type="text" class="demo-input-field" placeholder="Years of Practice" value="8">
+                            
+                            <button class="demo-button" onclick="verifyGlobalCredentials()">
+                                <i class="fas fa-globe"></i> Verify Global Credentials
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-certificate"></i>
+                                Global Verification Results
+                            </div>
+                            <div id="credentialsResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Enter credentials for instant global verification
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KYC Demo -->
+                <div class="demo-content" id="kyc-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input blockchain-interface">
+                            <div class="demo-title">
+                                <i class="fas fa-id-card"></i>
+                                Professional KYC & Document Verification
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Identity verification with blockchain records</p>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Aadhaar Number" value="1234 5678 9012">
+                            <input type="text" class="demo-input-field" placeholder="PAN Number" value="ABCDE1234F">
+                            
+                            <div class="file-upload" onclick="uploadKYCDocs()">
+                                <i class="fas fa-id-card"></i>
+                                <p>Upload Documents for Verification</p>
+                                <small>Secure blockchain verification</small>
+                            </div>
+                            
+                            <button class="demo-button" onclick="verifyBlockchainKYC()">
+                                <i class="fas fa-shield-alt"></i> Verify Documents
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-check-circle"></i>
+                                Verification Results
+                            </div>
+                            <div id="kycResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Upload documents for blockchain-secured verification
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Generation Demo -->
+                <div class="demo-content" id="document-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-file-contract"></i>
+                                Legal Document Generation
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Generate state-compliant legal documents</p>
+                            
+                            <select class="demo-select">
+                                <option>Sale Deed</option>
+                                <option>Rental Agreement</option>
+                                <option>Employment Contract</option>
+                                <option>Power of Attorney</option>
+                                <option>Will & Testament</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Party 1 Name" value="Rajesh Kumar">
+                            <input type="text" class="demo-input-field" placeholder="Party 2 Name" value="Priya Sharma">
+                            <textarea class="demo-textarea" placeholder="Additional details and clauses..."></textarea>
+                            
+                            <button class="demo-button" onclick="generateDocument()">
+                                <i class="fas fa-file-alt"></i> Generate Document
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-file-contract"></i>
+                                Generated Document
+                            </div>
+                            <div id="documentResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Select document type and enter details to generate
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fee Calculator Demo -->
+                <div class="demo-content" id="fee-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-calculator"></i>
+                                Professional Fee Calculator
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Transparent fee estimation with market rates</p>
+                            
+                            <select class="demo-select">
+                                <option>Property Dispute</option>
+                                <option>Divorce Case</option>
+                                <option>Corporate Legal</option>
+                                <option>Criminal Defense</option>
+                                <option>Tax Consultation</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Case Value (₹)" value="500000">
+                            <select class="demo-select">
+                                <option>Simple</option>
+                                <option>Moderate</option>
+                                <option>Complex</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Expected Duration (months)" value="6">
+                            
+                            <button class="demo-button" onclick="calculateFee()">
+                                <i class="fas fa-calculator"></i> Calculate Professional Fee
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-rupee-sign"></i>
+                                Fee Calculation Results
+                            </div>
+                            <div id="feeResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Enter case details for transparent fee calculation
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voice Assistant Demo -->
+                <div class="demo-content" id="voice-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-language"></i>
+                                Multi-Language Voice Assistant
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Voice-powered legal guidance in 22 Indian languages</p>
+                            
+                            <select class="demo-select">
+                                <option>English</option>
+                                <option>Hindi</option>
+                                <option>Bengali</option>
+                                <option>Tamil</option>
+                                <option>Telugu</option>
+                                <option>Marathi</option>
+                                <option>Gujarati</option>
+                            </select>
+                            
+                            <textarea class="demo-textarea" placeholder="Type your legal question or use voice input..." id="voiceInput"></textarea>
+                            
+                            <div style="display: flex; gap: 1rem;">
+                                <button class="demo-button" onclick="startVoiceInput()" style="flex: 1;">
+                                    <i class="fas fa-microphone"></i> Voice Input
+                                </button>
+                                <button class="demo-button" onclick="processVoiceQuery()" style="flex: 1; background: #666;">
+                                    <i class="fas fa-paper-plane"></i> Ask Question
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-comment"></i>
+                                AI Voice Response
+                            </div>
+                            <div id="voiceResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Ask a legal question using voice or text input
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legal Research Demo -->
+                <div class="demo-content" id="research-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-search"></i>
+                                Comprehensive Legal Research
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">AI-powered precedent search with verified judgments</p>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Research Query" value="Property disputes landlord tenant rights">
+                            
+                            <select class="demo-select">
+                                <option>All Courts</option>
+                                <option>Supreme Court</option>
+                                <option>High Courts</option>
+                                <option>District Courts</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Date Range (YYYY-YYYY)" value="2020-2024">
+                            
+                            <button class="demo-button" onclick="performLegalResearch()">
+                                <i class="fas fa-search"></i> Search Legal Database
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-book"></i>
+                                Research Results
+                            </div>
+                            <div id="researchResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Enter search terms to find relevant legal precedents
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Notary Demo -->
+                <div class="demo-content" id="notary-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input blockchain-interface">
+                            <div class="demo-title">
+                                <i class="fas fa-stamp"></i>
+                                Digital Notary Services
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Professional notarization with blockchain verification</p>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Document Title" value="Sale Agreement">
+                            <input type="text" class="demo-input-field" placeholder="Client Name" value="Rajesh Kumar">
+                            
+                            <div class="file-upload" onclick="uploadForNotary()">
+                                <i class="fas fa-stamp"></i>
+                                <p>Upload Document for Notarization</p>
+                                <small>PDF documents with blockchain timestamp</small>
+                            </div>
+                            
+                            <button class="demo-button" onclick="notarizeDocument()">
+                                <i class="fas fa-certificate"></i> Notarize Document
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-seal"></i>
+                                Notarization Status
+                            </div>
+                            <div id="notaryResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Upload document for professional digital notarization
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Tracking Demo -->
+                <div class="demo-content" id="tracking-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-clock"></i>
+                                Case Management & Tracking
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Real-time case updates with blockchain audit trail</p>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Case Number" value="CS 567/2024">
+                            <select class="demo-select">
+                                <option>Delhi District Court</option>
+                                <option>Mumbai High Court</option>
+                                <option>Chennai District Court</option>
+                            </select>
+                            <input type="text" class="demo-input-field" placeholder="Lawyer Name" value="Advocate Priya Mehta">
+                            
+                            <button class="demo-button" onclick="trackCase()">
+                                <i class="fas fa-search"></i> Track Case Status
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-list"></i>
+                                Case Status & Timeline
+                            </div>
+                            <div id="trackingResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Enter case details to track current status and timeline
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer Matching Demo -->
+                <div class="demo-content" id="lawyer-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input">
+                            <div class="demo-title">
+                                <i class="fas fa-user-tie"></i>
+                                Professional Lawyer Verification & Matching
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">AI-powered matching with verified credentials</p>
+                            
+                            <select class="demo-select">
+                                <option>Property Law</option>
+                                <option>Family Law</option>
+                                <option>Criminal Law</option>
+                                <option>Corporate Law</option>
+                                <option>Tax Law</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Location" value="Delhi">
+                            <select class="demo-select">
+                                <option>0-5 years experience</option>
+                                <option>5-10 years experience</option>
+                                <option>10+ years experience</option>
+                            </select>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Budget Range (₹)" value="50000-100000">
+                            
+                            <button class="demo-button" onclick="findLawyer()">
+                                <i class="fas fa-search"></i> Find Verified Lawyers
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-users"></i>
+                                Matched Lawyers
+                            </div>
+                            <div id="lawyerResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Enter requirements to find verified legal professionals
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Authentication Demo -->
+                <div class="demo-content" id="blockchain-demo" style="display: none;">
+                    <div class="demo-interface">
+                        <div class="demo-input blockchain-interface">
+                            <div class="demo-title">
+                                <i class="fas fa-link"></i>
+                                Document Authentication System
+                            </div>
+                            <p style="margin-bottom: 1rem; color: #666;">Enterprise-grade document verification using blockchain</p>
+                            
+                            <input type="text" class="demo-input-field" placeholder="Document Title" value="Property Sale Deed">
+                            <input type="text" class="demo-input-field" placeholder="Document ID" value="DOC-2024-001">
+                            
+                            <div class="file-upload" onclick="uploadForAuth()">
+                                <i class="fas fa-shield-alt"></i>
+                                <p>Upload Document for Authentication</p>
+                                <small>Blockchain verification with tamper-proof records</small>
+                            </div>
+                            
+                            <button class="demo-button" onclick="authenticateDocument()">
+                                <i class="fas fa-certificate"></i> Authenticate Document
+                            </button>
+                        </div>
+                        
+                        <div class="demo-output">
+                            <div class="demo-title">
+                                <i class="fas fa-check-shield"></i>
+                                Authentication Results
+                            </div>
+                            <div id="blockchainResults">
+                                <p style="color: #666; text-align: center; padding: 3rem;">
+                                    Upload document for blockchain authentication
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
             </div>
         </div>
@@ -1765,6 +2269,532 @@
                     </div>
                 `;
             }, 2500);
+        }
+
+        // Court Filing Demo
+        function fileCaseOnline() {
+            const resultsDiv = document.getElementById('filingResults');
+            showLoading(resultsDiv, 'Submitting to eCourts with blockchain verification...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-check-circle"></i> Case Filed Successfully
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                <strong>Case No: CS 567/2024</strong>
+                                <span style="background: #2c2c2c; color: white; padding: 4px 12px; font-size: 0.8rem;">Filed</span>
+                            </div>
+                            <div style="display: grid; gap: 0.5rem; margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Court:</span>
+                                    <span>Delhi District Court</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Filing Date:</span>
+                                    <span>${new Date().toLocaleDateString('en-IN')}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Next Hearing:</span>
+                                    <span>${new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('en-IN')}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Court Fee:</span>
+                                    <span>₹2,500</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Blockchain Hash:</span>
+                                    <span style="font-family: monospace; color: #2c2c2c;">0x4a7b...89ef</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">
+                            📄 Filing receipt stored securely with blockchain verification
+                        </p>
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        // Video Consultation Functions
+        function startVideoCall() {
+            const preview = document.getElementById('videoPreview');
+            preview.innerHTML = `
+                <div style="position: relative; width: 100%; height: 100%; background: #f5f5f5; display: flex; align-items: center; justify-content: center; border: 1px solid #e0e0e0;">
+                    <div style="text-align: center; color: #2c2c2c;">
+                        <i class="fas fa-video" style="font-size: 3rem; margin-bottom: 1rem; color: #2c2c2c;"></i>
+                        <p style="font-size: 1.2rem; font-weight: 600;">🔐 Encrypted Call Active</p>
+                        <p style="opacity: 0.8;">Advocate Priya Mehta - Professional Session</p>
+                        <div style="margin-top: 1rem; padding: 0.5rem; background: #e0e0e0;">
+                            <small>Session ID: PRO-${Date.now()}</small>
+                        </div>
+                    </div>
+                    <div class="video-controls">
+                        <button class="video-btn" style="background: #2c2c2c;"><i class="fas fa-microphone"></i></button>
+                        <button class="video-btn" style="background: #2c2c2c;"><i class="fas fa-video"></i></button>
+                        <button class="video-btn" style="background: #666;"><i class="fas fa-phone-slash"></i></button>
+                        <button class="video-btn" style="background: #2c2c2c;"><i class="fas fa-shield-alt"></i></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function scheduleCall() {
+            alert('Demo: Professional consultation scheduling with encrypted calendar integration.');
+        }
+
+        // Global Credentials Verification
+        function verifyGlobalCredentials() {
+            const resultsDiv = document.getElementById('credentialsResults');
+            showLoading(resultsDiv, 'Verifying credentials across global bar associations...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-certificate"></i> Global Credentials Verified
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="text-align: center; margin-bottom: 1.5rem;">
+                                <i class="fas fa-globe" style="font-size: 3rem; color: #2c2c2c; margin-bottom: 1rem;"></i>
+                                <p style="font-weight: 700; font-size: 1.2rem; color: #2c2c2c;">GLOBALLY VERIFIED LAWYER</p>
+                            </div>
+                            
+                            <div style="display: grid; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><i class="fas fa-briefcase"></i> Specializations</span>
+                                    <span style="color: #2c2c2c; font-weight: 700;">4 Verified Areas</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><i class="fas fa-star"></i> Success Rate</span>
+                                    <span style="color: #2c2c2c; font-weight: 700;">87% (Verified)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><i class="fas fa-flag"></i> India Bar Council</span>
+                                    <span style="color: #2c2c2c; font-weight: 700;">✓ Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            🌍 Credentials verified across 12 jurisdictions with blockchain records
+                        </p>
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        // KYC Verification
+        function verifyBlockchainKYC() {
+            const resultsDiv = document.getElementById('kycResults');
+            showLoading(resultsDiv, 'Verifying with blockchain records...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-shield-check"></i> Verification Complete
+                        </h4>
+                        <div style="display: grid; gap: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: #f9f9f9; border: 1px solid #e0e0e0;">
+                                <span><i class="fas fa-id-card"></i> Aadhaar Status</span>
+                                <span style="color: #2c2c2c; font-weight: 700;">✓ Verified</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: #f9f9f9; border: 1px solid #e0e0e0;">
+                                <span><i class="fas fa-credit-card"></i> PAN Status</span>
+                                <span style="color: #2c2c2c; font-weight: 700;">✓ Active</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: #f9f9f9; border: 1px solid #e0e0e0;">
+                                <span><i class="fas fa-shield-alt"></i> Blockchain Hash</span>
+                                <span style="color: #2c2c2c; font-weight: 700; font-family: monospace;">0x9f2a...7bc1</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: #f9f9f9; border: 1px solid #e0e0e0;">
+                                <span><i class="fas fa-clock"></i> Verification Time</span>
+                                <span style="color: #2c2c2c; font-weight: 700;">${new Date().toLocaleTimeString()}</span>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            🔗 All verification data stored securely with blockchain protection
+                        </p>
+                    </div>
+                `;
+            }, 3500);
+        }
+
+        // Document Generation
+        function generateDocument() {
+            const resultsDiv = document.getElementById('documentResults');
+            showLoading(resultsDiv, 'Generating legal document with compliance checks...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-file-alt"></i> Document Generated Successfully
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <i class="fas fa-file-contract" style="font-size: 2rem; color: #2c2c2c;"></i>
+                                <p style="font-weight: 600; margin-top: 0.5rem;">SALE DEED - PROFESSIONAL DRAFT</p>
+                            </div>
+                            <div style="display: grid; gap: 0.5rem;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Document Type:</span>
+                                    <span style="font-weight: 600;">Sale Deed</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>State Compliance:</span>
+                                    <span style="color: #2c2c2c; font-weight: 600;">✓ Delhi</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Clauses Added:</span>
+                                    <span style="font-weight: 600;">12 Standard + 3 Custom</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Blockchain Hash:</span>
+                                    <span style="font-family: monospace;">0x7f9a...bc3e</span>
+                                </div>
+                            </div>
+                            <button style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: #2c2c2c; color: white; border: none; cursor: pointer;">
+                                <i class="fas fa-download"></i> Download Professional Document
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }, 2500);
+        }
+
+        // Fee Calculator
+        function calculateFee() {
+            const resultsDiv = document.getElementById('feeResults');
+            showLoading(resultsDiv, 'Calculating professional fees with market analysis...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-calculator"></i> Professional Fee Calculation
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="display: grid; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><strong>Professional Fee Range:</strong></span>
+                                    <span style="color: #2c2c2c; font-weight: 700;">₹75,000 - ₹1,25,000</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span>Court Filing Fees:</span>
+                                    <span style="font-weight: 600;">₹2,500</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span>Documentation:</span>
+                                    <span style="font-weight: 600;">₹5,000</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span>Total Estimated:</span>
+                                    <span style="color: #2c2c2c; font-weight: 700;">₹82,500 - ₹1,32,500</span>
+                                </div>
+                            </div>
+                            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                                💼 Based on market rates for similar property disputes in Delhi
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        // Voice Assistant
+        function startVoiceInput() {
+            document.getElementById('voiceInput').value = 'Listening... (Demo: Voice input detected)';
+            setTimeout(() => {
+                document.getElementById('voiceInput').value = 'What are the legal requirements for property registration in Delhi?';
+            }, 1500);
+        }
+
+        function processVoiceQuery() {
+            const resultsDiv = document.getElementById('voiceResults');
+            showLoading(resultsDiv, 'Processing voice query with AI analysis...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-comment"></i> AI Voice Response
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="margin-bottom: 1rem;">
+                                <i class="fas fa-volume-up" style="color: #2c2c2c; margin-right: 0.5rem;"></i>
+                                <strong>Professional Legal Guidance:</strong>
+                            </div>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">
+                                "For property registration in Delhi, you need: 1) Sale deed with stamp duty, 
+                                2) NOC from society/DDA, 3) Property tax clearance, 4) Identity proofs of both parties, 
+                                5) Chain of title documents. Registration must be completed within 4 months of execution."
+                            </p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: white; border: 1px solid #e0e0e0;">
+                                <span>Language:</span>
+                                <span style="font-weight: 600;">English</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: white; border: 1px solid #e0e0e0;">
+                                <span>Confidence:</span>
+                                <span style="color: #2c2c2c; font-weight: 600;">95%</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }, 2500);
+        }
+
+        // Legal Research
+        function performLegalResearch() {
+            const resultsDiv = document.getElementById('researchResults');
+            showLoading(resultsDiv, 'Searching legal database with AI analysis...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-book"></i> Legal Research Results
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <p style="margin-bottom: 1rem;"><strong>Found 847 relevant cases</strong></p>
+                            
+                            <div style="border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1rem; background: white;">
+                                <h5 style="color: #2c2c2c; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-gavel"></i> Rajesh Kumar vs. Delhi Development Authority (2023)
+                                </h5>
+                                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    Supreme Court - Property rights, unlawful eviction, compensation awarded ₹15 lakhs
+                                </p>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #666;">
+                                    <span>Relevance: 94%</span>
+                                    <span>Cited: 23 times</span>
+                                </div>
+                            </div>
+                            
+                            <div style="border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1rem; background: white;">
+                                <h5 style="color: #2c2c2c; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-gavel"></i> Priya Sharma vs. Housing Society (2022)
+                                </h5>
+                                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    Delhi High Court - Tenant rights, notice period, injunction granted
+                                </p>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #666;">
+                                    <span>Relevance: 89%</span>
+                                    <span>Cited: 17 times</span>
+                                </div>
+                            </div>
+                            
+                            <button style="width: 100%; padding: 0.8rem; background: #2c2c2c; color: white; border: none; cursor: pointer;">
+                                <i class="fas fa-download"></i> Export Research Report
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        // Digital Notary
+        function notarizeDocument() {
+            const resultsDiv = document.getElementById('notaryResults');
+            showLoading(resultsDiv, 'Processing digital notarization with blockchain...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-seal"></i> Document Notarized Successfully
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="text-align: center; margin-bottom: 1.5rem;">
+                                <i class="fas fa-certificate" style="font-size: 3rem; color: #2c2c2c; margin-bottom: 1rem;"></i>
+                                <p style="font-weight: 700; font-size: 1.2rem; color: #2c2c2c;">DIGITALLY NOTARIZED</p>
+                            </div>
+                            <div style="display: grid; gap: 0.5rem;">
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span>Document:</span>
+                                    <span style="font-weight: 600;">Sale Agreement</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span>Notary ID:</span>
+                                    <span style="font-family: monospace;">NOT-${Date.now()}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span>Timestamp:</span>
+                                    <span>${new Date().toLocaleString()}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span>Blockchain Hash:</span>
+                                    <span style="font-family: monospace;">0x3a8f...de92</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            📋 Digital notarization complete with legal validity and blockchain verification
+                        </p>
+                    </div>
+                `;
+            }, 2800);
+        }
+
+        // Case Tracking
+        function trackCase() {
+            const resultsDiv = document.getElementById('trackingResults');
+            showLoading(resultsDiv, 'Retrieving case status from court systems...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-list"></i> Case Status & Timeline
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <strong>Case CS 567/2024</strong>
+                                    <span style="background: #2c2c2c; color: white; padding: 2px 8px; font-size: 0.8rem;">Active</span>
+                                </div>
+                                <p style="color: #666;">Delhi District Court - Property Dispute</p>
+                            </div>
+                            
+                            <div style="margin-bottom: 1rem;">
+                                <h5 style="margin-bottom: 1rem; color: #2c2c2c;">Case Timeline:</h5>
+                                <div style="display: grid; gap: 0.8rem;">
+                                    <div style="display: flex; align-items: center; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                        <i class="fas fa-check-circle" style="color: #2c2c2c; margin-right: 1rem;"></i>
+                                        <div>
+                                            <strong>Case Filed</strong>
+                                            <div style="font-size: 0.9rem; color: #666;">${new Date(Date.now() - 15*24*60*60*1000).toLocaleDateString()}</div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                        <i class="fas fa-clock" style="color: #666; margin-right: 1rem;"></i>
+                                        <div>
+                                            <strong>Next Hearing</strong>
+                                            <div style="font-size: 0.9rem; color: #666;">${new Date(Date.now() + 15*24*60*60*1000).toLocaleDateString()} at 11:00 AM</div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                        <i class="fas fa-file-alt" style="color: #666; margin-right: 1rem;"></i>
+                                        <div>
+                                            <strong>Documents Pending</strong>
+                                            <div style="font-size: 0.9rem; color: #666;">Property valuation report</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }, 2500);
+        }
+
+        // Lawyer Matching
+        function findLawyer() {
+            const resultsDiv = document.getElementById('lawyerResults');
+            showLoading(resultsDiv, 'Finding verified lawyers with AI matching...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-users"></i> Matched Verified Lawyers
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <p style="margin-bottom: 1.5rem;"><strong>3 lawyers found matching your criteria</strong></p>
+                            
+                            <div style="border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1rem; background: white;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <h5 style="color: #2c2c2c;">Advocate Priya Mehta</h5>
+                                    <span style="background: #2c2c2c; color: white; padding: 2px 8px; font-size: 0.8rem;">Premium</span>
+                                </div>
+                                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">12 years exp • Property Law Specialist • Delhi High Court</p>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                    <span>Success Rate: 89%</span>
+                                    <span>Fee: ₹75,000 - ₹1,25,000</span>
+                                </div>
+                            </div>
+                            
+                            <div style="border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1rem; background: white;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <h5 style="color: #2c2c2c;">Advocate Rajesh Kumar</h5>
+                                    <span style="background: #666; color: white; padding: 2px 8px; font-size: 0.8rem;">Verified</span>
+                                </div>
+                                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">8 years exp • Property & Civil Law • District Courts</p>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                    <span>Success Rate: 82%</span>
+                                    <span>Fee: ₹50,000 - ₹85,000</span>
+                                </div>
+                            </div>
+                            
+                            <button style="width: 100%; padding: 0.8rem; background: #2c2c2c; color: white; border: none; cursor: pointer;">
+                                <i class="fas fa-phone"></i> Contact Selected Lawyer
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }, 2800);
+        }
+
+        // Document Authentication
+        function authenticateDocument() {
+            const resultsDiv = document.getElementById('blockchainResults');
+            showLoading(resultsDiv, 'Authenticating document with blockchain verification...');
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <div class="demo-result">
+                        <h4 style="margin-bottom: 1rem; color: #2c2c2c;">
+                            <i class="fas fa-check-shield"></i> Document Authentication Complete
+                        </h4>
+                        <div style="background: #f9f9f9; padding: 1.5rem; border: 1px solid #e0e0e0;">
+                            <div style="text-align: center; margin-bottom: 1.5rem;">
+                                <i class="fas fa-shield-check" style="font-size: 3rem; color: #2c2c2c; margin-bottom: 1rem;"></i>
+                                <p style="font-weight: 700; font-size: 1.2rem; color: #2c2c2c;">DOCUMENT AUTHENTICATED</p>
+                            </div>
+                            <div style="display: grid; gap: 0.8rem;">
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><i class="fas fa-file"></i> Document Status</span>
+                                    <span style="color: #2c2c2c; font-weight: 700;">✓ Authentic</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><i class="fas fa-calendar"></i> Original Date</span>
+                                    <span style="font-weight: 600;">${new Date(Date.now() - 30*24*60*60*1000).toLocaleDateString()}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><i class="fas fa-fingerprint"></i> Digital Signature</span>
+                                    <span style="color: #2c2c2c; font-weight: 700;">✓ Valid</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.8rem; background: white; border: 1px solid #e0e0e0;">
+                                    <span><i class="fas fa-link"></i> Blockchain Hash</span>
+                                    <span style="font-family: monospace;">0x8d3c...f4e7</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                            🔗 Document integrity verified with blockchain immutable records
+                        </p>
+                    </div>
+                `;
+            }, 3200);
+        }
+
+        // File Upload Functions
+        function uploadCaseDocuments() {
+            alert('Demo: Professional case document upload with blockchain security and court integration.');
+        }
+
+        function uploadKYCDocs() {
+            alert('Demo: KYC document upload with professional verification and secure blockchain storage.');
+        }
+
+        function uploadForNotary() {
+            alert('Demo: Document upload for professional digital notarization with legal validity.');
+        }
+
+        function uploadForAuth() {
+            alert('Demo: Document upload for blockchain authentication with tamper-proof verification.');
         }
 
         // Utility Functions
