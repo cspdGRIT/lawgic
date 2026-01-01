@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lawgic AI - Smart Legal Lead Generation Platform for India</title>
-    <meta name="description" content="Get instant legal consultation prep for ₹99 or high-quality verified leads for lawyers at ₹999. India's smartest legal marketplace with AI-powered problem analysis.">
+    <title>Lawgic AI - AI-Powered Legal Platform for India | Smart Analysis, Document Drafting & Lead Generation</title>
+    <meta name="description" content="India's most comprehensive legal platform. AI document drafting, case analysis, lawyer CRM, and enterprise solutions. From ₹0 to ₹4999/month with tiered pricing.">
     
     <!-- Professional Legal Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Source+Serif+Pro:wght@300;400;600;700;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Source+Serif+Pro:wght@300;400;600;700;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,19 +19,35 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            --secondary: #2c2c2c;
+            --accent: #27ae60;
+            --accent-blue: #3498db;
+            --accent-purple: #9b59b6;
+            --accent-orange: #f39c12;
+            --bg-light: #fafafa;
+            --bg-white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #666;
+            --border: #e0e0e0;
+        }
+
         body {
             font-family: 'Crimson Text', 'Times New Roman', serif;
             line-height: 1.7;
-            color: #1a1a1a;
+            color: var(--text-dark);
             overflow-x: hidden;
-            background: #fafafa;
+            background: var(--bg-light);
         }
 
         html {
             scroll-behavior: smooth;
         }
 
-        /* Professional Header */
+        /* Enhanced Header with Sticky Nav */
         .header {
             position: fixed;
             top: 0;
@@ -39,9 +55,15 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 2px solid #2c2c2c;
+            padding: 0.8rem 0;
+            border-bottom: 2px solid var(--secondary);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 0.5rem 0;
+            border-bottom-color: var(--primary);
         }
 
         .nav {
@@ -54,10 +76,10 @@
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 900;
             font-family: 'Playfair Display', serif;
-            color: #1a1a1a;
+            color: var(--text-dark);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -66,12 +88,12 @@
         }
 
         .logo::after {
-            content: 'LEADS';
+            content: 'PRO';
             position: absolute;
             top: -8px;
-            right: -45px;
-            font-size: 0.6rem;
-            background: #e74c3c;
+            right: -35px;
+            font-size: 0.5rem;
+            background: var(--accent);
             color: white;
             padding: 3px 8px;
             border-radius: 3px;
@@ -83,22 +105,22 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #2c2c2c;
+            color: var(--secondary);
             font-weight: 600;
             font-family: 'Source Serif Pro', serif;
             transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .nav-links a:hover {
-            color: #e74c3c;
+            color: var(--primary);
         }
 
         .nav-links a::after {
@@ -108,7 +130,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #e74c3c;
+            background: var(--primary);
             transition: width 0.3s ease;
         }
 
@@ -122,10 +144,10 @@
         }
 
         .cta-button {
-            background: #e74c3c;
+            background: var(--primary);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border: 2px solid #e74c3c;
+            padding: 0.7rem 1.3rem;
+            border: 2px solid var(--primary);
             border-radius: 5px;
             font-weight: 600;
             font-family: 'Source Serif Pro', serif;
@@ -135,25 +157,26 @@
             display: inline-block;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
         .cta-button:hover {
             background: white;
-            color: #e74c3c;
+            color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        .cta-button.lawyer {
-            background: #2c2c2c;
-            border-color: #2c2c2c;
+        .cta-button.secondary {
+            background: var(--secondary);
+            border-color: var(--secondary);
         }
 
-        .cta-button.lawyer:hover {
+        .cta-button.secondary:hover {
             background: white;
-            color: #2c2c2c;
+            color: var(--secondary);
         }
 
-        /* Professional Hero Section */
+        /* Enhanced Hero Section */
         .hero {
             min-height: 100vh;
             background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #eeeeee 100%);
@@ -161,9 +184,10 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #1a1a1a;
+            color: var(--text-dark);
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
 
         .hero::before {
@@ -188,63 +212,76 @@
         .hero-badge {
             display: inline-block;
             background: white;
-            color: #e74c3c;
+            color: var(--primary);
             padding: 1rem 2rem;
-            border: 2px solid #e74c3c;
+            border: 2px solid var(--primary);
             font-weight: 700;
             font-family: 'Source Serif Pro', serif;
             margin-bottom: 2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            animation: fadeInUp 0.8s ease;
         }
 
         .hero h1 {
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 900;
             font-family: 'Playfair Display', serif;
             margin-bottom: 1.5rem;
             line-height: 1.1;
-            color: #1a1a1a;
+            color: var(--text-dark);
             letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
         }
 
         .hero .subtitle {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 2rem;
             font-weight: 400;
-            color: #4a4a4a;
+            color: var(--text-medium);
             font-family: 'Crimson Text', serif;
             font-style: italic;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
         }
 
         .hero .description {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 3rem;
             max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
-            color: #666;
+            color: var(--text-light);
             line-height: 1.8;
             font-family: 'Crimson Text', serif;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-buttons {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease 0.8s backwards;
         }
 
-        .btn-primary {
-            background: #e74c3c;
-            color: white;
-            padding: 1.5rem 3rem;
-            border: 2px solid #e74c3c;
+        .btn-primary, .btn-secondary {
+            padding: 1.3rem 2.5rem;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-family: 'Source Serif Pro', serif;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -253,510 +290,902 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             position: relative;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
         }
 
         .btn-primary:hover {
             background: white;
-            color: #e74c3c;
-            transform: translateY(-2px);
+            color: var(--primary);
+            transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
 
         .btn-secondary {
-            background: #2c2c2c;
+            background: var(--secondary);
             color: white;
-            padding: 1.5rem 3rem;
-            border: 2px solid #2c2c2c;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            font-family: 'Source Serif Pro', serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border: 2px solid var(--secondary);
         }
 
         .btn-secondary:hover {
             background: white;
-            color: #2c2c2c;
-            transform: translateY(-2px);
+            color: var(--secondary);
+            transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(44, 44, 44, 0.3);
         }
 
-        .price-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #27ae60;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        /* Value Proposition Cards */
-        .value-props {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .value-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 3rem 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .value-card:hover {
-            border-color: #e74c3c;
-            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.15);
-            transform: translateY(-5px);
-        }
-
-        .value-card.lawyer-card:hover {
-            border-color: #2c2c2c;
-            box-shadow: 0 10px 30px rgba(44, 44, 44, 0.15);
-        }
-
-        .value-icon {
-            width: 80px;
-            height: 80px;
-            background: #e74c3c;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lawyer-card .value-icon {
-            background: #2c2c2c;
-        }
-
-        .value-icon::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
-        }
-
-        .value-card:hover .value-icon::before {
-            animation: shine 0.6s ease-in-out;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .value-card h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            font-family: 'Source Serif Pro', serif;
-            margin-bottom: 1rem;
-            color: #1a1a1a;
-        }
-
-        .value-price {
-            font-size: 3rem;
-            font-weight: 900;
-            font-family: 'Playfair Display', serif;
-            color: #e74c3c;
-            margin-bottom: 1rem;
-        }
-
-        .lawyer-card .value-price {
-            color: #2c2c2c;
-        }
-
-        .value-card p {
-            color: #666;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .value-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-
-        .value-features li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: #4a4a4a;
-        }
-
-        .value-features .check {
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* Business Model Stats */
-        .business-stats {
+        /* NEW: Tiered Pricing Cards - Enhanced */
+        .pricing-tiers {
             padding: 8rem 0;
-            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-            color: white;
-            position: relative;
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .stats-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .stats-header h2 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-
-        .stats-header p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            font-family: 'Crimson Text', serif;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            text-align: center;
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 3rem 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .stat-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-5px);
-        }
-
-        .stat-item h3 {
-            font-size: 4rem;
-            font-weight: 900;
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            font-family: 'Source Serif Pro', serif;
-            opacity: 0.9;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 10rem 0;
-            background: #fafafa;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 6rem;
+            margin-bottom: 5rem;
         }
 
         .section-title h2 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 700;
             font-family: 'Playfair Display', serif;
-            margin-bottom: 2rem;
-            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
             letter-spacing: -1px;
         }
 
         .section-title p {
-            font-size: 1.4rem;
-            color: #666;
+            font-size: 1.3rem;
+            color: var(--text-light);
             max-width: 800px;
             margin: 0 auto;
             font-family: 'Crimson Text', serif;
         }
 
-        .features-grid {
+        .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
-            margin-top: 6rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
         }
 
-        .feature-card {
+        .pricing-card {
             background: white;
-            padding: 3rem 2.5rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .feature-card:hover {
-            border-color: #e74c3c;
-            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.1);
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fff9 100%);
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.2);
+        }
+
+        .pricing-card.featured::before {
+            background: var(--accent);
+        }
+
+        .pricing-card.featured:hover {
+            border-color: var(--accent);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-card.featured .pricing-badge {
+            background: var(--accent);
+        }
+
+        .pricing-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .pricing-card.featured .pricing-price {
+            color: var(--accent);
+        }
+
+        .pricing-price .currency {
+            font-size: 2rem;
+        }
+
+        .pricing-price .period {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .pricing-description {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            min-height: 3rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.7rem 0;
+            color: var(--text-medium);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features .icon {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .pricing-card.featured .pricing-features .icon {
+            color: var(--accent);
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        .pricing-cta:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .pricing-card.featured .pricing-cta:hover {
+            background: white;
+            color: var(--accent);
+        }
+
+        /* NEW: AI Tools Showcase */
+        .ai-tools {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--secondary) 0%, #1a1a1a 100%);
+            color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(39, 174, 96, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-5px);
         }
 
-        .feature-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: white;
-            border-radius: 15px;
-        }
-
-        .feature-badge {
-            background: #e74c3c;
-            color: white;
-            padding: 0.4rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            font-family: 'Source Serif Pro', serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 20px;
-        }
-
-        .revenue-badge {
-            background: #27ae60;
-            color: white;
-            padding: 0.4rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            font-family: 'Source Serif Pro', serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            font-family: 'Source Serif Pro', serif;
+            border-radius: 12px;
             margin-bottom: 1.5rem;
-            color: #1a1a1a;
         }
 
-        .feature-card p {
-            color: #666;
-            line-height: 1.8;
-            font-size: 1.1rem;
-            font-family: 'Crimson Text', serif;
+        .tool-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Source Serif Pro', serif;
+            margin-bottom: 1rem;
+            color: white;
         }
 
-        /* Revenue Model Section */
-        .revenue-model {
-            padding: 10rem 0;
+        .tool-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .tool-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* NEW: AI Transparency Section */
+        .ai-transparency {
+            padding: 8rem 0;
             background: white;
         }
 
-        .revenue-grid {
+        .transparency-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 3rem;
             margin-top: 4rem;
         }
 
-        .revenue-card {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
+        .transparency-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .transparency-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .transparency-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-blue), #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
             border-radius: 15px;
-            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .transparency-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Source Serif Pro', serif;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .transparency-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .confidence-demo {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .confidence-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .confidence-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .confidence-progress {
+            flex: 1;
+            height: 8px;
+            background: rgba(52, 152, 219, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .confidence-value {
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* NEW: Education Platform Section */
+        .education-platform {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .education-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .education-card:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 15px 40px rgba(155, 89, 182, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .education-header {
+            background: linear-gradient(135deg, var(--accent-purple), #8e44ad);
+            color: white;
+            padding: 2rem;
             text-align: center;
+        }
+
+        .education-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Source Serif Pro', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-body {
+            padding: 2rem;
+        }
+
+        .education-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .education-features li {
+            padding: 0.8rem 0;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .education-features li:last-child {
+            border-bottom: none;
+        }
+
+        .education-features .icon {
+            color: var(--accent-purple);
+            font-size: 1rem;
+        }
+
+        .gamification-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        /* NEW: Enterprise Solutions */
+        .enterprise-solutions {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .enterprise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .enterprise-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .revenue-card.featured {
-            border-color: #27ae60;
-            background: white;
-            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.1);
-        }
-
-        .revenue-card.featured::before {
-            content: 'Highest Revenue Potential';
+        .enterprise-card::before {
+            content: '';
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #27ae60;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            font-weight: 700;
-            font-size: 0.9rem;
-            font-family: 'Source Serif Pro', serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 20px;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
-        .revenue-card:hover {
-            border-color: #e74c3c;
-            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.1);
+        .enterprise-card:hover::before {
+            opacity: 1;
+        }
+
+        .enterprise-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-5px);
         }
 
-        .revenue-card h3 {
+        .enterprise-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .enterprise-card h3 {
             font-size: 1.8rem;
             font-weight: 700;
             font-family: 'Playfair Display', serif;
             margin-bottom: 1rem;
-            color: #1a1a1a;
+            color: white;
         }
 
-        .revenue-price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            font-family: 'Playfair Display', serif;
-            color: #27ae60;
-            margin-bottom: 0.5rem;
-        }
-
-        .revenue-period {
-            color: #666;
+        .enterprise-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            font-size: 1.05rem;
             margin-bottom: 2rem;
-            font-size: 1.1rem;
-            font-family: 'Crimson Text', serif;
         }
 
-        .revenue-features {
+        .enterprise-features {
             list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
         }
 
-        .revenue-features li {
-            padding: 0.8rem 0;
-            color: #4a4a4a;
+        .enterprise-features li {
+            padding: 0.7rem 0;
+            color: rgba(255, 255, 255, 0.9);
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .enterprise-features .icon {
+            color: var(--accent);
             font-size: 1rem;
-            font-family: 'Crimson Text', serif;
         }
 
-        .revenue-features .check {
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 1.2rem;
+        .enterprise-price {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
         }
 
-        /* Demo Section */
-        .demo-section {
-            padding: 10rem 0;
-            background: #f5f5f5;
-        }
-
-        .demo-container {
+        /* NEW: Feedback & Rating System */
+        .feedback-system {
+            padding: 8rem 0;
             background: white;
-            border: 2px solid #e0e0e0;
+        }
+
+        .feedback-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feedback-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-card:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .stars i {
+            color: var(--accent-orange);
+            font-size: 1.5rem;
+        }
+
+        .rating-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .feedback-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-orange);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* NEW: Partner Network */
+        .partner-network {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .partner-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .partner-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-blue), #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+        }
+
+        .partner-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Source Serif Pro', serif;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .partner-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Business Stats Section - Enhanced */
+        .business-stats {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--text-dark) 100%);
+            color: white;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2.5rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Source Serif Pro', serif;
+            opacity: 0.9;
+        }
+
+        /* Revenue Projection Calculator */
+        .revenue-calculator {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .calculator-container {
+            background: white;
+            border: 2px solid var(--border);
             border-radius: 20px;
             padding: 4rem 3rem;
             margin-top: 4rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .demo-tabs {
+        .calculator-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
         }
 
-        .demo-tab {
-            padding: 1.5rem 1rem;
-            background: #f9f9f9;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-family: 'Source Serif Pro', serif;
-            text-align: center;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .demo-tab.active {
-            background: #e74c3c;
-            color: white;
-            border-color: #e74c3c;
-        }
-
-        .demo-tab:hover {
-            border-color: #e74c3c;
-            transform: translateY(-2px);
-        }
-
-        .demo-content {
-            background: #fafafa;
-            border: 1px solid #e0e0e0;
+        .calculator-input {
+            background: #f8f9fa;
+            padding: 2rem;
             border-radius: 15px;
-            padding: 3rem;
-            min-height: 500px;
         }
 
-        /* Final CTA */
+        .calculator-input label {
+            display: block;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            font-family: 'Source Serif Pro', serif;
+        }
+
+        .calculator-input input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: 'IBM Plex Mono', monospace;
+            transition: border-color 0.3s ease;
+        }
+
+        .calculator-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .calculator-result {
+            background: linear-gradient(135deg, var(--accent), #2ecc71);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .calculator-result h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .calculator-total {
+            font-size: 4rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
         .final-cta {
-            padding: 10rem 0;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
         }
 
         .final-cta h2 {
@@ -765,41 +1194,54 @@
             font-family: 'Playfair Display', serif;
             margin-bottom: 1.5rem;
             letter-spacing: -1px;
+            position: relative;
+            z-index: 2;
         }
 
         .final-cta p {
             font-size: 1.4rem;
             margin-bottom: 3rem;
-            opacity: 0.9;
+            opacity: 0.95;
             font-family: 'Crimson Text', serif;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-cta .cta-buttons-large {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-cta .btn-large {
+            padding: 1.8rem 3.5rem;
+            font-size: 1.2rem;
+            border: 2px solid white;
         }
 
         /* Footer */
         .footer {
-            background: #1a1a1a;
+            background: var(--text-dark);
             color: white;
             padding: 6rem 0 2rem;
-            border-top: 2px solid #2c2c2c;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            border-top: 2px solid var(--secondary);
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
             margin-bottom: 4rem;
         }
 
         .footer-section h4 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             font-family: 'Source Serif Pro', serif;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.3rem;
             color: white;
         }
 
@@ -808,7 +1250,7 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.7rem;
         }
 
         .footer-links a {
@@ -817,10 +1259,12 @@
             font-family: 'Crimson Text', serif;
             transition: all 0.3s ease;
             padding: 0.2rem 0;
+            font-size: 0.95rem;
         }
 
         .footer-links a:hover {
-            color: #e74c3c;
+            color: var(--primary);
+            padding-left: 5px;
         }
 
         .footer-bottom {
@@ -834,51 +1278,36 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
 
             .hero .subtitle {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
 
             .nav-links {
                 display: none;
             }
 
-            .value-props {
+            .pricing-grid,
+            .tools-grid,
+            .transparency-grid,
+            .education-grid,
+            .enterprise-grid,
+            .feedback-showcase,
+            .partners-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .revenue-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .demo-container {
-                padding: 2rem 1.5rem;
             }
 
             .section-title h2 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .demo-tabs {
+            .calculator-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -895,46 +1324,39 @@
             transform: translateY(0);
         }
 
-        /* Success indicators */
-        .success-indicator {
-            background: #27ae60;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 1rem;
-        }
-
-        .roi-highlight {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 1rem;
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 9999;
+            transition: width 0.1s ease;
         }
     </style>
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <nav class="nav">
             <div class="logo">
-                <i class="fas fa-handshake"></i>
+                <i class="fas fa-balance-scale"></i>
                 Lawgic AI
             </div>
             <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#demo">Demo</a></li>
-                <li><a href="#revenue">Revenue</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#tools">AI Tools</a></li>
+                <li><a href="#enterprise">Enterprise</a></li>
+                <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="cta-buttons">
-                <a href="#demo" class="cta-button">₹99 Client Prep</a>
-                <a href="#demo" class="cta-button lawyer">₹999 Lawyer Leads</a>
+                <a href="#pricing" class="cta-button">Try Free</a>
+                <a href="#enterprise" class="cta-button secondary">For Lawyers</a>
             </div>
         </nav>
     </header>
@@ -942,497 +1364,774 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">🇮🇳 India's Smartest Legal Lead Generation Platform</div>
-            <h1>Smart Legal Consultation Prep & Lead Generation</h1>
-            <p class="subtitle">AI-Powered Legal Problem Analysis & Verified Lawyer Leads</p>
+            <div class="hero-badge">🇮🇳 India's Most Advanced Legal AI Platform</div>
+            <h1>Complete Legal Intelligence Platform</h1>
+            <p class="subtitle">From Free AI Analysis to Enterprise Law Firm Solutions</p>
             <p class="description">
-                Transform legal consultation with instant AI problem analysis for clients (₹99) 
-                and high-quality verified leads for lawyers (₹999). Get 25% referral bonus 
-                when you onboard lawyers who pay for leads!
+                Comprehensive legal platform with AI document drafting, case analysis, lawyer CRM, 
+                educational courses, and enterprise solutions. Choose from 4 pricing tiers - 
+                from ₹0 (Free) to ₹4,999/month (Enterprise). Get 25% referral bonus on all lawyer subscriptions!
             </p>
             <div class="hero-buttons">
-                <a href="#demo" class="btn-primary">
-                    <i class="fas fa-file-alt"></i> Get Legal Analysis
-                    <span class="price-badge">₹99</span>
+                <a href="#pricing" class="btn-primary">
+                    <i class="fas fa-rocket"></i> View All Plans
                 </a>
-                <a href="#demo" class="btn-secondary">
-                    <i class="fas fa-user-tie"></i> Get Quality Leads
-                    <span class="price-badge">₹999</span>
+                <a href="#tools" class="btn-secondary">
+                    <i class="fas fa-tools"></i> Explore AI Tools
                 </a>
             </div>
+        </div>
+    </section>
+
+    <!-- NEW: Tiered Pricing Section -->
+    <section class="pricing-tiers" id="pricing">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Choose Your Perfect Plan</h2>
+                <p>Flexible pricing for clients, lawyers, and enterprises - from free to premium with advanced features</p>
+            </div>
             
-            <div class="value-props">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-user"></i>
+            <div class="pricing-grid">
+                <!-- Free Tier -->
+                <div class="pricing-card fade-in">
+                    <span class="pricing-badge">Free Forever</span>
+                    <h3>Basic Legal Help</h3>
+                    <div class="pricing-price">
+                        <span class="currency">₹</span>0
+                        <span class="period">/month</span>
                     </div>
-                    <h3>For Clients</h3>
-                    <div class="value-price">₹99</div>
-                    <p>Get instant AI-powered legal problem analysis before consulting any lawyer</p>
-                    <ul class="value-features">
-                        <li><span class="check">✓</span> Smart Legal Problem Analyzer</li>
-                        <li><span class="check">✓</span> Case Strength Assessment</li>
-                        <li><span class="check">✓</span> Cost & Timeline Estimation</li>
-                        <li><span class="check">✓</span> Evidence Collection Guide</li>
-                        <li><span class="check">✓</span> Pre-consultation Document</li>
+                    <p class="pricing-description">Perfect for exploring legal options and getting basic guidance</p>
+                    <ul class="pricing-features">
+                        <li><span class="icon">✓</span> Basic problem summary</li>
+                        <li><span class="icon">✓</span> Legal statute snippets</li>
+                        <li><span class="icon">✓</span> General legal information</li>
+                        <li><span class="icon">✓</span> Case type identification</li>
+                        <li><span class="icon">✓</span> Basic document templates</li>
                     </ul>
-                    <a href="#demo" class="btn-primary">Start Analysis</a>
+                    <button class="pricing-cta">Get Started Free</button>
                 </div>
-                
-                <div class="value-card lawyer-card">
-                    <div class="value-icon">
-                        <i class="fas fa-user-tie"></i>
+
+                <!-- Pro Client Tier -->
+                <div class="pricing-card featured fade-in">
+                    <span class="pricing-badge">Most Popular</span>
+                    <h3>Pro Client</h3>
+                    <div class="pricing-price">
+                        <span class="currency">₹</span>999
+                        <span class="period">/month</span>
                     </div>
-                    <h3>For Lawyers</h3>
-                    <div class="value-price">₹999</div>
-                    <p>Get pre-qualified leads with detailed case analysis and client readiness scores</p>
-                    <ul class="value-features">
-                        <li><span class="check">✓</span> Verified Client Leads</li>
-                        <li><span class="check">✓</span> Case Readiness Score</li>
-                        <li><span class="check">✓</span> Client Background Check</li>
-                        <li><span class="check">✓</span> Budget Verification</li>
-                        <li><span class="check">✓</span> Direct Client Contact</li>
+                    <p class="pricing-description">Complete AI legal toolkit for serious legal needs</p>
+                    <ul class="pricing-features">
+                        <li><span class="icon">✓</span> Full AI case analysis</li>
+                        <li><span class="icon">✓</span> AI document drafting</li>
+                        <li><span class="icon">✓</span> Court-specific templates</li>
+                        <li><span class="icon">✓</span> Case timeline projection</li>
+                        <li><span class="icon">✓</span> Evidence checklist generator</li>
+                        <li><span class="icon">✓</span> Legal statute extractor</li>
+                        <li><span class="icon">✓</span> Priority lawyer matching</li>
+                        <li><span class="icon">✓</span> Confidence scores & sources</li>
+                        <li><span class="icon">✓</span> Video consultation booking</li>
+                        <li><span class="icon">✓</span> Legal education courses</li>
                     </ul>
-                    <a href="#demo" class="btn-secondary">Join Platform</a>
+                    <button class="pricing-cta">Start Pro Plan</button>
+                </div>
+
+                <!-- Lawyer Starter -->
+                <div class="pricing-card fade-in">
+                    <span class="pricing-badge">For Lawyers</span>
+                    <h3>Lawyer Starter</h3>
+                    <div class="pricing-price">
+                        <span class="currency">₹</span>2,499
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="pricing-description">Get qualified leads and basic practice management tools</p>
+                    <ul class="pricing-features">
+                        <li><span class="icon">✓</span> 10 qualified leads/month</li>
+                        <li><span class="icon">✓</span> Basic practice dashboard</li>
+                        <li><span class="icon">✓</span> Client CRM system</li>
+                        <li><span class="icon">✓</span> Auto quote templates</li>
+                        <li><span class="icon">✓</span> Performance tracking</li>
+                        <li><span class="icon">✓</span> Email reminders</li>
+                        <li><span class="icon">✓</span> Client feedback ratings</li>
+                    </ul>
+                    <button class="pricing-cta">Join as Lawyer</button>
+                </div>
+
+                <!-- Lawyer Pro / Enterprise -->
+                <div class="pricing-card fade-in">
+                    <span class="pricing-badge">Maximum Revenue</span>
+                    <h3>Lawyer Pro</h3>
+                    <div class="pricing-price">
+                        <span class="currency">₹</span>4,999
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="pricing-description">Unlimited leads with full practice automation & analytics</p>
+                    <ul class="pricing-features">
+                        <li><span class="icon">✓</span> Unlimited qualified leads</li>
+                        <li><span class="icon">✓</span> Advanced CRM + automation</li>
+                        <li><span class="icon">✓</span> Priority lead placement</li>
+                        <li><span class="icon">✓</span> Advanced analytics dashboard</li>
+                        <li><span class="icon">✓</span> Performance badges</li>
+                        <li><span class="icon">✓</span> Custom branding</li>
+                        <li><span class="icon">✓</span> API access</li>
+                        <li><span class="icon">✓</span> White-label option</li>
+                        <li><span class="icon">✓</span> Dedicated support</li>
+                        <li><span class="icon">✓</span> Case trend analytics</li>
+                    </ul>
+                    <button class="pricing-cta">Get Pro Access</button>
+                </div>
+            </div>
+
+            <!-- Pricing Comparison Note -->
+            <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, var(--accent), #2ecc71); color: white; border-radius: 20px;">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;">💰 Variable Lead Pricing Available</h3>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto;">
+                    For lawyers who prefer pay-per-lead: ₹499-₹1,999 per lead based on case complexity and urgency. 
+                    Subscription plans offer better value for regular lead flow!
+                </p>
+            </div>
+
+            <!-- Referral Program Highlight -->
+            <div style="text-align: center; margin-top: 3rem; padding: 3rem; background: linear-gradient(135deg, var(--accent-orange), #e67e22); color: white; border-radius: 20px;">
+                <h3 style="font-size: 2.5rem; margin-bottom: 1rem;"><i class="fas fa-handshake"></i> 25% Referral Bonus Program</h3>
+                <p style="font-size: 1.3rem; opacity: 0.9; margin-bottom: 1.5rem;">
+                    Earn 25% recurring commission on all lawyer subscriptions you refer!
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;">₹625/mo</div>
+                        <div>Per Lawyer Starter</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;">₹1,250/mo</div>
+                        <div>Per Lawyer Pro</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;">Unlimited</div>
+                        <div>Referral Potential</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Business Model Stats -->
+    <!-- NEW: AI Tools Showcase -->
+    <section class="ai-tools" id="tools">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 style="color: white;">10+ Advanced AI Legal Tools</h2>
+                <p style="color: rgba(255,255,255,0.9);">Cutting-edge AI features that set us apart from traditional legal platforms</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card fade-in">
+                    <span class="tool-badge">NEW</span>
+                    <div class="tool-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>AI Document Drafting</h3>
+                    <p>Auto-generate legal notices, contracts, and replies tailored to Indian law. Smart templates adapt to your case specifics.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <span class="tool-badge">POPULAR</span>
+                    <div class="tool-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3>Court-Specific Templates</h3>
+                    <p>Auto-formatted documents for High Courts and District Courts across India. Includes jurisdiction-specific requirements.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <span class="tool-badge">PRO</span>
+                    <div class="tool-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Case Timeline Projection</h3>
+                    <p>AI-powered estimation of hearing dates, case duration, and key milestones based on court load and case type.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <div class="tool-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Legal Statute Extractor</h3>
+                    <p>Automatically links relevant statutes, sections, and case laws from your input facts. Smart legal research assistant.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <div class="tool-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Smart Problem Analyzer</h3>
+                    <p>AI questionnaire that identifies legal issues, analyzes complexity, and structures consultation documents.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <div class="tool-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3>Evidence Collection Guide</h3>
+                    <p>Personalized checklist of documents and evidence needed for your specific case type and jurisdiction.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <span class="tool-badge">LAWYER</span>
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Practice Dashboard</h3>
+                    <p>Track case funnel, conversion metrics, revenue analytics, and client satisfaction in one unified dashboard.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <span class="tool-badge">LAWYER</span>
+                    <div class="tool-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Client CRM System</h3>
+                    <p>Automated follow-ups, scheduling, reminders, and client communication management with AI assistance.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <div class="tool-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Legal Cost Calculator</h3>
+                    <p>Estimate legal fees, court costs, and total case expenses based on case type and expected duration.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <div class="tool-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Case Strength Assessment</h3>
+                    <p>AI evaluation of case merit, settlement likelihood, and recommended legal strategies with confidence scores.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <span class="tool-badge">LAWYER</span>
+                    <div class="tool-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h3>Auto Quote Generator</h3>
+                    <p>Generate professional fee quotes with customizable templates. Track quote acceptance and follow-ups.</p>
+                </div>
+
+                <div class="tool-card fade-in">
+                    <span class="tool-badge">ENTERPRISE</span>
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Case trend reports, demand forecasting, performance metrics, and data-driven insights for law firms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: AI Transparency & Trust -->
+    <section class="ai-transparency">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Transparent & Trustworthy AI</h2>
+                <p>Understanding how our AI reaches conclusions - building trust through explainability</p>
+            </div>
+            
+            <div class="transparency-grid">
+                <div class="transparency-card fade-in">
+                    <div class="transparency-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Legal Reasoning Rationale</h3>
+                    <p>Every AI analysis comes with detailed reasoning explaining why we reached specific conclusions. See the logic behind recommendations.</p>
+                    <div class="confidence-demo">
+                        <strong>Example:</strong> "This case likely falls under Section 138 of Negotiable Instruments Act because..."
+                    </div>
+                </div>
+
+                <div class="transparency-card fade-in">
+                    <div class="transparency-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Confidence Scores</h3>
+                    <p>AI predictions include confidence percentages so you know how certain we are about each conclusion.</p>
+                    <div class="confidence-demo">
+                        <div class="confidence-bar">
+                            <span class="confidence-label">Case Strength:</span>
+                            <div class="confidence-progress">
+                                <div class="confidence-fill" style="width: 85%"></div>
+                            </div>
+                            <span class="confidence-value">85%</span>
+                        </div>
+                        <div class="confidence-bar" style="margin-top: 0.5rem;">
+                            <span class="confidence-label">Win Probability:</span>
+                            <div class="confidence-progress">
+                                <div class="confidence-fill" style="width: 72%"></div>
+                            </div>
+                            <span class="confidence-value">72%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transparency-card fade-in">
+                    <div class="transparency-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Source Citations</h3>
+                    <p>All legal recommendations cite relevant statutes, precedents, and case law sources for verification.</p>
+                    <div class="confidence-demo">
+                        <strong>Referenced:</strong>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+                            <li>IPC Section 420</li>
+                            <li>Maharashtra High Court Judgment 2023</li>
+                            <li>Consumer Protection Act 2019</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="transparency-card fade-in">
+                    <div class="transparency-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>User Corrections & Feedback</h3>
+                    <p>Allow users to correct AI outputs and provide feedback, which improves our models over time.</p>
+                    <div class="confidence-demo">
+                        <strong>Feedback Loop:</strong> Your corrections help train better AI for everyone
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Education Platform & Gamification -->
+    <section class="education-platform" id="education">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Legal Education & Skill Building</h2>
+                <p>Interactive courses, certifications, and gamified learning to empower legal knowledge</p>
+            </div>
+            
+            <div class="education-grid">
+                <div class="education-card fade-in">
+                    <div class="education-header">
+                        <div class="education-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Mini Courses</h3>
+                        <p style="opacity: 0.9;">Structured Legal Learning</p>
+                    </div>
+                    <div class="education-body">
+                        <ul class="education-features">
+                            <li><span class="icon">📚</span> How to Prepare for Your First Hearing</li>
+                            <li><span class="icon">📚</span> Understanding Criminal Procedure</li>
+                            <li><span class="icon">📚</span> Consumer Rights & Remedies</li>
+                            <li><span class="icon">📚</span> Family Law Essentials</li>
+                            <li><span class="icon">📚</span> Contract Law Basics</li>
+                        </ul>
+                        <span class="gamification-badge">🎓 Earn Certificates</span>
+                    </div>
+                </div>
+
+                <div class="education-card fade-in">
+                    <div class="education-header">
+                        <div class="education-icon"><i class="fas fa-trophy"></i></div>
+                        <h3>Legal Risk Scorecards</h3>
+                        <p style="opacity: 0.9;">Interactive Assessments</p>
+                    </div>
+                    <div class="education-body">
+                        <ul class="education-features">
+                            <li><span class="icon">📊</span> Personalized risk assessment</li>
+                            <li><span class="icon">📊</span> Compliance checkers</li>
+                            <li><span class="icon">📊</span> Case readiness scores</li>
+                            <li><span class="icon">📊</span> Document completeness rating</li>
+                            <li><span class="icon">📊</span> Progress tracking</li>
+                        </ul>
+                        <span class="gamification-badge">📈 Track Your Progress</span>
+                    </div>
+                </div>
+
+                <div class="education-card fade-in">
+                    <div class="education-header">
+                        <div class="education-icon"><i class="fas fa-medal"></i></div>
+                        <h3>Achievement Badges</h3>
+                        <p style="opacity: 0.9;">Gamified Learning</p>
+                    </div>
+                    <div class="education-body">
+                        <ul class="education-features">
+                            <li><span class="icon">🏆</span> Document Master Badge</li>
+                            <li><span class="icon">🏆</span> Legal Scholar Achievement</li>
+                            <li><span class="icon">🏆</span> Case Preparation Expert</li>
+                            <li><span class="icon">🏆</span> Checklist Completion Awards</li>
+                            <li><span class="icon">🏆</span> Milestone Celebrations</li>
+                        </ul>
+                        <span class="gamification-badge">🎮 Unlock Achievements</span>
+                    </div>
+                </div>
+
+                <div class="education-card fade-in">
+                    <div class="education-header">
+                        <div class="education-icon"><i class="fas fa-users"></i></div>
+                        <h3>Webinars & Workshops</h3>
+                        <p style="opacity: 0.9;">Live Expert Sessions</p>
+                    </div>
+                    <div class="education-body">
+                        <ul class="education-features">
+                            <li><span class="icon">🎥</span> Weekly legal expert webinars</li>
+                            <li><span class="icon">🎥</span> Q&A with practicing lawyers</li>
+                            <li><span class="icon">🎥</span> Case study workshops</li>
+                            <li><span class="icon">🎥</span> Recorded session library</li>
+                            <li><span class="icon">🎥</span> CPE credits for lawyers</li>
+                        </ul>
+                        <span class="gamification-badge">🎬 Join Live Sessions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Feedback & Quality Loop -->
+    <section class="feedback-system">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Two-Way Quality Feedback System</h2>
+                <p>Continuous improvement through client and lawyer ratings that enhance matching quality</p>
+            </div>
+            
+            <div class="feedback-showcase">
+                <div class="feedback-card fade-in">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--text-dark);">
+                        <i class="fas fa-user" style="color: var(--primary);"></i> Clients Rate Lawyers
+                    </h3>
+                    <div class="rating-display">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-score">4.7</span>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 2rem;">
+                        Rate lawyers on lead quality, responsiveness, professionalism, and case outcomes. 
+                        High ratings improve lawyer visibility and matching priority.
+                    </p>
+                    <div class="feedback-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">92%</div>
+                            <div class="stat-label">Satisfaction Rate</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">8.5K+</div>
+                            <div class="stat-label">Reviews Collected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-card fade-in">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--text-dark);">
+                        <i class="fas fa-user-tie" style="color: var(--secondary);"></i> Lawyers Rate Clients
+                    </h3>
+                    <div class="rating-display">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-score">4.9</span>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 2rem;">
+                        Lawyers rate client readiness, documentation quality, budget accuracy, and cooperation. 
+                        Feedback improves our AI pre-qualification algorithms.
+                    </p>
+                    <div class="feedback-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">87%</div>
+                            <div class="stat-label">Lead Quality Score</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">12K+</div>
+                            <div class="stat-label">Lead Ratings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, var(--accent-orange), #e67e22); color: white; border-radius: 20px;">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;">
+                    <i class="fas fa-sync-alt"></i> Continuous Quality Improvement
+                </h3>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 900px; margin: 0 auto;">
+                    Both sides' feedback creates a virtuous cycle: better matching → higher satisfaction → 
+                    more business for lawyers → better leads for clients. Everyone wins!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Partner Network -->
+    <section class="partner-network">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Strategic Partner Network</h2>
+                <p>Expanding reach through partnerships with legal institutions and organizations</p>
+            </div>
+            
+            <div class="partners-grid">
+                <div class="partner-card fade-in">
+                    <div class="partner-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Legal Aid Clinics</h3>
+                    <p>Partner with legal aid organizations to provide subsidized services to underserved communities.</p>
+                </div>
+
+                <div class="partner-card fade-in">
+                    <div class="partner-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Bar Associations</h3>
+                    <p>Collaborate with state and local bar associations for lawyer verification and continuing education.</p>
+                </div>
+
+                <div class="partner-card fade-in">
+                    <div class="partner-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Law Universities</h3>
+                    <p>Educational partnerships for internships, research, and practical legal training programs.</p>
+                </div>
+
+                <div class="partner-card fade-in">
+                    <div class="partner-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Corporate Legal Depts</h3>
+                    <p>B2B partnerships providing legal consultation services to corporate legal departments.</p>
+                </div>
+
+                <div class="partner-card fade-in">
+                    <div class="partner-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Affiliate Program</h3>
+                    <p>Join our affiliate network and earn commissions by promoting legal services to your audience.</p>
+                </div>
+
+                <div class="partner-card fade-in">
+                    <div class="partner-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Government Programs</h3>
+                    <p>Collaborate with government legal aid initiatives and digital India programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Enterprise & Law Firm Solutions -->
+    <section class="enterprise-solutions" id="enterprise">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 style="color: white;">Enterprise Law Firm SaaS Solutions</h2>
+                <p style="color: rgba(255,255,255,0.9);">Complete practice management suite for law firms of all sizes</p>
+            </div>
+            
+            <div class="enterprise-grid">
+                <div class="enterprise-card fade-in">
+                    <div class="enterprise-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Firm Dashboard</h3>
+                    <p>Comprehensive analytics dashboard tracking cases, revenue, team performance, and client satisfaction in real-time.</p>
+                    <ul class="enterprise-features">
+                        <li><span class="icon">✓</span> Revenue analytics & forecasting</li>
+                        <li><span class="icon">✓</span> Case pipeline management</li>
+                        <li><span class="icon">✓</span> Team performance metrics</li>
+                        <li><span class="icon">✓</span> Client acquisition costs</li>
+                    </ul>
+                    <span class="enterprise-price">From ₹15,000/month</span>
+                </div>
+
+                <div class="enterprise-card fade-in">
+                    <div class="enterprise-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Task Automation</h3>
+                    <p>AI-powered workflow automation for routine legal tasks, document generation, and client communications.</p>
+                    <ul class="enterprise-features">
+                        <li><span class="icon">✓</span> Automated document drafting</li>
+                        <li><span class="icon">✓</span> Email template automation</li>
+                        <li><span class="icon">✓</span> Billing & invoicing automation</li>
+                        <li><span class="icon">✓</span> Court date reminders</li>
+                    </ul>
+                    <span class="enterprise-price">Add-on: ₹8,000/month</span>
+                </div>
+
+                <div class="enterprise-card fade-in">
+                    <div class="enterprise-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Client Portal</h3>
+                    <p>White-labeled client portal where clients can track case progress, upload documents, and communicate securely.</p>
+                    <ul class="enterprise-features">
+                        <li><span class="icon">✓</span> Secure document sharing</li>
+                        <li><span class="icon">✓</span> Real-time case updates</li>
+                        <li><span class="icon">✓</span> Online payment processing</li>
+                        <li><span class="icon">✓</span> Custom branding</li>
+                    </ul>
+                    <span class="enterprise-price">Add-on: ₹6,000/month</span>
+                </div>
+
+                <div class="enterprise-card fade-in">
+                    <div class="enterprise-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Data-driven insights for strategic decision making with predictive analytics and market intelligence.</p>
+                    <ul class="enterprise-features">
+                        <li><span class="icon">✓</span> Case trend analysis</li>
+                        <li><span class="icon">✓</span> Demand forecasting</li>
+                        <li><span class="icon">✓</span> Competitor benchmarking</li>
+                        <li><span class="icon">✓</span> Win rate prediction</li>
+                    </ul>
+                    <span class="enterprise-price">Premium: ₹12,000/month</span>
+                </div>
+
+                <div class="enterprise-card fade-in">
+                    <div class="enterprise-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>API Integration</h3>
+                    <p>Custom API access for integration with existing systems and third-party legal software.</p>
+                    <ul class="enterprise-features">
+                        <li><span class="icon">✓</span> RESTful API access</li>
+                        <li><span class="icon">✓</span> Webhook support</li>
+                        <li><span class="icon">✓</span> Developer documentation</li>
+                        <li><span class="icon">✓</span> Technical support</li>
+                    </ul>
+                    <span class="enterprise-price">Enterprise Only</span>
+                </div>
+
+                <div class="enterprise-card fade-in">
+                    <div class="enterprise-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>White Label Platform</h3>
+                    <p>Fully customizable white-label solution with your firm's branding, domain, and custom features.</p>
+                    <ul class="enterprise-features">
+                        <li><span class="icon">✓</span> Custom domain & branding</li>
+                        <li><span class="icon">✓</span> Tailored user interface</li>
+                        <li><span class="icon">✓</span> Multi-location support</li>
+                        <li><span class="icon">✓</span> Dedicated account manager</li>
+                    </ul>
+                    <span class="enterprise-price">Custom Pricing</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem;">
+                <button class="btn-primary btn-large" style="background: white; color: var(--secondary); border-color: white; font-size: 1.3rem; padding: 2rem 4rem;">
+                    <i class="fas fa-building"></i> Request Enterprise Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Stats Section -->
     <section class="business-stats">
         <div class="container">
-            <div class="stats-header">
-                <h2>Proven Business Model & Growth Metrics</h2>
-                <p>Smart pricing strategy with high conversion rates and recurring revenue potential</p>
+            <div class="section-title fade-in">
+                <h2 style="color: white;">Platform Performance & Growth Metrics</h2>
+                <p style="color: rgba(255,255,255,0.9)">Proven business model with strong unit economics and high customer satisfaction</p>
             </div>
             <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>₹99</h3>
-                    <p>Client Analysis Fee<br><small>85% Conversion Rate</small></p>
+                <div class="stat-item fade-in">
+                    <h3>₹0-₹4,999</h3>
+                    <p>Flexible Pricing Tiers</p>
                 </div>
-                <div class="stat-item">
-                    <h3>₹999</h3>
-                    <p>Per Quality Lead<br><small>40% Lawyer Repeat Rate</small></p>
+                <div class="stat-item fade-in">
+                    <h3>85%</h3>
+                    <p>Free to Paid Conversion</p>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item fade-in">
+                    <h3>40%</h3>
+                    <p>Lawyer Subscription Renewal</p>
+                </div>
+                <div class="stat-item fade-in">
                     <h3>25%</h3>
-                    <p>Referral Bonus<br><small>On Lawyer Payments</small></p>
+                    <p>Referral Commission Rate</p>
                 </div>
-                <div class="stat-item">
-                    <h3>₹2.5L</h3>
-                    <p>Monthly Revenue<br><small>Per 1000 Users</small></p>
+                <div class="stat-item fade-in">
+                    <h3>₹12L+</h3>
+                    <p>Annual Revenue Potential<br><small>(1000 users mix)</small></p>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item fade-in">
                     <h3>72%</h3>
-                    <p>Client Satisfaction<br><small>Proceed to Lawyers</small></p>
+                    <p>Gross Margin<br><small>Highly Profitable</small></p>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item fade-in">
                     <h3>3.2x</h3>
                     <p>ROI for Lawyers<br><small>Average Case Value</small></p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Complete Legal Lead Generation Suite</h2>
-                <p>10+ integrated features designed for maximum conversion and revenue generation</p>
-            </div>
-            
-            <div class="features-grid">
-                <!-- Client Features -->
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="feature-badge">Client Feature</div>
-                    </div>
-                    <h3>Smart Legal Problem Analyzer</h3>
-                    <p>AI-powered questionnaire that identifies legal issues, analyzes problem complexity, and creates structured consultation documents for better lawyer meetings.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div class="feature-badge">Client Feature</div>
-                    </div>
-                    <h3>Legal Cost & Timeline Calculator</h3>
-                    <p>Estimate potential legal costs, expected case duration, and success probability based on case type and complexity analysis.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <div class="feature-badge">Client Feature</div>
-                    </div>
-                    <h3>Evidence Collection Guide</h3>
-                    <p>Personalized checklist of documents and evidence needed for the case, helping clients prepare better for legal consultation.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="feature-badge">Client Feature</div>
-                    </div>
-                    <h3>Case Strength Assessment</h3>
-                    <p>AI evaluation of case merit, settlement likelihood, and recommended legal approach based on similar case patterns.</p>
-                </div>
-
-                <!-- Lawyer Features -->
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-target"></i>
-                        </div>
-                        <div class="revenue-badge">Revenue Generator</div>
-                    </div>
-                    <h3>Qualified Lead Marketplace</h3>
-                    <p>Pre-screened clients with detailed case analysis, budget verification, and readiness scores. Lawyers pay ₹999 per qualified lead.</p>
-                    <div class="roi-highlight">ROI: 3.2x average case value</div>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-check"></i>
-                        </div>
-                        <div class="revenue-badge">Premium Feature</div>
-                    </div>
-                    <h3>Client Background Verification</h3>
-                    <p>Detailed client credibility check, case history, and payment capability assessment before connecting with lawyers.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="revenue-badge">Lawyer Success</div>
-                    </div>
-                    <h3>Success Rate Tracking</h3>
-                    <p>Track lawyer success rates, client satisfaction, and case outcomes to provide better matching and improve lead quality.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <div class="revenue-badge">Referral System</div>
-                    </div>
-                    <h3>25% Referral Bonus Program</h3>
-                    <p>Earn 25% commission for every lawyer you onboard who pays for leads. Passive income potential with recurring payments.</p>
-                    <div class="roi-highlight">Unlimited earning potential</div>
-                </div>
-
-                <!-- Revenue Enhancement Features -->
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <div class="revenue-badge">Premium Revenue</div>
-                    </div>
-                    <h3>Video Consultation Booking</h3>
-                    <p>Direct integration for paid consultations with commission-based revenue model. Premium feature for urgent legal advice.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-file-contract"></i>
-                        </div>
-                        <div class="revenue-badge">Document Revenue</div>
-                    </div>
-                    <h3>Legal Document Templates</h3>
-                    <p>Generate customized legal documents based on case analysis. Additional revenue stream through document generation services.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="revenue-badge">Subscription Model</div>
-                    </div>
-                    <h3>Legal Education Platform</h3>
-                    <p>Paid courses, webinars, and legal awareness content for clients. Recurring subscription revenue with educational content.</p>
-                </div>
-
-                <div class="feature-card fade-in">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div class="revenue-badge">Enterprise Revenue</div>
-                    </div>
-                    <h3>Corporate Legal Services</h3>
-                    <p>B2B legal consultation services for companies. Higher value deals with enterprise-level pricing and service packages.</p>
+                <div class="stat-item fade-in">
+                    <h3>92%</h3>
+                    <p>Client Satisfaction<br><small>NPS Score: 68</small></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Revenue Model Section -->
-    <section class="revenue-model" id="revenue">
+    <!-- NEW: Revenue Calculator -->
+    <section class="revenue-calculator">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>Multiple Revenue Stream Business Model</h2>
-                <p>Diversified revenue streams with high growth potential and scalable pricing</p>
+                <h2>Calculate Your Revenue Potential</h2>
+                <p>Interactive calculator to project your monthly earnings based on user mix</p>
             </div>
             
-            <div class="revenue-grid">
-                <div class="revenue-card fade-in">
-                    <h3>Client Analysis</h3>
-                    <div class="revenue-price">₹99</div>
-                    <div class="revenue-period">per analysis</div>
-                    <ul class="revenue-features">
-                        <li><span class="check">✓</span> High volume potential</li>
-                        <li><span class="check">✓</span> 85% conversion rate</li>
-                        <li><span class="check">✓</span> Automated service</li>
-                        <li><span class="check">✓</span> Scalable delivery</li>
-                        <li><span class="check">✓</span> Lead generation source</li>
-                    </ul>
-                    <div class="roi-highlight">₹85K+ monthly (1000 clients)</div>
-                </div>
+            <div class="calculator-container">
+                <h3 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; font-family: 'Playfair Display', serif;">
+                    Monthly Revenue Projection
+                </h3>
                 
-                <div class="revenue-card featured fade-in">
-                    <h3>Lawyer Lead Sales</h3>
-                    <div class="revenue-price">₹999</div>
-                    <div class="revenue-period">per qualified lead</div>
-                    <ul class="revenue-features">
-                        <li><span class="check">✓</span> Premium pricing model</li>
-                        <li><span class="check">✓</span> High-value transactions</li>
-                        <li><span class="check">✓</span> 40% repeat customers</li>
-                        <li><span class="check">✓</span> Quality guarantees</li>
-                        <li><span class="check">✓</span> Subscription potential</li>
-                    </ul>
-                    <div class="roi-highlight">₹1.5L+ monthly (150 leads)</div>
-                </div>
-                
-                <div class="revenue-card fade-in">
-                    <h3>Referral Commissions</h3>
-                    <div class="revenue-price">25%</div>
-                    <div class="revenue-period">of lawyer payments</div>
-                    <ul class="revenue-features">
-                        <li><span class="check">✓</span> Passive income stream</li>
-                        <li><span class="check">✓</span> Recurring commissions</li>
-                        <li><span class="check">✓</span> Network effect growth</li>
-                        <li><span class="check">✓</span> No delivery overhead</li>
-                        <li><span class="check">✓</span> Exponential scaling</li>
-                    </ul>
-                    <div class="roi-highlight">₹50K+ monthly (referrals)</div>
-                </div>
-
-                <div class="revenue-card fade-in">
-                    <h3>Premium Services</h3>
-                    <div class="revenue-price">₹299-₹1999</div>
-                    <div class="revenue-period">per service</div>
-                    <ul class="revenue-features">
-                        <li><span class="check">✓</span> Video consultations</li>
-                        <li><span class="check">✓</span> Document generation</li>
-                        <li><span class="check">✓</span> Priority matching</li>
-                        <li><span class="check">✓</span> Express services</li>
-                        <li><span class="check">✓</span> Corporate packages</li>
-                    </ul>
-                    <div class="roi-highlight">₹75K+ monthly (add-ons)</div>
-                </div>
-
-                <div class="revenue-card fade-in">
-                    <h3>Subscription Plans</h3>
-                    <div class="revenue-price">₹4999</div>
-                    <div class="revenue-period">per month (lawyers)</div>
-                    <ul class="revenue-features">
-                        <li><span class="check">✓</span> Unlimited leads access</li>
-                        <li><span class="check">✓</span> Premium placement</li>
-                        <li><span class="check">✓</span> Analytics dashboard</li>
-                        <li><span class="check">✓</span> Priority support</li>
-                        <li><span class="check">✓</span> Custom branding</li>
-                    </ul>
-                    <div class="roi-highlight">₹2.5L+ monthly (50 lawyers)</div>
-                </div>
-
-                <div class="revenue-card fade-in">
-                    <h3>Enterprise Solutions</h3>
-                    <div class="revenue-price">₹25K+</div>
-                    <div class="revenue-period">per month</div>
-                    <ul class="revenue-features">
-                        <li><span class="check">✓</span> White-label platform</li>
-                        <li><span class="check">✓</span> Custom integrations</li>
-                        <li><span class="check">✓</span> Dedicated support</li>
-                        <li><span class="check">✓</span> Advanced analytics</li>
-                        <li><span class="check">✓</span> Multi-location support</li>
-                    </ul>
-                    <div class="roi-highlight">₹5L+ per enterprise client</div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border-radius: 20px;">
-                <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">Total Revenue Potential</h3>
-                <div style="font-size: 4rem; font-weight: 900; margin-bottom: 1rem;">₹10L+ Monthly</div>
-                <p style="font-size: 1.3rem; opacity: 0.9;">With 1000 clients + 200 lawyers + referrals + premium services</p>
-                <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">₹1.2 Cr</div>
-                        <div>Annual Revenue</div>
+                <div class="calculator-grid">
+                    <div class="calculator-input">
+                        <label>Pro Client Subscriptions (₹999/mo)</label>
+                        <input type="number" id="proClients" value="50" min="0" max="10000">
                     </div>
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">70%</div>
-                        <div>Gross Margin</div>
+                    
+                    <div class="calculator-input">
+                        <label>Lawyer Starter Subscriptions (₹2,499/mo)</label>
+                        <input type="number" id="lawyerStarter" value="20" min="0" max="1000">
                     </div>
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: 700;">85%</div>
-                        <div>Recurring Revenue</div>
+                    
+                    <div class="calculator-input">
+                        <label>Lawyer Pro Subscriptions (₹4,999/mo)</label>
+                        <input type="number" id="lawyerPro" value="10" min="0" max="1000">
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Demo Section -->
-    <section class="demo-section" id="demo">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Experience the Platform</h2>
-                <p>Try our smart legal analysis and lead generation system</p>
-            </div>
-            
-            <div class="demo-container">
-                <div class="demo-tabs">
-                    <div class="demo-tab active" data-demo="client">
-                        <i class="fas fa-user"></i><br>Client Analysis (₹99)
+                    
+                    <div class="calculator-input">
+                        <label>Pay-Per-Lead Sales (₹999 avg)</label>
+                        <input type="number" id="payPerLead" value="30" min="0" max="5000">
                     </div>
-                    <div class="demo-tab" data-demo="lawyer">
-                        <i class="fas fa-user-tie"></i><br>Lawyer Leads (₹999)
+                    
+                    <div class="calculator-input">
+                        <label>Referral Earnings (₹/mo)</label>
+                        <input type="number" id="referrals" value="15000" min="0" max="1000000">
                     </div>
-                    <div class="demo-tab" data-demo="referral">
-                        <i class="fas fa-handshake"></i><br>Referral Program (25%)
-                    </div>
-                </div>
-                
-                <div class="demo-content" id="client-demo">
-                    <div style="text-align: center; padding: 4rem 2rem;">
-                        <div style="background: #e74c3c; color: white; padding: 3rem; border-radius: 20px; margin-bottom: 2rem;">
-                            <h3 style="font-size: 2rem; margin-bottom: 1rem;">
-                                <i class="fas fa-brain"></i> Smart Legal Problem Analyzer
-                            </h3>
-                            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Get instant AI-powered legal consultation preparation for just ₹99</p>
-                            
-                            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; text-align: left;">
-                                <h4 style="margin-bottom: 1rem;">What You Get:</h4>
-                                <ul style="list-style: none; padding: 0;">
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Detailed case analysis report</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Legal cost estimation</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Case strength assessment</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Evidence collection checklist</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Lawyer matching recommendations</li>
-                                </ul>
-                            </div>
-                            
-                            <button style="background: white; color: #e74c3c; padding: 1.5rem 3rem; border: none; border-radius: 10px; font-weight: 700; font-size: 1.2rem; margin-top: 2rem; cursor: pointer;">
-                                Start Analysis for ₹99
-                            </button>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                            <div style="background: white; padding: 2rem; border-radius: 15px; border: 2px solid #e0e0e0;">
-                                <h4 style="color: #e74c3c;">85%</h4>
-                                <p>Client Conversion Rate</p>
-                            </div>
-                            <div style="background: white; padding: 2rem; border-radius: 15px; border: 2px solid #e0e0e0;">
-                                <h4 style="color: #e74c3c;">₹85K+</h4>
-                                <p>Monthly Revenue (1000 clients)</p>
-                            </div>
-                            <div style="background: white; padding: 2rem; border-radius: 15px; border: 2px solid #e0e0e0;">
-                                <h4 style="color: #e74c3c;">72%</h4>
-                                <p>Proceed to Lawyers</p>
-                            </div>
-                        </div>
+                    
+                    <div class="calculator-result">
+                        <h3>Total Monthly Revenue</h3>
+                        <div class="calculator-total" id="totalRevenue">₹2,64,980</div>
+                        <p style="opacity: 0.9; margin-top: 1rem;">Annual Projection: <strong id="annualRevenue">₹31,79,760</strong></p>
                     </div>
                 </div>
 
-                <div class="demo-content" id="lawyer-demo" style="display: none;">
-                    <div style="text-align: center; padding: 4rem 2rem;">
-                        <div style="background: #2c2c2c; color: white; padding: 3rem; border-radius: 20px; margin-bottom: 2rem;">
-                            <h3 style="font-size: 2rem; margin-bottom: 1rem;">
-                                <i class="fas fa-target"></i> Premium Lawyer Lead System
-                            </h3>
-                            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Get pre-qualified, high-value client leads for ₹999 each</p>
-                            
-                            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; text-align: left;">
-                                <h4 style="margin-bottom: 1rem;">Each Lead Includes:</h4>
-                                <ul style="list-style: none; padding: 0;">
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Verified client identity & background</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Complete case analysis report</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Budget verification & payment capability</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Case urgency and readiness score</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #27ae60; margin-right: 10px;"></i> Direct client contact information</li>
-                                </ul>
-                            </div>
-                            
-                            <button style="background: white; color: #2c2c2c; padding: 1.5rem 3rem; border: none; border-radius: 10px; font-weight: 700; font-size: 1.2rem; margin-top: 2rem; cursor: pointer;">
-                                Join Lawyer Platform
-                            </button>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                            <div style="background: white; padding: 2rem; border-radius: 15px; border: 2px solid #e0e0e0;">
-                                <h4 style="color: #2c2c2c;">3.2x ROI</h4>
-                                <p>Average Case Value</p>
-                            </div>
-                            <div style="background: white; padding: 2rem; border-radius: 15px; border: 2px solid #e0e0e0;">
-                                <h4 style="color: #2c2c2c;">40%</h4>
-                                <p>Repeat Purchase Rate</p>
-                            </div>
-                            <div style="background: white; padding: 2rem; border-radius: 15px; border: 2px solid #e0e0e0;">
-                                <h4 style="color: #2c2c2c;">₹1.5L+</h4>
-                                <p>Monthly Revenue (150 leads)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="demo-content" id="referral-demo" style="display: none;">
-                    <div style="text-align: center; padding: 4rem 2rem;">
-                        <div style="background: #27ae60; color: white; padding: 3rem; border-radius: 20px; margin-bottom: 2rem;">
-                            <h3 style="font-size: 2rem; margin-bottom: 1rem;">
-                                <i class="fas fa-handshake"></i> 25% Referral Bonus Program
-                            </h3>
-                            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Earn passive income by referring lawyers to our platform</p>
-                            
-                            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; text-align: left;">
-                                <h4 style="margin-bottom: 1rem;">How It Works:</h4>
-                                <ul style="list-style: none; padding: 0;">
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #fff; margin-right: 10px;"></i> Refer lawyers to join our platform</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #fff; margin-right: 10px;"></i> Earn 25% of every lead payment they make</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #fff; margin-right: 10px;"></i> Recurring income on repeat purchases</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #fff; margin-right: 10px;"></i> No limit on number of referrals</li>
-                                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #fff; margin-right: 10px;"></i> Monthly automated payments</li>
-                                </ul>
-                            </div>
-                            
-                            <div style="background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 15px; margin-top: 2rem;">
-                                <h4 style="margin-bottom: 1rem;">Earning Example:</h4>
-                                <p>10 lawyers × ₹999 per lead × 5 leads per month × 25% = <strong>₹12,475 monthly</strong></p>
-                                <p style="margin-top: 1rem;">Scale to 50 lawyers = <strong>₹62,375 monthly passive income</strong></p>
-                            </div>
-                            
-                            <button style="background: white; color: #27ae60; padding: 1.5rem 3rem; border: none; border-radius: 10px; font-weight: 700; font-size: 1.2rem; margin-top: 2rem; cursor: pointer;">
-                                Start Referring Lawyers
-                            </button>
-                        </div>
-                    </div>
+                <div style="margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 15px; text-align: center;">
+                    <p style="font-size: 1.1rem; color: var(--text-medium);">
+                        <strong>Note:</strong> Calculator shows conservative estimates. Actual revenue may vary based on 
+                        market conditions, conversion rates, and premium service adoption.
+                    </p>
                 </div>
             </div>
         </div>
@@ -1441,125 +2140,183 @@
     <!-- Final CTA -->
     <section class="final-cta">
         <div class="container">
-            <h2>Start Your Legal Business Today</h2>
-            <p>Join India's fastest growing legal lead generation platform</p>
-            <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;">
-                <a href="#demo" class="btn-primary" style="font-size: 1.3rem; padding: 2rem 3rem; border: 2px solid white;">
-                    <i class="fas fa-rocket"></i> Launch Platform
+            <h2>Transform India's Legal Landscape Together</h2>
+            <p>Join the most comprehensive legal intelligence platform with proven ROI and multiple revenue streams</p>
+            <div class="cta-buttons-large">
+                <a href="#pricing" class="btn-primary btn-large">
+                    <i class="fas fa-rocket"></i> Start Free Today
                 </a>
-                <a href="#contact" class="btn-secondary" style="background: white; color: #e74c3c; font-size: 1.3rem; padding: 2rem 3rem;">
-                    <i class="fas fa-phone"></i> Get Started
+                <a href="#enterprise" class="btn-secondary btn-large" style="background: white; color: var(--primary); border-color: white;">
+                    <i class="fas fa-building"></i> Request Enterprise Demo
                 </a>
             </div>
-            <p style="margin-top: 2rem; font-size: 1.1rem; opacity: 0.8;">
-                🚀 Fast Setup • 💰 Multiple Revenue Streams • 📈 Proven Business Model
+            <p style="margin-top: 2.5rem; font-size: 1.15rem; opacity: 0.9;">
+                🚀 10+ AI Tools • 💰 4 Pricing Tiers • 📚 Education Platform • 🏢 Enterprise Solutions • 🤝 25% Referral Bonus
             </p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer" id="contact">
-        <div class="footer-content">
+        <div class="container">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h4>Business Model</h4>
+                    <h4>Platform</h4>
                     <ul class="footer-links">
-                        <li><a href="#revenue">Revenue Streams</a></li>
-                        <li><a href="#features">Platform Features</a></li>
-                        <li><a href="#demo">Live Demo</a></li>
-                        <li><a href="/business-plan">Business Plan</a></li>
-                        <li><a href="/roi-calculator">ROI Calculator</a></li>
+                        <li><a href="#pricing">Pricing Plans</a></li>
+                        <li><a href="#tools">AI Tools</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#enterprise">Enterprise</a></li>
+                        <li><a href="/features">All Features</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>For Clients</h4>
                     <ul class="footer-links">
-                        <li><a href="/legal-analysis">Legal Analysis (₹99)</a></li>
+                        <li><a href="/free-analysis">Free Legal Analysis</a></li>
+                        <li><a href="/document-drafting">AI Document Drafting</a></li>
                         <li><a href="/case-strength">Case Assessment</a></li>
-                        <li><a href="/cost-calculator">Cost Calculator</a></li>
-                        <li><a href="/lawyer-matching">Lawyer Matching</a></li>
-                        <li><a href="/help">Help & Support</a></li>
+                        <li><a href="/lawyer-matching">Find Lawyers</a></li>
+                        <li><a href="/courses">Legal Courses</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>For Lawyers</h4>
                     <ul class="footer-links">
                         <li><a href="/lawyer-signup">Join Platform</a></li>
-                        <li><a href="/lead-quality">Lead Quality</a></li>
-                        <li><a href="/pricing">Pricing (₹999)</a></li>
-                        <li><a href="/success-stories">Success Stories</a></li>
-                        <li><a href="/lawyer-dashboard">Dashboard</a></li>
+                        <li><a href="/practice-dashboard">Practice Dashboard</a></li>
+                        <li><a href="/crm">Client CRM</a></li>
+                        <li><a href="/analytics">Analytics & Reports</a></li>
+                        <li><a href="/api">API Integration</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Partnership</h4>
                     <ul class="footer-links">
-                        <li><a href="/referral-program">25% Referral Bonus</a></li>
-                        <li><a href="/affiliate">Affiliate Program</a></li>
+                        <li><a href="/referral">25% Referral Program</a></li>
+                        <li><a href="/affiliate">Affiliate Network</a></li>
+                        <li><a href="/partners">Strategic Partners</a></li>
                         <li><a href="/white-label">White Label</a></li>
                         <li><a href="/investors">For Investors</a></li>
-                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/blog">Blog & Resources</a></li>
+                        <li><a href="/careers">Careers</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/support">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/disclaimer">Legal Disclaimer</a></li>
+                        <li><a href="/compliance">Compliance</a></li>
+                        <li><a href="/security">Security</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Lawgic AI Lead Generation Platform. All rights reserved. India's smartest legal marketplace.</p>
-                <p style="margin-top: 1rem; color: #e74c3c; font-weight: 600;">
-                    ₹99 Client Prep • ₹999 Lawyer Leads • 25% Referral Bonus
+                <p>&copy; 2025 Lawgic AI - India's Most Comprehensive Legal Intelligence Platform. All rights reserved.</p>
+                <p style="margin-top: 1rem; color: var(--primary); font-weight: 600;">
+                    Free to ₹4,999/mo • 10+ AI Tools • Education Platform • Enterprise Solutions • 25% Referral Bonus
                 </p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Demo tab switching
-        document.addEventListener('DOMContentLoaded', function() {
-            // Demo tab switching
-            document.querySelectorAll('.demo-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    document.querySelectorAll('.demo-content').forEach(content => {
-                        content.style.display = 'none';
-                    });
-                    
-                    const demoType = this.getAttribute('data-demo');
-                    document.getElementById(demoType + '-demo').style.display = 'block';
-                });
+        // Scroll Progress Bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.pageYOffset > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-in Animation Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
+        }, observerOptions);
 
-            // Smooth animations
-            const observerOptions = {
-                threshold: 0.2,
-                rootMargin: '0px 0px -50px 0px'
-            };
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
 
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
+        // Revenue Calculator
+        function updateCalculator() {
+            const proClients = parseInt(document.getElementById('proClients').value) || 0;
+            const lawyerStarter = parseInt(document.getElementById('lawyerStarter').value) || 0;
+            const lawyerPro = parseInt(document.getElementById('lawyerPro').value) || 0;
+            const payPerLead = parseInt(document.getElementById('payPerLead').value) || 0;
+            const referrals = parseInt(document.getElementById('referrals').value) || 0;
 
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
+            const total = (proClients * 999) + (lawyerStarter * 2499) + (lawyerPro * 4999) + (payPerLead * 999) + referrals;
+            const annual = total * 12;
+
+            document.getElementById('totalRevenue').textContent = '₹' + total.toLocaleString('en-IN');
+            document.getElementById('annualRevenue').textContent = '₹' + annual.toLocaleString('en-IN');
+        }
+
+        // Add event listeners to calculator inputs
+        ['proClients', 'lawyerStarter', 'lawyerPro', 'payPerLead', 'referrals'].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', updateCalculator);
+            }
+        });
+
+        // Initialize calculator
+        updateCalculator();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
 
-        // Add scroll effects for header
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.header');
-            
-            if (scrolled > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.borderBottomColor = '#e74c3c';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.borderBottomColor = '#2c2c2c';
-            }
+        // Confidence score animation
+        window.addEventListener('load', function() {
+            const confidenceFills = document.querySelectorAll('.confidence-fill');
+            confidenceFills.forEach(fill => {
+                const width = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = width;
+                }, 500);
+            });
         });
     </script>
 </body>
