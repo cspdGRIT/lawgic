@@ -148,6 +148,12 @@ export const generateSessionId = () => Math.random().toString(36).slice(2) + Dat
 export const getSSEUrl = (path: string) => `${API_BASE}${path}`;
 
 export const getWSUrl = (sessionId: string, token: string) => {
+  // In dev, API_BASE is empty so fall back to window.location.host (proxied by Vite).
+  // In production, API_BASE is the Render backend URL (https://…); convert to wss://.
+  if (API_BASE) {
+    const wsBase = API_BASE.replace(/^https?/, (p) => (p === 'https' ? 'wss' : 'ws'));
+    return `${wsBase}/api/v1/chat/ws/${sessionId}?token=${token}`;
+  }
   const wsProto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   return `${wsProto}//${window.location.host}/api/v1/chat/ws/${sessionId}?token=${token}`;
 };

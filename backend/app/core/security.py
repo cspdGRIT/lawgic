@@ -153,12 +153,15 @@ async def get_current_user_from_token(token: str, db: AsyncSession):
 REFRESH_COOKIE = "lawgic_refresh"
 
 def refresh_cookie_kwargs(value: str, clear: bool = False) -> dict:
+    is_dev = settings.ENVIRONMENT == "development"
     base = dict(
         key=REFRESH_COOKIE,
         value=value,
         httponly=True,
-        samesite="lax",
-        secure=settings.ENVIRONMENT != "development",
+        # "none" required for cross-domain (Vercel frontend ↔ Render backend)
+        # "lax" is fine only when both are on the same domain
+        samesite="lax" if is_dev else "none",
+        secure=not is_dev,  # "none" requires Secure=True (HTTPS)
         path="/api/v1/auth",
     )
     if clear:
