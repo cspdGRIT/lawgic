@@ -157,9 +157,9 @@ export default function LegalResearch() {
                 {expandedIdx === i && (
                   <div className="px-5 pb-5 border-t border-zinc-800 pt-4">
                     <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{result.content}</p>
-                    {result.keywords?.length > 0 && (
+                    {(result.keywords?.length ?? 0) > 0 && (
                       <div className="mt-4 flex flex-wrap gap-1.5">
-                        {result.keywords.map((kw) => (
+                        {result.keywords?.map((kw) => (
                           <button
                             key={kw}
                             onClick={() => handleSearch(kw)}
