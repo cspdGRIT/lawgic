@@ -75,7 +75,11 @@ export default function Register() {
     try {
       await handleAuth(await authAPI.register({ ...form, user_type: userType }))
     } catch (err: any) {
-      setError(err?.response?.data?.detail || 'Registration failed. Please try again.')
+      if (!err?.response) {
+        setError('Cannot reach server. Please try again in a moment.')
+      } else {
+        setError(err.response.data?.detail || 'Registration failed. Please try again.')
+      }
     } finally {
       setLoading(false)
     }

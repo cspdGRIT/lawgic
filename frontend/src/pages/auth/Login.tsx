@@ -50,7 +50,11 @@ export default function Login() {
     try {
       await handleAuth(await authAPI.login(form))
     } catch (err: any) {
-      setError(err?.response?.data?.detail || 'Invalid email or password')
+      if (!err?.response) {
+        setError('Cannot reach server. Please try again in a moment.')
+      } else {
+        setError(err.response.data?.detail || 'Invalid email or password')
+      }
     } finally {
       setLoading(false)
     }
@@ -143,9 +147,6 @@ export default function Login() {
             </p>
           </form>
 
-          <p className="text-center text-xs text-gray-600 mt-6">
-            Demo: demo@lawgic.in / password123
-          </p>
         </div>
       </div>
     </div>
