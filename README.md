@@ -335,13 +335,18 @@ postgresql+asyncpg://lawgic_owner:xxx@ep-xxx.us-east-2.aws.
 
 npx neonctl@latest init
 
-postgresql://neondb_owner:npg_8IvYCu0qRDQL@ep-muddy-butterfly-atzm3a0o.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require
+postgresql://neondb_owner:REDACTED@ep-muddy-butterfly-atzm3a0o.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require
 
 -->
 
 npx neonctl@latest init
 
-postgresql+asyncpg://neondb_owner:npg_8IvYCu0qRDQL@ep-muddy-butterfly-atzm3a0o.c-9.us-east-1.aws.neon.tech/neondb?ssl=require
+postgresql+asyncpg://neondb_owner:REDACTED@ep-muddy-butterfly-atzm3a0o.c-9.us-east-1.aws.neon.tech/neondb?ssl=require
+
+<!-- SECURITY: this file previously had the real Neon password in plaintext here.
+It's redacted now, but it's still in git history — rotate that DB password in the
+Neon dashboard, and consider scrubbing history (git filter-repo / BFG) if this repo
+is or becomes public. -->
 
 
 https://lawgic-qy66.onrender.com

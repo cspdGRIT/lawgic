@@ -44,7 +44,10 @@ Always respond in the same language the user writes in unless instructed otherwi
 _PROVIDER_DEFAULTS: dict[str, str] = {
     "anthropic": "anthropic/claude-sonnet-4-6",
     "openai":    "openai/gpt-4o-mini",
-    "groq":      "groq/llama-3.3-70b-versatile",
+    # Groq's free-tier catalog changes over time — llama-3.3-70b-versatile got retired
+    # from it; gpt-oss-120b (open-weight, Apache 2.0) is the current strongest option.
+    # Check https://console.groq.com/docs/models against your own key if this 404s again.
+    "groq":      "groq/openai/gpt-oss-120b",
     "google":    "gemini/gemini-1.5-flash",
     "cohere":    "cohere/command-r",
     "nvidia":    "nvidia_nim/meta/llama-3.1-70b-instruct",
