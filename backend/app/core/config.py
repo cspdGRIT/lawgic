@@ -54,11 +54,15 @@ class Settings(BaseSettings):
             v = v.strip()
             if v.startswith("["):
                 try:
-                    return json.loads(v)
+                    v = json.loads(v)
                 except (json.JSONDecodeError, ValueError):
-                    pass
-            return [origin.strip() for origin in v.split(",") if origin.strip()]
-        return v
+                    v = [origin.strip() for origin in v.split(",") if origin.strip()]
+            else:
+                v = [origin.strip() for origin in v.split(",") if origin.strip()]
+        # Browsers send the Origin header with no trailing slash — a pasted URL
+        # with one (an easy mistake, e.g. "https://app.vercel.app/") would silently
+        # never match and break CORS for that exact origin.
+        return [origin.rstrip("/") for origin in v]
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
 
