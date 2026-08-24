@@ -90,6 +90,9 @@ export const authAPI = {
   login: (data: unknown) => api.post('/api/v1/auth/login', data).then((r) => r.data),
   me: () => api.get('/api/v1/auth/me').then((r) => r.data),
   googleAuth: (token: string) => api.post('/api/v1/auth/google', { token }).then((r) => r.data),
+  requestOtp: (phone: string) => api.post('/api/v1/auth/otp/request', { phone }).then((r) => r.data),
+  verifyOtp: (phone: string, otp: string, full_name?: string) =>
+    api.post('/api/v1/auth/otp/verify', { phone, otp, full_name }).then((r) => r.data),
   // withCredentials already set on instance — cookie auto-sent
   refresh: () => api.post('/api/v1/auth/refresh').then((r) => r.data),
   logout: () => api.post('/api/v1/auth/logout').then((r) => r.data),

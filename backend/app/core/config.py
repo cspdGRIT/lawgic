@@ -16,6 +16,15 @@ class Settings(BaseSettings):
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     # Auth
     GOOGLE_CLIENT_ID: str = ""
+    # Mobile OTP login — SMS_PROVIDER: console (dev, logs the code) | android_gateway (open-source, self-hosted)
+    SMS_PROVIDER: str = "console"
+    SMS_GATEWAY_URL: str = ""       # e.g. http://192.168.1.20:8080 — your android-sms-gateway instance
+    SMS_GATEWAY_LOGIN: str = ""
+    SMS_GATEWAY_PASSWORD: str = ""
+    OTP_LENGTH: int = 6
+    OTP_EXPIRE_MINUTES: int = 5
+    OTP_RESEND_COOLDOWN_SECONDS: int = 60
+    OTP_MAX_ATTEMPTS: int = 5
     # Legal data
     INDIAN_KANOON_API_KEY: str = ""
     # Payments

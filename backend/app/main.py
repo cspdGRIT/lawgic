@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import create_tables
-from app.api.v1 import auth, cases, documents, lawyers, research, chat, education, payments
+from app.api.v1 import auth, cases, documents, issues, lawyers, research, chat, education, payments
 
 
 @asynccontextmanager
@@ -31,6 +31,7 @@ app.add_middleware(
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(cases.router, prefix="/api/v1/cases", tags=["Cases"])
+app.include_router(issues.router, prefix="/api/v1/issues", tags=["Issue Navigator"])
 app.include_router(documents.router, prefix="/api/v1/documents", tags=["Documents"])
 app.include_router(lawyers.router, prefix="/api/v1/lawyers", tags=["Lawyers"])
 app.include_router(research.router, prefix="/api/v1/research", tags=["Research"])

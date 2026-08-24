@@ -34,6 +34,16 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class OTPRequestBody(BaseModel):
+    phone: str
+
+
+class OTPVerifyBody(BaseModel):
+    phone: str
+    otp: str
+    full_name: Optional[str] = None  # only used the first time this phone registers
+
+
 class UserResponse(BaseModel):
     id: int
     email: str
