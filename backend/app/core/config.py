@@ -1,6 +1,8 @@
-from pydantic_settings import BaseSettings
+import json
+from pydantic_settings import BaseSettings, NoDecode
 from pydantic import field_validator
 from typing import List
+from typing_extensions import Annotated
 
 
 class Settings(BaseSettings):
@@ -38,13 +40,24 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     REDIS_URL: str = ""                            # optional: redis://localhost:6379/0
     LLM_CACHE_TTL_SECONDS: int = 3600             # cache identical LLM responses for 1 hour
-    CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000", "http://localhost:3001", "http://localhost:5174"]
+    # NoDecode: pydantic-settings otherwise tries to json.loads() any List-typed env
+    # var *before* our own validator runs, which crashes on a plain URL or a
+    # comma-separated string (exactly what CORS_ORIGINS gets set to on Render).
+    CORS_ORIGINS: Annotated[List[str], NoDecode] = [
+        "http://localhost:5173", "http://localhost:3000", "http://localhost:3001", "http://localhost:5174",
+    ]
 
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def parse_cors_origins(cls, v):
         if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",")]
+            v = v.strip()
+            if v.startswith("["):
+                try:
+                    return json.loads(v)
+                except (json.JSONDecodeError, ValueError):
+                    pass
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
         return v
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
