@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
   LayoutDashboard,
+  Compass,
   Bot,
   Scale,
   FileText,
@@ -23,6 +24,7 @@ interface SidebarProps {
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/issue-navigator', icon: Compass, label: 'Describe Your Issue', badge: 'New' },
   { to: '/assistant', icon: Bot, label: 'AI Assistant', badge: 'AI' },
   { to: '/cases', icon: Scale, label: 'Case Analysis' },
   { to: '/documents', icon: FileText, label: 'Documents' },

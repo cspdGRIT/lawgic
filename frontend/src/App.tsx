@@ -8,6 +8,7 @@ import Landing from './pages/Landing'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import Dashboard from './pages/Dashboard'
+import IssueNavigator from './pages/IssueNavigator'
 import AiAssistant from './pages/AiAssistant'
 import CaseAnalysis from './pages/CaseAnalysis'
 import DocumentGenerator from './pages/DocumentGenerator'
@@ -73,6 +74,7 @@ export default function App() {
               }
             >
               <Route path="dashboard" element={<Dashboard />} />
+              <Route path="issue-navigator" element={<IssueNavigator />} />
               <Route path="assistant" element={<AiAssistant />} />
               <Route path="cases" element={<CaseAnalysis />} />
               <Route path="documents" element={<DocumentGenerator />} />

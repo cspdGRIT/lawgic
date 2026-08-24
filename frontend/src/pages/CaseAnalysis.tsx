@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { casesAPI, getSSEUrl, getAccessToken } from '../lib/api'
 import { formatDate } from '../lib/utils'
 
-const CASE_TYPES = ['Criminal', 'Civil', 'Family', 'Property', 'Consumer', 'Labour', 'Corporate', 'Constitutional', 'Revenue', 'Other']
+const CASE_TYPES = ['Criminal', 'Civil', 'Family', 'Property', 'Consumer', 'Labour', 'Corporate', 'Constitutional', 'Revenue', 'Intellectual Property', 'Other']
 const JURISDICTIONS = ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Ahmedabad', 'Pune', 'Other']
 const COURT_LEVELS = ['District Court', 'High Court', 'Supreme Court', 'Consumer Forum', 'Family Court', 'Labour Court', 'RERA Authority', 'NCLT', 'Arbitral Tribunal']
 
