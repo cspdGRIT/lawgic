@@ -12,6 +12,7 @@ import {
   LogOut,
   CreditCard,
   Zap,
+  ShieldCheck,
 } from 'lucide-react';
 import { useAppStore } from '../../store';
 import { paymentsAPI, authAPI } from '../../lib/api';
@@ -33,6 +34,8 @@ const navItems = [
   { to: '/education', icon: GraduationCap, label: 'Education' },
   { to: '/pricing', icon: CreditCard, label: 'Plans & Billing' },
 ];
+
+const adminNavItem = { to: '/admin/requests', icon: ShieldCheck, label: 'Access Requests' };
 
 const PLAN_BADGE_CLASS: Record<string, string> = {
   free:  'bg-gray-700 text-gray-300',
@@ -71,7 +74,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {navItems.map(({ to, icon: Icon, label, badge }) => (
+        {(user?.user_type === 'admin' ? [...navItems, adminNavItem] : navItems).map(({ to, icon: Icon, label, badge }: any) => (
           <NavLink
             key={to}
             to={to}

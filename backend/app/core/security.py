@@ -68,7 +68,13 @@ async def rotate_refresh_token(old_raw: str, db: AsyncSession) -> tuple[str, int
     result = await db.execute(select(RefreshToken).where(RefreshToken.token_hash == old_hash))
     record = result.scalar_one_or_none()
 
-    if not record or record.revoked or record.expires_at < datetime.now(timezone.utc):
+    # SQLite (local dev) can hand back a naive datetime for a DateTime(timezone=True)
+    # column even though it was stored aware — Postgres/asyncpg (production) doesn't
+    # have this quirk, but normalize defensively either way before comparing.
+    expires_at = record.expires_at if record and record.expires_at.tzinfo else (
+        record.expires_at.replace(tzinfo=timezone.utc) if record else None
+    )
+    if not record or record.revoked or expires_at < datetime.now(timezone.utc):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired refresh token")
 
     # Revoke old

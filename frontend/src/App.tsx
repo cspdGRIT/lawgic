@@ -8,6 +8,8 @@ import Landing from './pages/Landing'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import Dashboard from './pages/Dashboard'
+import AccessPending from './pages/AccessPending'
+import AdminRequests from './pages/AdminRequests'
 import IssueNavigator from './pages/IssueNavigator'
 import AiAssistant from './pages/AiAssistant'
 import CaseAnalysis from './pages/CaseAnalysis'
@@ -52,8 +54,19 @@ function AuthInit({ children }: { children: React.ReactNode }) {
 }
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />
+  const { isAuthenticated, user } = useAuthStore()
+  if (!isAuthenticated) return <Navigate to="/login" replace />
+  // Admins bypass the gate; everyone else needs an approved access request before
+  // touching any resource. The backend enforces this too — this is just the UX.
+  if (user && user.user_type !== 'admin' && user.access_status !== 'approved') {
+    return <AccessPending />
+  }
+  return <>{children}</>
+}
+
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const user = useAuthStore((s) => s.user)
+  return user?.user_type === 'admin' ? <>{children}</> : <Navigate to="/dashboard" replace />
 }
 
 export default function App() {
@@ -82,6 +95,7 @@ export default function App() {
               <Route path="research" element={<LegalResearch />} />
               <Route path="education" element={<Education />} />
               <Route path="pricing" element={<Pricing />} />
+              <Route path="admin/requests" element={<AdminRoute><AdminRequests /></AdminRoute>} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

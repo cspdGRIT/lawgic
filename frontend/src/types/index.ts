@@ -3,6 +3,7 @@ export interface User {
   email: string;
   full_name: string;
   user_type: 'client' | 'lawyer' | 'admin';
+  access_status: 'pending' | 'approved' | 'rejected';
   created_at: string;
 }
 

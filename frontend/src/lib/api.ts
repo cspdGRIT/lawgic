@@ -98,6 +98,17 @@ export const authAPI = {
   logout: () => api.post('/api/v1/auth/logout').then((r) => r.data),
 };
 
+export const accessAPI = {
+  status: () => api.get('/api/v1/access/status').then((r) => r.data),
+  paymentInfo: () => api.get('/api/v1/access/payment-info').then((r) => r.data),
+  submitRequest: (data: { utr_reference?: string; note?: string }) =>
+    api.post('/api/v1/access/requests', data).then((r) => r.data),
+  adminListRequests: (status = 'pending') =>
+    api.get(`/api/v1/access/admin/requests?status=${status}`).then((r) => r.data),
+  adminApprove: (id: number) => api.post(`/api/v1/access/admin/requests/${id}/approve`).then((r) => r.data),
+  adminReject: (id: number) => api.post(`/api/v1/access/admin/requests/${id}/reject`).then((r) => r.data),
+};
+
 export const casesAPI = {
   list: (page = 1, limit = 20) =>
     api.get(`/api/v1/cases?skip=${(page - 1) * limit}&limit=${limit}`).then((r) => r.data),

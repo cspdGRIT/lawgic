@@ -25,8 +25,10 @@ class RegisterRequest(BaseModel):
     def model_post_init(self, __context):
         if len(self.password) < 8:
             raise ValueError("Password must be at least 8 characters")
-        if self.user_type not in ("client", "lawyer", "admin"):
-            raise ValueError("user_type must be one of: client, lawyer, admin")
+        # "admin" is deliberately excluded — self-registering as admin would bypass
+        # the access-approval gate entirely. Admin accounts are promoted manually.
+        if self.user_type not in ("client", "lawyer"):
+            raise ValueError("user_type must be one of: client, lawyer")
 
 
 class LoginRequest(BaseModel):
@@ -51,6 +53,7 @@ class UserResponse(BaseModel):
     phone: Optional[str] = None
     user_type: str
     is_active: bool
+    access_status: str
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

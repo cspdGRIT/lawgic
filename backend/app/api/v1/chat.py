@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.access import require_approved_access
 from app.core.database import get_db
 from app.core.limits import check_and_increment, require_feature
 from app.core.security import get_current_user, get_current_user_from_token
@@ -33,6 +34,10 @@ async def websocket_chat(
         user = await get_current_user_from_token(token, db)
     except Exception:
         await websocket.close(code=4001)
+        return
+
+    if user.user_type != "admin" and user.access_status != "approved":
+        await websocket.close(code=4403)  # custom app-level code: access pending approval
         return
 
     await websocket.accept()
@@ -137,7 +142,7 @@ async def websocket_chat(
 @router.post("/message")
 async def chat_message(
     request: ChatRequest,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_approved_access),
     db: AsyncSession = Depends(get_db),
     _limit: None = Depends(require_feature("ai_queries")),
 ):
@@ -197,7 +202,7 @@ async def chat_message(
 @router.get("/history/{session_id}")
 async def get_chat_history(
     session_id: str,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_approved_access),
     db: AsyncSession = Depends(get_db),
 ):
     from sqlalchemy import select

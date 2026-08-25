@@ -34,6 +34,6 @@ async def get_db():
 
 async def create_tables():
     # Import all models so that Base.metadata is populated
-    from app.models import user, case, document, lawyer, message, subscription, token, usage, otp  # noqa: F401
+    from app.models import user, case, document, lawyer, message, subscription, token, usage, otp, access_request  # noqa: F401
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
