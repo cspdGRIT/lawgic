@@ -86,6 +86,10 @@ export default function IssueNavigator() {
 
       if (!response.ok) {
         const body = await response.json().catch(() => ({}))
+        if (response.status === 403 && body?.detail?.error === 'access_pending') {
+          window.dispatchEvent(new Event('lawgic:access-pending'))
+          return
+        }
         throw new Error(body?.detail?.message || body?.detail || 'Could not analyze your issue. Please try again.')
       }
 

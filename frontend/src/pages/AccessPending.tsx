@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { accessAPI, authAPI } from '../lib/api'
 import { useAuthStore } from '../store'
 
 export default function AccessPending() {
+  const navigate = useNavigate()
   const qc = useQueryClient()
   const { user, setUser, logout } = useAuthStore()
   const [utr, setUtr] = useState('')
@@ -13,11 +15,11 @@ export default function AccessPending() {
   const { data: status } = useQuery({
     queryKey: ['access-status'],
     queryFn: accessAPI.status,
-    refetchInterval: 10000, // polls so an approval unlocks this tab without a manual reload
+    refetchInterval: (query) => (query.state.data?.access_status === 'approved' ? false : 10000),
   })
 
-  // ProtectedRoute gates on user.access_status from the auth store, not this query's
-  // data — sync the two the moment an approval lands so the app actually unlocks.
+  // Keep the store's copy of access_status current so the rest of the app (and any
+  // "already approved?" checks elsewhere) reflect an approval without a full reload.
   useEffect(() => {
     if (user && status?.access_status && status.access_status !== user.access_status) {
       setUser({ ...user, access_status: status.access_status })
@@ -28,6 +30,7 @@ export default function AccessPending() {
     queryKey: ['access-payment-info'],
     queryFn: accessAPI.paymentInfo,
     retry: false,
+    enabled: status?.access_status !== 'approved',
   })
 
   const submitMutation = useMutation({
@@ -43,11 +46,13 @@ export default function AccessPending() {
     try {
       const data = await authAPI.me()
       setUser(data)
+      qc.invalidateQueries({ queryKey: ['access-status'] })
     } catch {
       /* ignore — interceptor handles a real auth failure */
     }
   }
 
+  const isApproved = status?.access_status === 'approved'
   const latest = status?.latest_request
   const isRejected = latest?.status === 'rejected'
   const isPending = latest?.status === 'pending'
@@ -55,15 +60,35 @@ export default function AccessPending() {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-lg">
+        <div className="flex items-center justify-between mb-4">
+          <button onClick={() => navigate(-1)} className="text-sm text-gray-500 hover:text-white transition-colors">
+            ← Back
+          </button>
+        </div>
+
         <div className="text-center mb-8">
           <span className="font-serif text-2xl font-bold text-white">Lawgic</span>
           <p className="mt-3 text-gray-400 text-sm">
-            Hi {user?.full_name?.split(' ')[0] || 'there'} — your account needs a quick approval before you can use Lawgic.
+            {isApproved
+              ? `You're approved, ${user?.full_name?.split(' ')[0] || 'there'} — go ahead and try that again.`
+              : "This needs a one-time approval before you can get results — browsing the rest of Lawgic stays free."}
           </p>
         </div>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 space-y-6">
-          {isPending ? (
+          {isApproved ? (
+            <div className="text-center space-y-4">
+              <div className="text-4xl">✅</div>
+              <h2 className="font-serif text-lg font-bold text-white">Approved</h2>
+              <p className="text-gray-500 text-sm">You're all set — head back and pick up where you left off.</p>
+              <button
+                onClick={() => navigate('/dashboard')}
+                className="w-full bg-white text-black font-semibold py-3 rounded-lg text-sm hover:bg-gray-100 transition-colors"
+              >
+                Continue
+              </button>
+            </div>
+          ) : isPending ? (
             <div className="text-center space-y-3">
               <div className="text-4xl">⏳</div>
               <h2 className="font-serif text-lg font-bold text-white">Submitted — awaiting review</h2>

@@ -43,6 +43,12 @@ if (typeof window !== 'undefined') {
     useAuthStore.getState().logout()
     window.location.href = '/login'
   })
+
+  // A paid action (Get my action plan, Generate Document, Find match, Search) hit the
+  // access-approval gate — send the user to pay/request approval, not a raw error.
+  window.addEventListener('lawgic:access-pending', () => {
+    window.location.href = '/access-pending'
+  })
 }
 
 export const useAppStore = useAuthStore

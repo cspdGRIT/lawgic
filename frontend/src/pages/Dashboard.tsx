@@ -4,11 +4,13 @@ import { useAuthStore } from '../store'
 import { casesAPI, documentsAPI } from '../lib/api'
 import { formatDate } from '../lib/utils'
 
+// roles omitted = shown to everyone — mirrors the same client-only split as the sidebar.
 const QUICK_ACTIONS = [
+  { label: 'Describe Your Issue', icon: '🧭', href: '/issue-navigator', desc: 'Get an action plan', roles: ['client'] },
   { label: 'Analyze a Case', icon: '⚖️', href: '/cases', desc: 'Get AI-powered case strategy' },
   { label: 'Draft Document', icon: '📄', href: '/documents', desc: '30+ Indian legal templates' },
   { label: 'Ask AI Lawyer', icon: '🤖', href: '/assistant', desc: 'Chat with Lawgic AI' },
-  { label: 'Find Advocate', icon: '👨‍⚖️', href: '/lawyers', desc: 'AI-matched lawyers' },
+  { label: 'Find Advocate', icon: '👨‍⚖️', href: '/lawyers', desc: 'AI-matched lawyers', roles: ['client'] },
   { label: 'Legal Research', icon: '🔍', href: '/research', desc: 'Search statutes & cases' },
   { label: 'Learn Law', icon: '📚', href: '/education', desc: '10 courses on Indian law' },
 ]
@@ -67,7 +69,7 @@ export default function Dashboard() {
       <div>
         <h2 className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-4">Quick actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {QUICK_ACTIONS.map((action) => (
+          {QUICK_ACTIONS.filter((a) => !a.roles || a.roles.includes(user?.user_type as string)).map((action) => (
             <Link
               key={action.label}
               to={action.href}

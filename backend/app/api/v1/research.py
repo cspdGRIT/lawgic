@@ -3,9 +3,9 @@ from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.access import require_approved_access
 from app.core.database import get_db
 from app.core.limits import require_feature
-from app.core.security import get_current_user
 from app.core.config import settings
 from app.models.user import User
 from app.agents.research_agent import legal_research_node, search_knowledge_base
@@ -24,7 +24,7 @@ class SearchRequest(BaseModel):
 @router.post("/search")
 async def search_legal_knowledge(
     request: SearchRequest,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_approved_access),
     db: AsyncSession = Depends(get_db),
     _limit: None = Depends(require_feature("research")),
 ):

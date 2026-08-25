@@ -49,11 +49,19 @@ export default function DocumentGenerator() {
 
     const token = getAccessToken()
     try {
-      const response = await fetch('/api/v1/documents/generate', {
+      const response = await fetch(getSSEUrl('/api/v1/documents/generate'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ template_id: selectedTemplate.id, form_data: formData }),
       })
+
+      if (response.status === 403) {
+        const body = await response.json().catch(() => ({}))
+        if (body?.detail?.error === 'access_pending') {
+          window.dispatchEvent(new Event('lawgic:access-pending'))
+          return
+        }
+      }
 
       const reader = response.body!.getReader()
       const decoder = new TextDecoder()

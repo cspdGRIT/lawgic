@@ -23,13 +23,16 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
+// roles omitted = shown to everyone. Client-only items are things a citizen seeking
+// representation would use — a registered lawyer doesn't need to "find" themselves a
+// lawyer or triage their own issue the way a client would.
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/issue-navigator', icon: Compass, label: 'Describe Your Issue', badge: 'New' },
+  { to: '/issue-navigator', icon: Compass, label: 'Describe Your Issue', badge: 'New', roles: ['client'] },
   { to: '/assistant', icon: Bot, label: 'AI Assistant', badge: 'AI' },
   { to: '/cases', icon: Scale, label: 'Case Analysis' },
   { to: '/documents', icon: FileText, label: 'Documents' },
-  { to: '/lawyers', icon: Users, label: 'Find Lawyers' },
+  { to: '/lawyers', icon: Users, label: 'Find Lawyers', roles: ['client'] },
   { to: '/research', icon: Search, label: 'Legal Research' },
   { to: '/education', icon: GraduationCap, label: 'Education' },
   { to: '/pricing', icon: CreditCard, label: 'Plans & Billing' },
@@ -74,7 +77,10 @@ export default function Sidebar({ onClose }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {(user?.user_type === 'admin' ? [...navItems, adminNavItem] : navItems).map(({ to, icon: Icon, label, badge }: any) => (
+        {navItems
+          .filter((item: any) => !item.roles || item.roles.includes(user?.user_type))
+          .concat(user?.user_type === 'admin' ? [adminNavItem] : [])
+          .map(({ to, icon: Icon, label, badge }: any) => (
           <NavLink
             key={to}
             to={to}

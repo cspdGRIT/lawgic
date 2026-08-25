@@ -54,14 +54,8 @@ function AuthInit({ children }: { children: React.ReactNode }) {
 }
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, user } = useAuthStore()
-  if (!isAuthenticated) return <Navigate to="/login" replace />
-  // Admins bypass the gate; everyone else needs an approved access request before
-  // touching any resource. The backend enforces this too — this is just the UX.
-  if (user && user.user_type !== 'admin' && user.access_status !== 'approved') {
-    return <AccessPending />
-  }
-  return <>{children}</>
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />
 }
 
 function AdminRoute({ children }: { children: React.ReactNode }) {
@@ -78,6 +72,14 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route
+              path="/access-pending"
+              element={
+                <ProtectedRoute>
+                  <AccessPending />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/"
               element={

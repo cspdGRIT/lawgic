@@ -6,6 +6,7 @@ from sqlalchemy import select
 from pydantic import BaseModel
 from typing import Optional
 
+from app.core.access import require_approved_access
 from app.core.database import get_db
 from app.core.limits import require_feature
 from app.core.security import get_current_user
@@ -95,7 +96,7 @@ async def delete_document(
 @router.post("/generate")
 async def generate_document(
     request: GenerateDocumentRequest,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_approved_access),
     db: AsyncSession = Depends(get_db),
     _limit: None = Depends(require_feature("documents")),
 ):

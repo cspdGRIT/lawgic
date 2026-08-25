@@ -34,6 +34,15 @@ let _refreshQueue: Resolver[] = [];
 api.interceptors.response.use(
   (r) => r,
   async (error) => {
+    // Paid actions (issue navigator, document generate, lawyer match, research search)
+    // 403 with this shape when the account isn't approved yet — send the user to pay/
+    // request approval instead of showing a raw error. Endpoints that stream via plain
+    // fetch() (not this axios instance) check for this same shape inline.
+    if (error.response?.status === 403 && error.response?.data?.detail?.error === 'access_pending') {
+      window.dispatchEvent(new Event('lawgic:access-pending'));
+      return Promise.reject(error);
+    }
+
     const original = error.config;
 
     // Only retry on 401; skip refresh endpoint itself to avoid infinite loops
