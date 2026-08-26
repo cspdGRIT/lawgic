@@ -1,4 +1,5 @@
 import json
+import re
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -31,10 +32,26 @@ PREVIEW_FRACTION = 0.35  # generation is free — this much of the real draft is
 
 def _preview_words(full_text: str) -> str:
     words = full_text.split()
-    cutoff = max(PREVIEW_MIN_WORDS, int(len(words) * PREVIEW_FRACTION))
-    if cutoff >= len(words):
+    if len(words) <= 8:
+        # Too short to redact meaningfully either way.
         return full_text
-    return " ".join(words[:cutoff]) + "\n\n[...] Unlock the full document to see the rest and download it."
+    cutoff = max(PREVIEW_MIN_WORDS, int(len(words) * PREVIEW_FRACTION))
+    # Always withhold a real tail — never let the "preview" equal the full document
+    # (previously short templates fell under PREVIEW_MIN_WORDS and were returned in
+    # full while still showing an "Unlock" button).
+    cutoff = min(cutoff, len(words) - max(3, int(len(words) * 0.1)))
+
+    # Walk the raw text (not full_text.split()/" ".join()) so line breaks, numbered
+    # clauses, and signature-block indentation survive into the preview instead of
+    # being flattened into one paragraph.
+    count = 0
+    cut_index = len(full_text)
+    for m in re.finditer(r"\S+", full_text):
+        count += 1
+        if count == cutoff:
+            cut_index = m.end()
+            break
+    return full_text[:cut_index] + "\n\n[...] Unlock the full document to see the rest and download it."
 
 
 def _serialize(doc: Document) -> DocumentResponse:
@@ -175,7 +192,15 @@ async def generate_document(
             }
 
             final_state = await document_generation_node(initial_state, db=db)
-            document_text = final_state.get("generated_document") or final_state.get("final_response", "")
+            document_text = final_state.get("generated_document")
+
+            if not document_text:
+                # Generation failed — final_response holds the error string in that
+                # case. Don't persist it as a Document or let a user pay a credit to
+                # "unlock" an error message.
+                error_msg = final_state.get("final_response") or "Could not generate the document. Please try again."
+                yield f"data: {json.dumps({'type': 'error', 'content': error_msg})}\n\n"
+                return
 
             # Save the FULL text — unlock later reveals it, doesn't regenerate it.
             doc = Document(

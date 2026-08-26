@@ -21,7 +21,7 @@ For each recommended lawyer, provide a clear, specific reason why they are the b
 async def lawyer_matching_node(state: AgentState, db: AsyncSession = None) -> AgentState:
     """Match lawyers to case requirements using AI."""
     logs = list(state.get("agent_logs", []))
-    case_ctx = state.get("case_context", {})
+    case_ctx = state.get("case_context") or {}
     user_query = state.get("user_query", "")
 
     case_type = case_ctx.get("case_type", "")

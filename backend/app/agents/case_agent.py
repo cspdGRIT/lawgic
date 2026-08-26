@@ -113,6 +113,7 @@ Provide a thorough legal analysis as a senior Indian litigator."""
         return {
             **state,
             "final_response": fallback_response,
+            "case_context": {**case_ctx, "ai_analysis": {}},
             "confidence_score": 0.6,
             "agent_logs": logs,
         }

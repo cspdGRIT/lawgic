@@ -1,3 +1,4 @@
+import logging
 import re
 import secrets
 from datetime import datetime, timedelta, timezone
@@ -33,6 +34,7 @@ from app.schemas.auth import (
 )
 from app.services.sms import send_otp_sms
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -171,7 +173,8 @@ async def google_auth(request: GoogleAuthRequest, response: Response, db: AsyncS
         id_info = id_token.verify_oauth2_token(
             request.token, google_requests.Request(), settings.GOOGLE_CLIENT_ID
         )
-    except Exception:
+    except Exception as e:
+        logger.warning(f"Google ID token verification failed: {e}")
         raise HTTPException(status_code=401, detail="Invalid Google token")
 
     email = id_info.get("email", "")

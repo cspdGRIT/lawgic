@@ -73,14 +73,14 @@ async def websocket_chat(
                 "messages": [],
                 "user_query": user_message,
                 "intent": "general",
-                "case_context": None,
+                "case_context": {},
                 "research_results": [],
                 "generated_document": None,
                 "lawyer_matches": [],
                 "final_response": "",
                 "confidence_score": 0.0,
                 "agent_logs": [],
-                "language_target": None,
+                "language_target": "",
             }
 
             try:
@@ -148,14 +148,14 @@ async def chat_message(
         "messages": [],
         "user_query": request.message,
         "intent": "general",
-        "case_context": None,
+        "case_context": {},
         "research_results": [],
         "generated_document": None,
         "lawyer_matches": [],
         "final_response": "",
         "confidence_score": 0.0,
         "agent_logs": [],
-        "language_target": None,
+        "language_target": "",
     }
 
     final_state = await app_graph.ainvoke(initial_state)

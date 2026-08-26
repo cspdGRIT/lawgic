@@ -26,9 +26,11 @@ export default function LegalAidCheck() {
   const [forum, setForum] = useState<'high_court_or_below' | 'supreme_court'>('high_court_or_below')
   const [result, setResult] = useState<Result | null>(null)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   async function handleCheck() {
     setLoading(true)
+    setError('')
     try {
       const data = await legalAidAPI.checkEligibility({
         ...form,
@@ -36,8 +38,9 @@ export default function LegalAidCheck() {
         forum,
       })
       setResult(data)
-    } catch (err) {
+    } catch (err: any) {
       console.error(err)
+      setError(err.response?.data?.detail || 'Could not check eligibility right now. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -59,6 +62,9 @@ export default function LegalAidCheck() {
           <p className="text-xs text-gray-600">
             Nothing here is saved or sent anywhere except to compute this result — these answers aren't stored.
           </p>
+          {error && (
+            <div className="bg-red-950 border border-red-800 text-red-300 rounded-lg px-4 py-3 text-sm">{error}</div>
+          )}
           {CRITERIA.map((c) => (
             <label key={c.key} className="flex items-center gap-3 text-sm text-gray-300 cursor-pointer">
               <input

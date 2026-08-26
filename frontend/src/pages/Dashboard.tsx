@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../store'
-import { casesAPI, documentsAPI } from '../lib/api'
-import { formatDate } from '../lib/utils'
+import { casesAPI, documentsAPI, paymentsAPI } from '../lib/api'
+import { formatDate, caseStatusStyle } from '../lib/utils'
 
 // roles omitted = shown to everyone — mirrors the same client-only split as the sidebar.
 const QUICK_ACTIONS = [
@@ -42,6 +42,13 @@ export default function Dashboard() {
     select: (d: any) => d || [],
   })
 
+  const { data: sub } = useQuery({
+    queryKey: ['subscription'],
+    queryFn: () => paymentsAPI.subscription(),
+    enabled: !!user,
+    staleTime: 1000 * 60 * 5,
+  })
+
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
 
@@ -60,11 +67,15 @@ export default function Dashboard() {
         <StatCard value={cases.length} label="Cases" icon="⚖️" />
         <StatCard value={documents.length} label="Documents" icon="📄" />
         <StatCard
-          value={cases.filter((c: any) => c.status === 'analyzed').length}
+          value={cases.filter((c: any) => !!c.ai_analysis).length}
           label="Analyzed"
           icon="🔍"
         />
-        <StatCard value="Active" label="Subscription" icon="✅" />
+        <StatCard
+          value={sub ? `${sub.plan.charAt(0).toUpperCase()}${sub.plan.slice(1)}` : '—'}
+          label={sub?.status === 'expired' ? 'Subscription (expired)' : 'Subscription'}
+          icon={sub?.status === 'expired' ? '⚠️' : '✅'}
+        />
       </div>
 
       {/* Quick actions */}
@@ -108,12 +119,8 @@ export default function Dashboard() {
                     <div className="font-medium text-white text-sm truncate">{c.title}</div>
                     <div className="text-gray-500 text-xs mt-0.5">{c.case_type} · {formatDate(c.created_at)}</div>
                   </div>
-                  <span className={`ml-3 text-xs px-2 py-0.5 rounded-full capitalize flex-shrink-0 ${
-                    c.status === 'analyzed' ? 'bg-green-950 text-green-400' :
-                    c.status === 'pending' ? 'bg-yellow-950 text-yellow-400' :
-                    'bg-zinc-800 text-gray-400'
-                  }`}>
-                    {c.status}
+                  <span className={`ml-3 text-xs px-2 py-0.5 rounded-full capitalize flex-shrink-0 ${caseStatusStyle(c.status)}`}>
+                    {c.status?.replace(/_/g, ' ')}
                   </span>
                 </div>
               </div>

@@ -120,6 +120,11 @@ export default function Pricing() {
 
   const currentPlan = subData?.plan ?? 'free';
   const plans: Plan[] = plansData?.plans ?? [];
+  // /subscription includes razorpay_key_id only when RAZORPAY_KEY_ID is actually set
+  // server-side — without it /create-order 501s. Stay enabled while logged out or
+  // still loading (unknown) so the existing "click -> redirect to /login" flow isn't
+  // disrupted; only disable once we positively know payments aren't configured.
+  const razorpayConfigured = !user || !subData || !!subData.razorpay_key_id;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -208,17 +213,22 @@ export default function Pricing() {
                   </div>
                 )
               ) : (
-                <button
-                  onClick={() => handleUpgrade(plan)}
-                  disabled={upgrading === plan.id}
-                  className={`w-full py-2.5 rounded-lg text-sm font-semibold transition ${
-                    plan.id === 'firm'
-                      ? 'bg-purple-600 hover:bg-purple-700 text-white'
-                      : 'bg-blue-600 hover:bg-blue-700 text-white'
-                  } disabled:opacity-60`}
-                >
-                  {upgrading === plan.id ? 'Loading...' : isCurrent ? 'Current plan' : `Upgrade to ${plan.name}`}
-                </button>
+                <>
+                  <button
+                    onClick={() => handleUpgrade(plan)}
+                    disabled={upgrading === plan.id || !razorpayConfigured}
+                    className={`w-full py-2.5 rounded-lg text-sm font-semibold transition ${
+                      plan.id === 'firm'
+                        ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                        : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    } disabled:opacity-60 disabled:cursor-not-allowed`}
+                  >
+                    {upgrading === plan.id ? 'Loading...' : !razorpayConfigured ? 'Payments unavailable' : isCurrent ? 'Current plan' : `Upgrade to ${plan.name}`}
+                  </button>
+                  {!razorpayConfigured && (
+                    <p className="text-xs text-gray-400 text-center mt-1.5">Online payments aren't set up yet — contact support.</p>
+                  )}
+                </>
               )}
             </div>
           );

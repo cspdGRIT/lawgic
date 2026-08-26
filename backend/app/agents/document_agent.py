@@ -48,7 +48,7 @@ Always generate the COMPLETE document - never truncate or summarize."""
 async def document_generation_node(state: AgentState, db=None) -> AgentState:
     logs = list(state.get("agent_logs", []))
     user_query = state.get("user_query", "")
-    case_ctx = state.get("case_context", {})
+    case_ctx = state.get("case_context") or {}
 
     template_id = case_ctx.get("template_id", "")
     form_data = case_ctx.get("form_data", {})

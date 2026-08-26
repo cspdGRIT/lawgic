@@ -3,6 +3,11 @@ import { useAuthStore } from '../store'
 
 const FEATURES = [
   {
+    icon: '🧭',
+    title: 'Describe Your Issue',
+    desc: "Tell us what's happening in your own words, in any language. We tell you which forum to approach, what to file, what it costs, and match you with lawyers — no legal knowledge required.",
+  },
+  {
     icon: '⚖️',
     title: 'AI Case Analysis',
     desc: 'Upload your case facts and get win probability, legal strategy, relevant statutes, and next steps — in minutes.',
@@ -28,6 +33,16 @@ const FEATURES = [
     desc: 'AI matches you with the right advocate from 30+ verified lawyers across Delhi, Mumbai, Bangalore, Chennai, and more.',
   },
   {
+    icon: '🤝',
+    title: 'Free Legal Aid Check',
+    desc: 'See in two minutes if you qualify for NALSA free legal aid — a real, government-funded program most people who qualify have never heard of.',
+  },
+  {
+    icon: '📖',
+    title: 'Know Your Rights',
+    desc: 'Free, shareable plain-language guides on your rights during arrest, at work, as a tenant, and more — no account needed.',
+  },
+  {
     icon: '🇮🇳',
     title: '22 Indian Languages',
     desc: 'Access legal information and translate documents in all 22 scheduled Indian languages including Hindi, Tamil, and Bengali.',
@@ -47,28 +62,31 @@ const HOW_IT_WORKS = [
   { step: '03', title: 'Get actionable guidance', desc: 'Receive case strategy, documents, and lawyer recommendations — ready to act immediately.' },
 ]
 
+// Mirrors backend/app/api/v1/payments.py PLANS_META exactly — this used to show
+// different prices/limits than the real checkout on /pricing, which is the kind of
+// mismatch that breaks trust the moment someone compares the two.
 const PRICING = [
   {
     name: 'Free',
     price: '₹0',
     period: 'forever',
-    features: ['3 AI consultations/month', '2 document drafts/month', 'Legal education courses', 'RTI guidance'],
+    features: ['10 AI queries/month', '3 cases', '5 document drafts', '5 legal research searches', 'Community support'],
     cta: 'Get started',
     highlight: false,
   },
   {
     name: 'Pro',
-    price: '₹999',
+    price: '₹499',
     period: 'per month',
-    features: ['Unlimited AI consultations', '20 document drafts/month', 'Priority lawyer matching', 'Case tracking', 'All 22 languages', 'Email support'],
+    features: ['500 AI queries/month', '50 cases', '100 document drafts', '100 legal research searches', 'Priority support', 'Indian Kanoon case search'],
     cta: 'Start free trial',
     highlight: true,
   },
   {
-    name: 'Advocate',
-    price: '₹2,499',
+    name: 'Firm',
+    price: '₹1,999',
     period: 'per month',
-    features: ['Everything in Pro', 'Unlimited documents', 'Client management', 'Bulk case analysis', 'API access', 'Dedicated support'],
+    features: ['Unlimited AI queries', 'Unlimited cases', 'Unlimited documents', 'Unlimited research', 'Dedicated support'],
     cta: 'Contact sales',
     highlight: false,
   },

@@ -10,6 +10,7 @@ from sqlalchemy import select
 
 from app.core.config import settings
 from app.core.database import get_db
+from app.core.limits import sync_expired_subscription
 from app.core.security import get_current_user
 from app.models.user import User
 from app.models.subscription import (
@@ -94,7 +95,8 @@ async def _get_or_create_subscription(user_id: int, db: AsyncSession) -> Subscri
         db.add(sub)
         await db.flush()
         await db.refresh(sub)
-    return sub
+        return sub
+    return await sync_expired_subscription(sub, db)
 
 
 # ── Public ────────────────────────────────────────────────────────────────────

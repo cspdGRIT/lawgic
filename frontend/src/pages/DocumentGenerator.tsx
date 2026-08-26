@@ -28,6 +28,7 @@ export default function DocumentGenerator() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [isUnlocking, setIsUnlocking] = useState(false)
   const [unlockError, setUnlockError] = useState('')
+  const [genError, setGenError] = useState('')
   const [category, setCategory] = useState('All')
   const [viewDoc, setViewDoc] = useState<any>(null)
 
@@ -51,6 +52,7 @@ export default function DocumentGenerator() {
     setStreaming('')
     setDocUnlocked(false)
     setUnlockError('')
+    setGenError('')
     setStep(3)
 
     // Generation is free — no payment check here. The preview streamed back is
@@ -75,10 +77,12 @@ export default function DocumentGenerator() {
           const data = JSON.parse(line.slice(6))
           if (data.type === 'token') setStreaming((s) => s + data.content)
           if (data.type === 'done') setGeneratedDocId(data.document_id)
+          if (data.type === 'error') setGenError(data.content || 'Could not generate the document. Please try again.')
         }
       }
     } catch (err) {
       console.error(err)
+      setGenError('Something went wrong while generating. Please try again.')
     } finally {
       setIsGenerating(false)
     }
@@ -225,8 +229,8 @@ export default function DocumentGenerator() {
               >
                 <div className="font-medium text-white text-sm mb-1">{t.name}</div>
                 <div className="text-gray-500 text-xs leading-relaxed">{t.description}</div>
-                {t.required_fields?.length > 0 && (
-                  <div className="mt-2 text-xs text-gray-700">{t.required_fields.length} fields required</div>
+                {t.fields?.length > 0 && (
+                  <div className="mt-2 text-xs text-gray-700">{t.fields.length} fields required</div>
                 )}
               </button>
             ))}
@@ -272,7 +276,7 @@ export default function DocumentGenerator() {
           </div>
 
           <div className="space-y-4 mb-6">
-            {selectedTemplate.required_fields?.map((field: string) => {
+            {selectedTemplate.fields?.map((field: string) => {
               const label = field.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
               const isLong = field.includes('fact') || field.includes('detail') || field.includes('ground') || field.includes('description')
               return (
@@ -315,6 +319,17 @@ export default function DocumentGenerator() {
             <div className="text-center py-12 text-gray-500">
               <div className="text-4xl mb-4 animate-bounce">📄</div>
               <p>AI is drafting your document...</p>
+            </div>
+          )}
+
+          {!isGenerating && genError && !streaming && (
+            <div className="text-center py-12">
+              <div className="bg-red-950 border border-red-800 text-red-300 rounded-xl px-4 py-3 text-sm mb-4 inline-block">{genError}</div>
+              <div>
+                <button onClick={() => setStep(2)} className="text-sm text-gray-400 hover:text-white transition-colors">
+                  ← Back to form
+                </button>
+              </div>
             </div>
           )}
 

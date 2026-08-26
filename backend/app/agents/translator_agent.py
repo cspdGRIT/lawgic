@@ -41,8 +41,8 @@ async def translation_node(state: AgentState, db=None) -> AgentState:
     """Translate legal text to specified Indian language."""
     logs = list(state.get("agent_logs", []))
     text_to_translate = state.get("user_query", "")
-    target_language = state.get("language_target", "hindi")
-    case_ctx = state.get("case_context", {})
+    target_language = state.get("language_target") or "hindi"
+    case_ctx = state.get("case_context") or {}
 
     if case_ctx.get("text"):
         text_to_translate = case_ctx["text"]

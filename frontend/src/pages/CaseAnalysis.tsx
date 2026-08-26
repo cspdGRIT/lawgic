@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { casesAPI, getSSEUrl, getAccessToken } from '../lib/api'
-import { formatDate } from '../lib/utils'
+import { formatDate, caseStatusStyle } from '../lib/utils'
 
 const CASE_TYPES = ['Criminal', 'Civil', 'Family', 'Property', 'Consumer', 'Labour', 'Corporate', 'Constitutional', 'Revenue', 'Intellectual Property', 'Other']
 const JURISDICTIONS = ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Ahmedabad', 'Pune', 'Other']
@@ -61,6 +61,7 @@ export default function CaseAnalysis() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [isUnlocking, setIsUnlocking] = useState(false)
   const [unlockError, setUnlockError] = useState('')
+  const [analysisError, setAnalysisError] = useState('')
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -96,6 +97,7 @@ export default function CaseAnalysis() {
     setIsAnalyzing(true)
     setStreaming('')
     setAnalysisResult(null)
+    setAnalysisError('')
     const token = getAccessToken()
     const url = getSSEUrl(`/api/v1/cases/${caseId}/analyze`)
 
@@ -116,6 +118,7 @@ export default function CaseAnalysis() {
           if (!line.startsWith('data: ')) continue
           const data = JSON.parse(line.slice(6))
           if (data.type === 'token') setStreaming((s) => s + data.content)
+          if (data.type === 'error') setAnalysisError(data.content || 'Analysis failed. Please try again.')
           if (data.type === 'done') {
             setAnalysisResult(data.analysis || {})
             setAnalysisUnlocked(!!data.unlocked)
@@ -125,6 +128,7 @@ export default function CaseAnalysis() {
       }
     } catch (err) {
       console.error(err)
+      setAnalysisError('Something went wrong while analyzing. Please try again.')
     } finally {
       setIsAnalyzing(false)
     }
@@ -282,6 +286,9 @@ export default function CaseAnalysis() {
             <p className="text-gray-500 text-sm mb-6 max-w-md mx-auto">
               Our case analysis agent will assess win probability, identify legal strategy, cite relevant statutes, and suggest next steps.
             </p>
+            {analysisError && (
+              <div className="bg-red-950 border border-red-800 text-red-300 rounded-lg px-4 py-3 text-sm mb-4 max-w-md mx-auto">{analysisError}</div>
+            )}
             <button
               onClick={() => handleAnalyze(selectedCase.id)}
               disabled={isAnalyzing}
@@ -456,12 +463,8 @@ export default function CaseAnalysis() {
                   </div>
                 </div>
                 <div className="ml-4 flex flex-col items-end gap-2">
-                  <span className={`text-xs px-2.5 py-1 rounded-full capitalize ${
-                    c.status === 'analyzed' ? 'bg-green-950 text-green-400' :
-                    c.status === 'pending' ? 'bg-yellow-950 text-yellow-400' :
-                    'bg-zinc-800 text-gray-400'
-                  }`}>
-                    {c.status}
+                  <span className={`text-xs px-2.5 py-1 rounded-full capitalize ${caseStatusStyle(c.status)}`}>
+                    {c.status?.replace(/_/g, ' ')}
                   </span>
                   {c.confidence_score && (
                     <span className="text-xs text-gray-600">{Math.round(c.confidence_score * 100)}% confidence</span>

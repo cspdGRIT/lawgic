@@ -52,8 +52,8 @@ const URGENCY_STYLES: Record<string, string> = {
   critical: 'bg-red-950 text-red-400 border border-red-900',
 }
 
-function urgencyClass(urgency: string) {
-  const key = Object.keys(URGENCY_STYLES).find((k) => urgency.toLowerCase().startsWith(k))
+function urgencyClass(urgency: string | null | undefined) {
+  const key = Object.keys(URGENCY_STYLES).find((k) => urgency?.toLowerCase().startsWith(k))
   return URGENCY_STYLES[key || 'low']
 }
 

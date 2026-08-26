@@ -175,16 +175,22 @@ async def analyze_case(
             final_state = await case_analysis_node(initial_state, db=db)
             full_analysis = final_state.get("case_context", {}).get("ai_analysis", {})
 
+            if not full_analysis:
+                # The AI didn't return a structured analysis (parse failure / model
+                # hiccup) — nothing to unlock or persist, so don't spend the user's
+                # quota/credit on it. Let them retry at no cost.
+                yield f"data: {json.dumps({'type': 'error', 'content': 'Analysis could not be completed this time. Please try again.'})}\n\n"
+                return
+
             unlocked = await try_pay(current_user, "ai_queries", db)
 
             # Store the full analysis regardless — a later unlock (subscribe/buy
             # credits) reveals what's already there rather than re-running the AI.
-            if full_analysis:
-                case.ai_analysis = json.dumps(full_analysis)
-                case.confidence_score = final_state.get("confidence_score", 0.0)
-                case.status = "in_progress"
-                case.analysis_unlocked = case.analysis_unlocked or unlocked
-                await db.flush()
+            case.ai_analysis = json.dumps(full_analysis)
+            case.confidence_score = final_state.get("confidence_score", 0.0)
+            case.status = "in_progress"
+            case.analysis_unlocked = case.analysis_unlocked or unlocked
+            await db.flush()
 
             visible = full_analysis if unlocked else {k: v for k, v in full_analysis.items() if k in TEASER_FIELDS}
 

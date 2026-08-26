@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from typing import Literal
 
 from fastapi import Depends, HTTPException, status
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -26,13 +26,25 @@ def _current_month() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m")
 
 
+async def sync_expired_subscription(sub: Subscription, db: AsyncSession) -> Subscription:
+    """No recurring billing/webhook is wired yet (see payments.py — Razorpay orders
+    are one-shot, current_period_end is just set to now+30d on verify) — so a
+    subscription whose paid period has lapsed without a renewal has to be downgraded
+    here rather than kept 'active'/paid-plan forever. Covers both an explicitly
+    cancelled plan past its paid-through date and one that was simply never renewed."""
+    if sub.current_period_end and sub.current_period_end < datetime.now(timezone.utc) and sub.status != "expired":
+        sub.status = "expired"
+        sub.plan = "free"
+        await db.flush()
+    return sub
+
+
 async def _get_plan(user_id: int, db: AsyncSession) -> str:
     result = await db.execute(select(Subscription).where(Subscription.user_id == user_id))
     sub = result.scalar_one_or_none()
     if not sub:
         return "free"
-    if sub.status == "cancelled" and sub.current_period_end and sub.current_period_end < datetime.now(timezone.utc):
-        return "free"
+    sub = await sync_expired_subscription(sub, db)
     return sub.plan
 
 
@@ -65,12 +77,21 @@ async def try_consume_quota(feature: Feature, user_id: int, db: AsyncSession) ->
 
     month = _current_month()
     usage = await _get_or_create_usage(user_id, month, db)
-    current = getattr(usage, feature)
+    col = getattr(MonthlyUsage, feature)
 
-    if current >= limit:
+    # Conditional UPDATE, not read-check-then-write — two concurrent requests (double
+    # click, two tabs) both reading `current < limit` before either writes would
+    # otherwise both pass the check and overshoot the plan's monthly quota.
+    result = await db.execute(
+        update(MonthlyUsage)
+        .where(MonthlyUsage.id == usage.id, col < limit)
+        .values({feature: col + 1})
+        .returning(col)
+    )
+    row = result.first()
+    if row is None:
         return False
-
-    setattr(usage, feature, current + 1)
+    setattr(usage, feature, row[0])
     await db.flush()
     return True
 

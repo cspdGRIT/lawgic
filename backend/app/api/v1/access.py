@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.access import require_admin
@@ -148,14 +148,24 @@ async def approve_access_request(
     if req.status != "pending":
         raise HTTPException(status_code=400, detail=f"Request already {req.status}")
 
+    # Conditional UPDATE, not read-check-then-write — two concurrent approve calls for
+    # the same request (two admin tabs, a retried request) could otherwise both read
+    # status=="pending" and both grant credits, double-crediting the user. Only the
+    # request that actually flips pending -> approved here proceeds to grant credits.
+    now = datetime.now(timezone.utc)
+    update_result = await db.execute(
+        update(AccessRequest)
+        .where(AccessRequest.id == request_id, AccessRequest.status == "pending")
+        .values(status="approved", reviewed_by_user_id=admin.id, reviewed_at=now)
+    )
+    if update_result.rowcount == 0:
+        raise HTTPException(status_code=400, detail="Request already reviewed")
+
     user_result = await db.execute(select(User).where(User.id == req.user_id))
     user = user_result.scalar_one_or_none()
     if user:
         await grant_credits(user, req.credits, reason="purchase", db=db)
 
-    req.status = "approved"
-    req.reviewed_by_user_id = admin.id
-    req.reviewed_at = datetime.now(timezone.utc)
     await db.flush()
     await db.refresh(req)
     return req
