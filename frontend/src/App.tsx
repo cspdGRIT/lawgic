@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from './store'
 import { authAPI } from './lib/api'
+import { initVersionCheck } from './lib/versionCheck'
 import AppLayout from './components/layout/AppLayout'
 import Landing from './pages/Landing'
 import Login from './pages/auth/Login'
@@ -63,10 +64,35 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   return user?.user_type === 'admin' ? <>{children}</> : <Navigate to="/dashboard" replace />
 }
 
+// A tab left open across a deploy keeps running the JS it loaded at page-load — that
+// stale bundle calling into a changed API shape is what produced the "X is not a
+// function" crashes people were hitting until they manually hard-refreshed. This
+// polls for a new build and offers a one-click refresh instead.
+function UpdateBanner() {
+  return (
+    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-white text-black rounded-full shadow-2xl px-5 py-2.5 flex items-center gap-3 text-sm font-medium">
+      A new version of Lawgic is available
+      <button
+        onClick={() => window.location.reload()}
+        className="bg-black text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-zinc-800 transition-colors"
+      >
+        Refresh
+      </button>
+    </div>
+  )
+}
+
 export default function App() {
+  const [updateAvailable, setUpdateAvailable] = useState(false)
+
+  useEffect(() => {
+    return initVersionCheck(() => setUpdateAvailable(true))
+  }, [])
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        {updateAvailable && <UpdateBanner />}
         <AuthInit>
           <Routes>
             <Route path="/" element={<Landing />} />
