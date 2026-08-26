@@ -31,3 +31,26 @@ services:
         sync: false          # set this manually in the Render dashboard — never commit a real one
       - key: UPI_PAYEE_NAME
         value: Lawgic
+      # The following are all currently unset in production, so these features are
+      # dormant (each has a working fallback — see backend/.env.example for details):
+      - key: NOTIFY_PROVIDER
+        sync: false          # unset here -> defaults to "console" (logs only, no real email sent).
+                              # Set to "smtp" + the SMTP_* vars below to actually deliver deadline-reminder emails.
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false          # unset -> /pricing "Upgrade" is disabled, /create-order returns 501
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false          # unset -> Google sign-in button is hidden entirely
+      - key: INDIAN_KANOON_API_KEY
+        sync: false          # unset -> Legal Research uses the local knowledge base only
