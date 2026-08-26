@@ -8,6 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.credits import grant_trial_credits
 from app.core.database import get_db
 from app.core.security import (
     REFRESH_COOKIE,
@@ -84,6 +85,7 @@ async def register(request: RegisterRequest, response: Response, db: AsyncSessio
     db.add(user)
     await db.flush()
     await db.refresh(user)
+    await grant_trial_credits(user, db)
     return await _auth_response(user, response, db)
 
 
@@ -188,6 +190,7 @@ async def google_auth(request: GoogleAuthRequest, response: Response, db: AsyncS
         db.add(user)
         await db.flush()
         await db.refresh(user)
+        await grant_trial_credits(user, db)
 
     return await _auth_response(user, response, db)
 
@@ -274,6 +277,7 @@ async def verify_otp(body: OTPVerifyBody, response: Response, db: AsyncSession =
         db.add(user)
         await db.flush()
         await db.refresh(user)
+        await grant_trial_credits(user, db)
     elif not user.is_active:
         raise HTTPException(status_code=400, detail="Account is deactivated")
 

@@ -38,6 +38,7 @@ class CaseResponse(BaseModel):
     opposing_party: Optional[str] = None
     key_facts: Optional[str] = None
     ai_analysis: Optional[Any] = None
+    analysis_unlocked: bool = False
     confidence_score: Optional[float] = None
     assigned_lawyer_id: Optional[int] = None
     created_at: datetime

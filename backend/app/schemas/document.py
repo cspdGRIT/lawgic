@@ -31,6 +31,7 @@ class DocumentResponse(BaseModel):
     language: str
     status: str
     is_ai_generated: bool
+    unlocked: bool
     created_at: datetime
     updated_at: datetime
 

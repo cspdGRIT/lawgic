@@ -5,6 +5,7 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
+from app.core.access import try_pay
 from app.core.database import get_db
 from app.core.limits import require_feature
 from app.core.security import get_current_user
@@ -15,6 +16,32 @@ from app.agents.case_agent import case_analysis_node
 from app.agents.state import AgentState
 
 router = APIRouter()
+
+# Free forever, regardless of payment — enough to prove the analysis is real and worth
+# unlocking. Everything else in the analysis dict (statutes, strategy, next steps,
+# risk factors, similar cases, duration/cost estimates) is the paid part.
+TEASER_FIELDS = {"win_probability", "summary"}
+
+
+def _serialize_case(case: Case) -> CaseResponse:
+    """Same reasoning as documents.py's _serialize: never let response_model validate
+    the tracked ORM instance directly if we're about to strip fields from it."""
+    analysis = None
+    if case.ai_analysis:
+        try:
+            full = json.loads(case.ai_analysis)
+        except (json.JSONDecodeError, ValueError):
+            full = None
+        if full is not None:
+            analysis = full if case.analysis_unlocked else {k: v for k, v in full.items() if k in TEASER_FIELDS}
+    return CaseResponse(
+        id=case.id, user_id=case.user_id, title=case.title, description=case.description,
+        case_type=case.case_type, jurisdiction=case.jurisdiction, court_level=case.court_level,
+        status=case.status, opposing_party=case.opposing_party, key_facts=case.key_facts,
+        ai_analysis=analysis, analysis_unlocked=case.analysis_unlocked,
+        confidence_score=case.confidence_score, assigned_lawyer_id=case.assigned_lawyer_id,
+        created_at=case.created_at, updated_at=case.updated_at,
+    )
 
 
 @router.get("/", response_model=list[CaseResponse])
@@ -30,7 +57,7 @@ async def list_cases(
         query = query.where(Case.status == status)
     query = query.order_by(Case.created_at.desc()).offset(skip).limit(limit)
     result = await db.execute(query)
-    return result.scalars().all()
+    return [_serialize_case(c) for c in result.scalars().all()]
 
 
 @router.post("/", response_model=CaseResponse, status_code=201)
@@ -44,7 +71,7 @@ async def create_case(
     db.add(case)
     await db.flush()
     await db.refresh(case)
-    return case
+    return _serialize_case(case)
 
 
 @router.get("/{case_id}", response_model=CaseResponse)
@@ -59,7 +86,7 @@ async def get_case(
     case = result.scalar_one_or_none()
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
-    return case
+    return _serialize_case(case)
 
 
 @router.put("/{case_id}", response_model=CaseResponse)
@@ -81,7 +108,7 @@ async def update_case(
 
     await db.flush()
     await db.refresh(case)
-    return case
+    return _serialize_case(case)
 
 
 @router.delete("/{case_id}", status_code=204)
@@ -104,8 +131,11 @@ async def analyze_case(
     case_id: int,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-    _limit: None = Depends(require_feature("ai_queries")),
 ):
+    """Preview-then-pay: the AI always runs and the full result is stored either way —
+    the win-probability + summary teaser is free forever; the rest streams back (and
+    persists as visible on refetch) only if quota/credits cover it. Not a hard Depends
+    gate because we still owe the caller a teaser even when payment fails."""
     result = await db.execute(
         select(Case).where(Case.id == case_id, Case.user_id == current_user.id)
     )
@@ -142,23 +172,31 @@ async def analyze_case(
             }
 
             final_state = await case_analysis_node(initial_state, db=db)
+            full_analysis = final_state.get("case_context", {}).get("ai_analysis", {})
 
-            # Save analysis to DB
-            if final_state.get("case_context", {}).get("ai_analysis"):
-                case.ai_analysis = json.dumps(final_state["case_context"]["ai_analysis"])
+            unlocked = await try_pay(current_user, "ai_queries", db)
+
+            # Store the full analysis regardless — a later unlock (subscribe/buy
+            # credits) reveals what's already there rather than re-running the AI.
+            if full_analysis:
+                case.ai_analysis = json.dumps(full_analysis)
                 case.confidence_score = final_state.get("confidence_score", 0.0)
                 case.status = "in_progress"
+                case.analysis_unlocked = case.analysis_unlocked or unlocked
                 await db.flush()
 
-            # Stream the response tokens
-            response_text = final_state.get("final_response", "Analysis complete")
+            visible = full_analysis if unlocked else {k: v for k, v in full_analysis.items() if k in TEASER_FIELDS}
+
+            # Stream only what they're actually allowed to see.
+            response_text = final_state.get("final_response", "Analysis complete") if unlocked else visible.get(
+                "summary", "Analysis ready — unlock to see the full breakdown."
+            )
             words = response_text.split()
             for i, word in enumerate(words):
                 chunk = word + (" " if i < len(words) - 1 else "")
                 yield f"data: {json.dumps({'type': 'token', 'content': chunk})}\n\n"
 
-            analysis = final_state.get("case_context", {}).get("ai_analysis", {})
-            yield f"data: {json.dumps({'type': 'done', 'analysis': analysis, 'confidence_score': final_state.get('confidence_score', 0.7)})}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'analysis': visible, 'unlocked': unlocked, 'confidence_score': final_state.get('confidence_score', 0.7)})}\n\n"
 
         except Exception as e:
             yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
@@ -168,3 +206,36 @@ async def analyze_case(
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
+
+
+@router.post("/{case_id}/unlock", response_model=CaseResponse)
+async def unlock_case_analysis(
+    case_id: int,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Retries payment for an already-computed analysis (e.g. the user just bought
+    credits after seeing the teaser) without re-running the AI."""
+    result = await db.execute(
+        select(Case).where(Case.id == case_id, Case.user_id == current_user.id)
+    )
+    case = result.scalar_one_or_none()
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+    if not case.ai_analysis:
+        raise HTTPException(status_code=400, detail="Run analysis first.")
+    if not case.analysis_unlocked:
+        if not await try_pay(current_user, "ai_queries", db):
+            raise HTTPException(
+                status_code=402,
+                detail={
+                    "error": "payment_required", "feature": "ai_queries",
+                    "credit_balance": current_user.credit_balance,
+                    "message": "You're out of plan quota and credits for this.",
+                    "options": ["subscribe", "buy_credits"],
+                },
+            )
+        case.analysis_unlocked = True
+        await db.flush()
+        await db.refresh(case)
+    return _serialize_case(case)

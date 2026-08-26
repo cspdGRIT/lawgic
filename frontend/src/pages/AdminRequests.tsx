@@ -64,7 +64,7 @@ export default function AdminRequests() {
                   <div className="text-white font-medium">{r.user_full_name}</div>
                   <div className="text-gray-500 text-sm">{r.user_email}</div>
                   <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-gray-600">
-                    <span>₹{r.amount_rupees}</span>
+                    <span>{r.credits} credit{r.credits > 1 ? 's' : ''} · ₹{r.amount_rupees}</span>
                     <span>·</span>
                     <span>{formatDate(r.created_at)}</span>
                     {r.utr_reference && (

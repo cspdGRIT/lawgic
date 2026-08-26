@@ -21,7 +21,9 @@ interface AnalysisResult {
 }
 
 function WinGauge({ probability }: { probability: number }) {
-  const pct = Math.round(probability * 100)
+  // Backend sends win_probability as an integer 0-100 already (case_agent.py's
+  // schema), not a 0-1 fraction — multiplying by 100 here produced "7800%".
+  const pct = Math.round(probability)
   const color = pct >= 60 ? '#22c55e' : pct >= 40 ? '#eab308' : '#ef4444'
   const circumference = 2 * Math.PI * 52
   const offset = circumference - (pct / 100) * circumference
@@ -55,7 +57,10 @@ export default function CaseAnalysis() {
   const [selectedCase, setSelectedCase] = useState<any>(null)
   const [streaming, setStreaming] = useState('')
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
+  const [analysisUnlocked, setAnalysisUnlocked] = useState(false)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [isUnlocking, setIsUnlocking] = useState(false)
+  const [unlockError, setUnlockError] = useState('')
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -113,6 +118,7 @@ export default function CaseAnalysis() {
           if (data.type === 'token') setStreaming((s) => s + data.content)
           if (data.type === 'done') {
             setAnalysisResult(data.analysis || {})
+            setAnalysisUnlocked(!!data.unlocked)
             qc.invalidateQueries({ queryKey: ['cases'] })
           }
         }
@@ -121,6 +127,26 @@ export default function CaseAnalysis() {
       console.error(err)
     } finally {
       setIsAnalyzing(false)
+    }
+  }
+
+  async function handleUnlockAnalysis() {
+    if (!selectedCase) return
+    setIsUnlocking(true)
+    setUnlockError('')
+    try {
+      const updated = await casesAPI.unlock(selectedCase.id)
+      setAnalysisResult(updated.ai_analysis || {})
+      setAnalysisUnlocked(true)
+      qc.invalidateQueries({ queryKey: ['cases'] })
+    } catch (err: any) {
+      if (err.response?.status === 402) {
+        window.dispatchEvent(new Event('lawgic:access-pending'))
+        return
+      }
+      setUnlockError(err.response?.data?.detail || 'Could not unlock. Please try again.')
+    } finally {
+      setIsUnlocking(false)
     }
   }
 
@@ -229,7 +255,7 @@ export default function CaseAnalysis() {
     return (
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
-          <button onClick={() => { setView('list'); setAnalysisResult(null); setStreaming('') }} className="text-gray-500 hover:text-white transition-colors text-sm">← Back</button>
+          <button onClick={() => { setView('list'); setAnalysisResult(null); setAnalysisUnlocked(false); setStreaming('') }} className="text-gray-500 hover:text-white transition-colors text-sm">← Back</button>
           <h1 className="font-serif text-2xl font-bold text-white truncate">{selectedCase.title}</h1>
           <span className="text-xs bg-zinc-800 text-gray-400 px-2 py-0.5 rounded-full">{selectedCase.status}</span>
         </div>
@@ -286,6 +312,28 @@ export default function CaseAnalysis() {
                   <h3 className="font-semibold text-white mb-2">Case Assessment</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{analysisResult.summary}</p>
                 </div>
+              </div>
+            )}
+
+            {/* Preview-then-pay: full breakdown (statutes, strategy, next steps, risk
+                factors, similar cases, cost/duration) needs a credit or quota — the
+                assessment above is always free. */}
+            {!analysisUnlocked && (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                <h3 className="font-semibold text-white mb-1">Unlock the full breakdown</h3>
+                <p className="text-gray-500 text-sm mb-4">
+                  Key legal issues, relevant statutes, strategy, next steps, risk factors, and cost/duration estimates.
+                </p>
+                {unlockError && (
+                  <div className="bg-red-950 border border-red-800 text-red-300 rounded-lg px-4 py-3 text-sm mb-4">{unlockError}</div>
+                )}
+                <button
+                  onClick={handleUnlockAnalysis}
+                  disabled={isUnlocking}
+                  className="bg-white text-black font-semibold px-6 py-2.5 rounded-xl text-sm hover:bg-gray-100 transition-colors disabled:opacity-50"
+                >
+                  {isUnlocking ? 'Unlocking...' : 'Unlock full analysis (1 credit)'}
+                </button>
               </div>
             )}
 
@@ -393,7 +441,7 @@ export default function CaseAnalysis() {
             <div
               key={c.id}
               className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 cursor-pointer hover:border-zinc-600 transition-colors"
-              onClick={() => { setSelectedCase(c); setView('detail'); setAnalysisResult(c.ai_analysis || null) }}
+              onClick={() => { setSelectedCase(c); setView('detail'); setAnalysisResult(c.ai_analysis || null); setAnalysisUnlocked(!!c.analysis_unlocked) }}
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
@@ -417,6 +465,9 @@ export default function CaseAnalysis() {
                   </span>
                   {c.confidence_score && (
                     <span className="text-xs text-gray-600">{Math.round(c.confidence_score * 100)}% confidence</span>
+                  )}
+                  {c.ai_analysis && !c.analysis_unlocked && (
+                    <span className="text-xs bg-yellow-950 text-yellow-400 px-2 py-0.5 rounded-full">🔒 Preview</span>
                   )}
                 </div>
               </div>

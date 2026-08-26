@@ -21,6 +21,10 @@ class Document(Base):
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="draft")
     # draft, final, signed
     is_ai_generated: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # Preview-then-pay: generation is free, so `content` is always the full draft in
+    # the DB — list/detail/download responses truncate it to a preview until this is
+    # true (flipped by POST /documents/{id}/unlock).
+    unlocked: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False
     )

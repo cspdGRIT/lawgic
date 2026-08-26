@@ -32,12 +32,11 @@ class Settings(BaseSettings):
     # Payments
     RAZORPAY_KEY_ID: str = ""
     RAZORPAY_KEY_SECRET: str = ""
-    # Manual UPI approval gate — every resource except auth requires access_status=
-    # "approved" (see core/access.py). Never commit a real UPI_VPA to source; set it
-    # as an env var only.
+    # Pay-per-outcome credit purchases (alongside the subscription plans below) — see
+    # core/access.py + core/credits.py. Pack pricing lives in CREDIT_PACKS, not here.
+    # Never commit a real UPI_VPA to source; set it as an env var only.
     UPI_VPA: str = ""
     UPI_PAYEE_NAME: str = "Lawgic"
-    ACCESS_FEE_RUPEES: int = 72
     SECRET_KEY: str = "change-me-in-production-must-be-at-least-32-chars-long"
     DATABASE_URL: str = "postgresql+asyncpg://lawgic:lawgic_dev_pass@localhost:5432/lawgic"
     ALGORITHM: str = "HS256"

@@ -22,6 +22,11 @@ class Case(Base):
     opposing_party: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     key_facts: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     ai_analysis: Mapped[Optional[str]] = mapped_column(Text, nullable=True)  # JSON stored as string
+    # Preview-then-pay: the full ai_analysis is computed either way, but list/detail
+    # responses redact it to a free teaser (win_probability + summary) until this is
+    # true. True immediately for cases created via a flow that was already paid for
+    # at creation (e.g. Issue Navigator) — see cases.py / issues.py for who sets this.
+    analysis_unlocked: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     confidence_score: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     assigned_lawyer_id: Mapped[Optional[int]] = mapped_column(
         Integer, ForeignKey("lawyers.id"), nullable=True

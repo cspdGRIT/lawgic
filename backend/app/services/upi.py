@@ -11,11 +11,11 @@ import qrcode
 from app.core.config import settings
 
 
-def build_upi_uri(transaction_note: str) -> str:
+def build_upi_uri(transaction_note: str, amount_rupees: int) -> str:
     params = (
         f"pa={quote(settings.UPI_VPA)}"
         f"&pn={quote(settings.UPI_PAYEE_NAME)}"
-        f"&am={settings.ACCESS_FEE_RUPEES}"
+        f"&am={amount_rupees}"
         f"&cu=INR"
         f"&tn={quote(transaction_note)}"
     )

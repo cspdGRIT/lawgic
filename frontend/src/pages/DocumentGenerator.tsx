@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { documentsAPI, getSSEUrl, getAccessToken } from '../lib/api'
 import { formatDate } from '../lib/utils'
 
@@ -18,12 +18,16 @@ function getTemplateCategory(id: string): string {
 }
 
 export default function DocumentGenerator() {
+  const qc = useQueryClient()
   const [step, setStep] = useState<Step>(1)
   const [selectedTemplate, setSelectedTemplate] = useState<any>(null)
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [streaming, setStreaming] = useState('')
   const [generatedDocId, setGeneratedDocId] = useState<number | null>(null)
+  const [docUnlocked, setDocUnlocked] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
+  const [isUnlocking, setIsUnlocking] = useState(false)
+  const [unlockError, setUnlockError] = useState('')
   const [category, setCategory] = useState('All')
   const [viewDoc, setViewDoc] = useState<any>(null)
 
@@ -45,8 +49,12 @@ export default function DocumentGenerator() {
     if (!selectedTemplate) return
     setIsGenerating(true)
     setStreaming('')
+    setDocUnlocked(false)
+    setUnlockError('')
     setStep(3)
 
+    // Generation is free — no payment check here. The preview streamed back is
+    // genuinely truncated server-side; unlocking (below) is the paid step.
     const token = getAccessToken()
     try {
       const response = await fetch(getSSEUrl('/api/v1/documents/generate'), {
@@ -54,14 +62,6 @@ export default function DocumentGenerator() {
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ template_id: selectedTemplate.id, form_data: formData }),
       })
-
-      if (response.status === 403) {
-        const body = await response.json().catch(() => ({}))
-        if (body?.detail?.error === 'access_pending') {
-          window.dispatchEvent(new Event('lawgic:access-pending'))
-          return
-        }
-      }
 
       const reader = response.body!.getReader()
       const decoder = new TextDecoder()
@@ -90,6 +90,27 @@ export default function DocumentGenerator() {
     setFormData({})
     setStreaming('')
     setGeneratedDocId(null)
+    setDocUnlocked(false)
+  }
+
+  async function handleUnlockDoc() {
+    if (!generatedDocId) return
+    setIsUnlocking(true)
+    setUnlockError('')
+    try {
+      const doc = await documentsAPI.unlock(generatedDocId)
+      setStreaming(doc.content)
+      setDocUnlocked(true)
+      qc.invalidateQueries({ queryKey: ['documents'] })
+    } catch (err: any) {
+      if (err.response?.status === 402) {
+        window.dispatchEvent(new Event('lawgic:access-pending'))
+        return
+      }
+      setUnlockError(err.response?.data?.detail || 'Could not unlock. Please try again.')
+    } finally {
+      setIsUnlocking(false)
+    }
   }
 
   function downloadDoc() {
@@ -108,9 +129,41 @@ export default function DocumentGenerator() {
           <button onClick={() => setViewDoc(null)} className="text-gray-500 hover:text-white transition-colors text-sm">← Back</button>
           <h1 className="font-serif text-xl font-bold text-white">{viewDoc.title}</h1>
         </div>
+        {!viewDoc.unlocked && (
+          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 mb-4 flex items-center justify-between gap-4">
+            <p className="text-gray-400 text-sm">This is a preview — unlock to see the rest and download it.</p>
+            <button
+              onClick={async () => {
+                const doc = await documentsAPI.unlock(viewDoc.id).catch((err: any) => {
+                  if (err.response?.status === 402) window.dispatchEvent(new Event('lawgic:access-pending'))
+                  return null
+                })
+                if (doc) { setViewDoc(doc); qc.invalidateQueries({ queryKey: ['documents'] }) }
+              }}
+              className="bg-white text-black font-semibold px-4 py-2 rounded-lg text-xs hover:bg-gray-100 transition-colors flex-shrink-0"
+            >
+              Unlock (1 credit)
+            </button>
+          </div>
+        )}
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
           <pre className="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed font-mono">{viewDoc.content}</pre>
         </div>
+        {viewDoc.unlocked && (
+          <button
+            onClick={() => {
+              const blob = new Blob([viewDoc.content], { type: 'text/plain' })
+              const url = URL.createObjectURL(blob)
+              const a = document.createElement('a')
+              a.href = url
+              a.download = `${viewDoc.title}.txt`
+              a.click()
+            }}
+            className="mt-4 text-xs bg-zinc-800 hover:bg-zinc-700 text-gray-300 px-3 py-1.5 rounded-lg transition-colors"
+          >
+            Download .txt
+          </button>
+        )}
       </div>
     )
   }
@@ -194,9 +247,14 @@ export default function DocumentGenerator() {
                       <div className="font-medium text-white text-sm">{d.title}</div>
                       <div className="text-gray-500 text-xs mt-0.5">{d.document_type} · {formatDate(d.created_at)}</div>
                     </div>
-                    {d.is_ai_generated && (
-                      <span className="text-xs bg-zinc-800 text-gray-400 px-2 py-0.5 rounded-full ml-3">AI</span>
-                    )}
+                    <div className="flex items-center gap-2 ml-3 flex-shrink-0">
+                      {d.is_ai_generated && !d.unlocked && (
+                        <span className="text-xs bg-yellow-950 text-yellow-400 px-2 py-0.5 rounded-full">🔒 Preview</span>
+                      )}
+                      {d.is_ai_generated && (
+                        <span className="text-xs bg-zinc-800 text-gray-400 px-2 py-0.5 rounded-full">AI</span>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -265,9 +323,11 @@ export default function DocumentGenerator() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   {isGenerating && <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />}
-                  <span className="text-sm text-gray-400">{isGenerating ? 'Generating...' : 'Document ready'}</span>
+                  <span className="text-sm text-gray-400">
+                    {isGenerating ? 'Generating...' : docUnlocked ? 'Document ready' : 'Preview ready'}
+                  </span>
                 </div>
-                {!isGenerating && (
+                {!isGenerating && docUnlocked && (
                   <button onClick={downloadDoc} className="text-xs bg-zinc-800 hover:bg-zinc-700 text-gray-300 px-3 py-1.5 rounded-lg transition-colors">
                     Download .txt
                   </button>
@@ -279,6 +339,23 @@ export default function DocumentGenerator() {
                   {isGenerating && <span className="animate-pulse">▋</span>}
                 </pre>
               </div>
+
+              {!isGenerating && !docUnlocked && (
+                <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 mt-4 text-center">
+                  <p className="text-gray-400 text-sm mb-3">That's a preview of the real draft — unlock to see the rest and download it.</p>
+                  {unlockError && (
+                    <div className="bg-red-950 border border-red-800 text-red-300 rounded-lg px-4 py-3 text-sm mb-3">{unlockError}</div>
+                  )}
+                  <button
+                    onClick={handleUnlockDoc}
+                    disabled={isUnlocking}
+                    className="bg-white text-black font-semibold px-6 py-2.5 rounded-xl text-sm hover:bg-gray-100 transition-colors disabled:opacity-50"
+                  >
+                    {isUnlocking ? 'Unlocking...' : 'Unlock full document (1 credit)'}
+                  </button>
+                </div>
+              )}
+
               {!isGenerating && (
                 <div className="flex gap-3 mt-4">
                   <button onClick={handleReset} className="flex-1 bg-zinc-900 border border-zinc-800 text-white font-semibold py-3 rounded-xl text-sm hover:bg-zinc-800 transition-colors">

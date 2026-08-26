@@ -34,11 +34,12 @@ let _refreshQueue: Resolver[] = [];
 api.interceptors.response.use(
   (r) => r,
   async (error) => {
-    // Paid actions (issue navigator, document generate, lawyer match, research search)
-    // 403 with this shape when the account isn't approved yet — send the user to pay/
-    // request approval instead of showing a raw error. Endpoints that stream via plain
-    // fetch() (not this axios instance) check for this same shape inline.
-    if (error.response?.status === 403 && error.response?.data?.detail?.error === 'access_pending') {
+    // Paid actions (issue navigator, lawyer match, research search, document/case
+    // unlock) return 402 with this shape once subscription quota AND credits are both
+    // exhausted — send the user to the buy-credits/subscribe screen instead of a raw
+    // error. Endpoints that stream via plain fetch() (not this axios instance) check
+    // for this same shape inline.
+    if (error.response?.status === 402 && error.response?.data?.detail?.error === 'payment_required') {
       window.dispatchEvent(new Event('lawgic:access-pending'));
       return Promise.reject(error);
     }
@@ -109,8 +110,9 @@ export const authAPI = {
 
 export const accessAPI = {
   status: () => api.get('/api/v1/access/status').then((r) => r.data),
-  paymentInfo: () => api.get('/api/v1/access/payment-info').then((r) => r.data),
-  submitRequest: (data: { utr_reference?: string; note?: string }) =>
+  packs: () => api.get('/api/v1/access/packs').then((r) => r.data),
+  paymentInfo: (pack = 'starter') => api.get(`/api/v1/access/payment-info?pack=${pack}`).then((r) => r.data),
+  submitRequest: (data: { pack?: string; utr_reference?: string; note?: string }) =>
     api.post('/api/v1/access/requests', data).then((r) => r.data),
   adminListRequests: (status = 'pending') =>
     api.get(`/api/v1/access/admin/requests?status=${status}`).then((r) => r.data),
@@ -119,20 +121,24 @@ export const accessAPI = {
 };
 
 export const casesAPI = {
+  // Trailing slash matters — the backend router is mounted at "/" with
+  // redirect_slashes=False, so a bare "/api/v1/cases" 404s instead of redirecting.
   list: (page = 1, limit = 20) =>
-    api.get(`/api/v1/cases?skip=${(page - 1) * limit}&limit=${limit}`).then((r) => r.data),
-  create: (data: unknown) => api.post('/api/v1/cases', data).then((r) => r.data),
+    api.get(`/api/v1/cases/?skip=${(page - 1) * limit}&limit=${limit}`).then((r) => r.data),
+  create: (data: unknown) => api.post('/api/v1/cases/', data).then((r) => r.data),
   get: (id: number) => api.get(`/api/v1/cases/${id}`).then((r) => r.data),
   update: (id: number, data: unknown) => api.put(`/api/v1/cases/${id}`, data).then((r) => r.data),
   delete: (id: number) => api.delete(`/api/v1/cases/${id}`),
+  unlock: (id: number) => api.post(`/api/v1/cases/${id}/unlock`).then((r) => r.data),
 };
 
 export const documentsAPI = {
-  list: () => api.get('/api/v1/documents').then((r) => r.data),
+  list: () => api.get('/api/v1/documents/').then((r) => r.data),
   get: (id: number) => api.get(`/api/v1/documents/${id}`).then((r) => r.data),
   delete: (id: number) => api.delete(`/api/v1/documents/${id}`),
   getTemplates: () => api.get('/api/v1/documents/templates').then((r) => r.data),
   getTemplate: (id: string) => api.get(`/api/v1/documents/templates/${id}`).then((r) => r.data),
+  unlock: (id: number) => api.post(`/api/v1/documents/${id}/unlock`).then((r) => r.data),
 };
 
 export const lawyersAPI = {

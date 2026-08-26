@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_
 
-from app.core.access import require_approved_access
+from app.core.access import require_client, require_quota_or_credit
 from app.core.database import get_db
 from app.core.security import get_current_user
 from app.models.user import User
@@ -99,12 +99,10 @@ async def get_lawyer(
 @router.post("/match")
 async def match_lawyers(
     request: MatchRequest,
-    current_user: User = Depends(require_approved_access),
+    _client: User = Depends(require_client),
+    current_user: User = Depends(require_quota_or_credit("lawyer_matches")),
     db: AsyncSession = Depends(get_db),
 ):
-    if current_user.user_type == "lawyer":
-        raise HTTPException(status_code=403, detail="Lawyer matching is for clients seeking representation.")
-
     initial_state: AgentState = {
         "messages": [],
         "user_query": request.case_description,

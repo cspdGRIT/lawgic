@@ -17,6 +17,7 @@ class MonthlyUsage(Base):
     cases: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     documents: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     research: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    lawyer_matches: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),

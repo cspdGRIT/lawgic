@@ -15,7 +15,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useAppStore } from '../../store';
-import { paymentsAPI, authAPI } from '../../lib/api';
+import { paymentsAPI, authAPI, accessAPI } from '../../lib/api';
 import { cn } from '../../lib/utils';
 import type { Subscription } from '../../types';
 
@@ -57,6 +57,13 @@ export default function Sidebar({ onClose }: SidebarProps) {
     staleTime: 1000 * 60 * 5,
   });
   const currentPlan = sub?.plan ?? 'free';
+
+  const { data: access } = useQuery({
+    queryKey: ['access-status'],
+    queryFn: accessAPI.status,
+    enabled: !!user,
+    staleTime: 1000 * 30,
+  });
 
   const handleLogout = async () => {
     try { await authAPI.logout() } catch { /* ignore — cookie cleared server-side best-effort */ }
@@ -124,6 +131,15 @@ export default function Sidebar({ onClose }: SidebarProps) {
               <span className={cn('text-xs px-1.5 py-0.5 rounded font-semibold uppercase', PLAN_BADGE_CLASS[currentPlan])}>
                 {currentPlan}
               </span>
+              {user?.user_type !== 'admin' && (
+                <button
+                  onClick={() => { navigate('/access-pending'); onClose?.(); }}
+                  className="text-xs text-gray-400 hover:text-white transition-colors"
+                  title="Buy credits"
+                >
+                  💳 {access?.credit_balance ?? 0}
+                </button>
+              )}
               {currentPlan === 'free' && (
                 <button
                   onClick={() => { navigate('/pricing'); onClose?.(); }}

@@ -1,13 +1,12 @@
 import json
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.agents.issue_navigator import navigate_issue
-from app.core.access import require_approved_access
+from app.core.access import require_client, require_quota_or_credit
 from app.core.database import get_db
-from app.core.limits import require_feature
 from app.models.case import Case
 from app.models.user import User
 from app.schemas.issue import IssueRequest
@@ -18,14 +17,10 @@ router = APIRouter()
 @router.post("/analyze")
 async def analyze_issue(
     body: IssueRequest,
-    current_user: User = Depends(require_approved_access),
+    _client: User = Depends(require_client),
+    current_user: User = Depends(require_quota_or_credit("ai_queries")),
     db: AsyncSession = Depends(get_db),
-    _limit: None = Depends(require_feature("ai_queries")),
 ):
-    if current_user.user_type == "lawyer":
-        raise HTTPException(
-            status_code=403, detail="Issue triage is for clients seeking representation — try Case Analysis instead."
-        )
     """Describe-your-issue -> one AI triage call (+ reused lawyer matching), streamed as SSE
     so the UI can show progress, then a single structured 'done' payload the frontend renders
     as an action-plan card. Also saved as a Case so it shows up in the user's case history —
@@ -47,6 +42,7 @@ async def analyze_issue(
                 status="open",
                 ai_analysis=json.dumps(analysis),
                 confidence_score=analysis.get("confidence_score", 0.6),
+                analysis_unlocked=True,  # already paid for by the require_quota_or_credit gate above
             )
             db.add(case)
             await db.flush()

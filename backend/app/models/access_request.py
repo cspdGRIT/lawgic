@@ -15,6 +15,8 @@ class AccessRequest(Base):
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="pending")  # pending | approved | rejected
     amount_rupees: Mapped[int] = mapped_column(Integer, nullable=False, default=72)
+    # credits granted on approval — a purchased pack, per CREDIT_PACKS in services/upi.py
+    credits: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     utr_reference: Mapped[str | None] = mapped_column(String(64), nullable=True)  # UPI transaction ref, self-reported
     note: Mapped[str | None] = mapped_column(Text, nullable=True)
     reviewed_by_user_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("users.id"), nullable=True)

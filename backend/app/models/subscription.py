@@ -10,9 +10,9 @@ PLAN_PRO = "pro"
 PLAN_FIRM = "firm"
 
 PLAN_LIMITS = {
-    PLAN_FREE:  {"ai_queries": 10,  "cases": 3,  "documents": 5,  "research": 5},
-    PLAN_PRO:   {"ai_queries": 500, "cases": 50, "documents": 100, "research": 100},
-    PLAN_FIRM:  {"ai_queries": -1,  "cases": -1, "documents": -1,  "research": -1},  # -1 = unlimited
+    PLAN_FREE:  {"ai_queries": 10,  "cases": 3,  "documents": 5,  "research": 5,  "lawyer_matches": 3},
+    PLAN_PRO:   {"ai_queries": 500, "cases": 50, "documents": 100, "research": 100, "lawyer_matches": 50},
+    PLAN_FIRM:  {"ai_queries": -1,  "cases": -1, "documents": -1,  "research": -1,  "lawyer_matches": -1},  # -1 = unlimited
 }
 
 PLAN_PRICE_INR = {

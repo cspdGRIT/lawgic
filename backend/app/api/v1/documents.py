@@ -6,9 +6,8 @@ from sqlalchemy import select
 from pydantic import BaseModel
 from typing import Optional
 
-from app.core.access import require_approved_access
+from app.core.access import require_quota_or_credit
 from app.core.database import get_db
-from app.core.limits import require_feature
 from app.core.security import get_current_user
 from app.models.user import User
 from app.models.document import Document
@@ -24,6 +23,31 @@ class GenerateDocumentRequest(BaseModel):
     form_data: dict
     case_id: Optional[int] = None
     language: Optional[str] = "English"
+
+
+PREVIEW_MIN_WORDS = 120
+PREVIEW_FRACTION = 0.35  # generation is free — this much of the real draft is visible with no payment
+
+
+def _preview_words(full_text: str) -> str:
+    words = full_text.split()
+    cutoff = max(PREVIEW_MIN_WORDS, int(len(words) * PREVIEW_FRACTION))
+    if cutoff >= len(words):
+        return full_text
+    return " ".join(words[:cutoff]) + "\n\n[...] Unlock the full document to see the rest and download it."
+
+
+def _serialize(doc: Document) -> DocumentResponse:
+    """Never return the ORM instance directly through response_model — mutating
+    `doc.content` in place would mark it dirty and the session would persist the
+    redacted preview over the real draft on commit. Build a detached copy instead."""
+    content = doc.content if doc.unlocked else _preview_words(doc.content)
+    return DocumentResponse(
+        id=doc.id, user_id=doc.user_id, case_id=doc.case_id, title=doc.title,
+        document_type=doc.document_type, template_id=doc.template_id, content=content,
+        language=doc.language, status=doc.status, is_ai_generated=doc.is_ai_generated,
+        unlocked=doc.unlocked, created_at=doc.created_at, updated_at=doc.updated_at,
+    )
 
 
 @router.get("/templates")
@@ -47,7 +71,7 @@ async def list_documents(
     result = await db.execute(
         select(Document).where(Document.user_id == current_user.id).order_by(Document.created_at.desc())
     )
-    return result.scalars().all()
+    return [_serialize(d) for d in result.scalars().all()]
 
 
 @router.post("/", response_model=DocumentResponse, status_code=201)
@@ -56,11 +80,13 @@ async def create_document(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    doc = Document(user_id=current_user.id, **data.model_dump())
+    # This path is for a user's own authored/pasted content, not the paid AI-generate
+    # flow below — nothing to unlock, it's already theirs.
+    doc = Document(user_id=current_user.id, unlocked=True, **data.model_dump())
     db.add(doc)
     await db.flush()
     await db.refresh(doc)
-    return doc
+    return _serialize(doc)
 
 
 @router.get("/{doc_id}", response_model=DocumentResponse)
@@ -75,7 +101,7 @@ async def get_document(
     doc = result.scalar_one_or_none()
     if not doc:
         raise HTTPException(status_code=404, detail="Document not found")
-    return doc
+    return _serialize(doc)
 
 
 @router.delete("/{doc_id}", status_code=204)
@@ -93,13 +119,35 @@ async def delete_document(
     await db.delete(doc)
 
 
+@router.post("/{doc_id}/unlock", response_model=DocumentResponse)
+async def unlock_document(
+    doc_id: int,
+    current_user: User = Depends(require_quota_or_credit("documents")),
+    db: AsyncSession = Depends(get_db),
+):
+    """Spends one 'documents' quota unit / credit to reveal the full draft and enable
+    download — this is the actual point of payment now, not generation."""
+    result = await db.execute(
+        select(Document).where(Document.id == doc_id, Document.user_id == current_user.id)
+    )
+    doc = result.scalar_one_or_none()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+    doc.unlocked = True
+    await db.flush()
+    await db.refresh(doc)
+    return _serialize(doc)
+
+
 @router.post("/generate")
 async def generate_document(
     request: GenerateDocumentRequest,
-    current_user: User = Depends(require_approved_access),
+    current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-    _limit: None = Depends(require_feature("documents")),
 ):
+    """Generation itself is free — see the module docstring in core/access.py for why:
+    this is the 'let them feel the value first' half of preview-then-pay. Only a
+    truncated preview streams back; POST /{doc_id}/unlock is the paid action."""
     template = get_template(request.template_id)
     if not template:
         raise HTTPException(status_code=404, detail=f"Template '{request.template_id}' not found")
@@ -129,7 +177,7 @@ async def generate_document(
             final_state = await document_generation_node(initial_state, db=db)
             document_text = final_state.get("generated_document") or final_state.get("final_response", "")
 
-            # Save to DB
+            # Save the FULL text — unlock later reveals it, doesn't regenerate it.
             doc = Document(
                 user_id=current_user.id,
                 case_id=request.case_id,
@@ -139,18 +187,21 @@ async def generate_document(
                 content=document_text,
                 language=request.language or "English",
                 is_ai_generated=True,
+                unlocked=False,
             )
             db.add(doc)
             await db.flush()
             await db.refresh(doc)
 
-            # Stream document text
-            words = document_text.split()
+            # Stream only the free preview portion — the rest is genuinely withheld
+            # server-side, not just hidden in the UI.
+            preview_text = _preview_words(document_text)
+            words = preview_text.split()
             for i, word in enumerate(words):
                 chunk = word + (" " if i < len(words) - 1 else "")
                 yield f"data: {json.dumps({'type': 'token', 'content': chunk})}\n\n"
 
-            yield f"data: {json.dumps({'type': 'done', 'document_id': doc.id, 'title': doc.title})}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'document_id': doc.id, 'title': doc.title, 'unlocked': False})}\n\n"
 
         except Exception as e:
             yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"

@@ -31,5 +31,3 @@ services:
         sync: false          # set this manually in the Render dashboard — never commit a real one
       - key: UPI_PAYEE_NAME
         value: Lawgic
-      - key: ACCESS_FEE_RUPEES
-        value: "72"

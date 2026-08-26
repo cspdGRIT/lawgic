@@ -3,9 +3,8 @@ from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.access import require_approved_access
+from app.core.access import require_quota_or_credit
 from app.core.database import get_db
-from app.core.limits import require_feature
 from app.core.config import settings
 from app.models.user import User
 from app.agents.research_agent import legal_research_node, search_knowledge_base
@@ -24,9 +23,8 @@ class SearchRequest(BaseModel):
 @router.post("/search")
 async def search_legal_knowledge(
     request: SearchRequest,
-    current_user: User = Depends(require_approved_access),
+    current_user: User = Depends(require_quota_or_credit("research")),
     db: AsyncSession = Depends(get_db),
-    _limit: None = Depends(require_feature("research")),
 ):
     initial_state: AgentState = {
         "messages": [],
