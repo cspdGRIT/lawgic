@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getAccessToken, getSSEUrl } from '../lib/api'
+import { useSpeechRecognition } from '../hooks/useSpeechRecognition'
 
 interface LawyerMatch {
   id: number
@@ -64,6 +65,19 @@ export default function IssueNavigator() {
   const [streaming, setStreaming] = useState('')
   const [result, setResult] = useState<IssueAnalysis | null>(null)
   const [error, setError] = useState('')
+
+  const baseMessageRef = useRef('')
+  const { listening, start, stop, supported: micSupported } = useSpeechRecognition((r) => {
+    const combined = (baseMessageRef.current ? baseMessageRef.current + ' ' : '') + r.transcript
+    setMessage(combined)
+    if (r.isFinal) baseMessageRef.current = combined
+  })
+
+  function toggleMic() {
+    if (listening) { stop(); return }
+    baseMessageRef.current = message
+    start()
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -280,7 +294,7 @@ export default function IssueNavigator() {
           <div className="bg-red-950 border border-red-800 text-red-300 rounded-lg px-4 py-3 text-sm">{error}</div>
         )}
 
-        <div>
+        <div className="relative">
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -288,8 +302,21 @@ export default function IssueNavigator() {
             rows={6}
             disabled={loading}
             placeholder="e.g. My landlord is refusing to return my security deposit two months after I vacated..."
-            className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-white transition-colors resize-none disabled:opacity-60"
+            className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 pr-12 text-white text-sm focus:outline-none focus:border-white transition-colors resize-none disabled:opacity-60"
           />
+          {micSupported && (
+            <button
+              type="button"
+              onClick={toggleMic}
+              disabled={loading}
+              title={listening ? 'Stop dictating' : 'Speak instead of typing'}
+              className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-colors ${
+                listening ? 'bg-red-600 text-white animate-pulse' : 'bg-zinc-700 text-gray-300 hover:bg-zinc-600'
+              }`}
+            >
+              🎤
+            </button>
+          )}
         </div>
 
         <div>

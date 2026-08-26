@@ -1,6 +1,6 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from typing import Optional
-from sqlalchemy import String, Text, Boolean, DateTime, Integer, Float, ForeignKey
+from sqlalchemy import String, Text, Boolean, Date, DateTime, Integer, Float, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from app.core.database import Base
 
@@ -31,6 +31,11 @@ class Case(Base):
     assigned_lawyer_id: Mapped[Optional[int]] = mapped_column(
         Integer, ForeignKey("lawyers.id"), nullable=True
     )
+    # A limitation-period deadline, when the AI identifies one (Issue Navigator sets
+    # this — see agents/issue_navigator.py). core/scheduler.py reminds the user by
+    # email as it approaches; deadline_reminder_sent stops it firing twice.
+    deadline_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    deadline_reminder_sent: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False
     )

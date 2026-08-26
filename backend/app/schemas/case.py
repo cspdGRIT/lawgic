@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import date, datetime
 from typing import Optional, Any
 from pydantic import BaseModel, ConfigDict, field_validator
 
@@ -41,6 +41,7 @@ class CaseResponse(BaseModel):
     analysis_unlocked: bool = False
     confidence_score: Optional[float] = None
     assigned_lawyer_id: Optional[int] = None
+    deadline_date: Optional[date] = None
     created_at: datetime
     updated_at: datetime
 

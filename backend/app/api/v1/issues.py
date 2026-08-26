@@ -1,4 +1,5 @@
 import json
+from datetime import date
 
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
@@ -32,6 +33,7 @@ async def analyze_issue(
 
             analysis = await navigate_issue(body.message, body.city, db=db)
 
+            deadline = analysis.get("deadline_date")
             case = Case(
                 user_id=current_user.id,
                 title=analysis.get("case_title", "Untitled matter")[:500],
@@ -43,6 +45,7 @@ async def analyze_issue(
                 ai_analysis=json.dumps(analysis),
                 confidence_score=analysis.get("confidence_score", 0.6),
                 analysis_unlocked=True,  # already paid for by the require_quota_or_credit gate above
+                deadline_date=date.fromisoformat(deadline) if deadline else None,
             )
             db.add(case)
             await db.flush()

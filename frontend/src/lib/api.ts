@@ -151,6 +151,10 @@ export const researchAPI = {
   search: (data: unknown) => api.post('/api/v1/research/search', data).then((r) => r.data),
 };
 
+export const legalAidAPI = {
+  checkEligibility: (data: unknown) => api.post('/api/v1/legal-aid/check-eligibility', data).then((r) => r.data),
+};
+
 export const educationAPI = {
   getCourses: () => api.get('/api/v1/education/courses').then((r) => r.data),
   getCourse: (id: string) => api.get(`/api/v1/education/courses/${id}`).then((r) => r.data),

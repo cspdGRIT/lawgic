@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useAuthStore } from './store'
 import { authAPI } from './lib/api'
 import { initVersionCheck } from './lib/versionCheck'
+import QuickExit from './components/QuickExit'
 import AppLayout from './components/layout/AppLayout'
 import Landing from './pages/Landing'
 import Login from './pages/auth/Login'
@@ -19,6 +20,8 @@ import LawyerMarketplace from './pages/LawyerMarketplace'
 import LegalResearch from './pages/LegalResearch'
 import Education from './pages/Education'
 import Pricing from './pages/Pricing'
+import LegalAidCheck from './pages/LegalAidCheck'
+import RightsCards from './pages/RightsCards'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -92,12 +95,17 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <QuickExit />
         {updateAvailable && <UpdateBanner />}
         <AuthInit>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            {/* Public and unauthenticated on purpose — shared rights cards need to
+                open for anyone who clicks a link, not just logged-in users. */}
+            <Route path="/rights" element={<RightsCards />} />
+            <Route path="/rights/:slug" element={<RightsCards />} />
             <Route
               path="/access-pending"
               element={
@@ -116,6 +124,7 @@ export default function App() {
             >
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="issue-navigator" element={<IssueNavigator />} />
+              <Route path="legal-aid-check" element={<LegalAidCheck />} />
               <Route path="assistant" element={<AiAssistant />} />
               <Route path="cases" element={<CaseAnalysis />} />
               <Route path="documents" element={<DocumentGenerator />} />

@@ -37,6 +37,14 @@ class Settings(BaseSettings):
     # Never commit a real UPI_VPA to source; set it as an env var only.
     UPI_VPA: str = ""
     UPI_PAYEE_NAME: str = "Lawgic"
+    # Deadline reminders — NOTIFY_PROVIDER: console (dev, logs the reminder, no
+    # account needed) | smtp (any mailbox — e.g. Gmail's free SMTP relay).
+    NOTIFY_PROVIDER: str = "console"
+    SMTP_HOST: str = ""
+    SMTP_PORT: int = 587
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+    SMTP_FROM: str = ""
     SECRET_KEY: str = "change-me-in-production-must-be-at-least-32-chars-long"
     DATABASE_URL: str = "postgresql+asyncpg://lawgic:lawgic_dev_pass@localhost:5432/lawgic"
     ALGORITHM: str = "HS256"

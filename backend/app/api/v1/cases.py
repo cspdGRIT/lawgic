@@ -40,6 +40,7 @@ def _serialize_case(case: Case) -> CaseResponse:
         status=case.status, opposing_party=case.opposing_party, key_facts=case.key_facts,
         ai_analysis=analysis, analysis_unlocked=case.analysis_unlocked,
         confidence_score=case.confidence_score, assigned_lawyer_id=case.assigned_lawyer_id,
+        deadline_date=case.deadline_date,
         created_at=case.created_at, updated_at=case.updated_at,
     )
 

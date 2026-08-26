@@ -13,6 +13,8 @@ import {
   CreditCard,
   Zap,
   ShieldCheck,
+  HeartHandshake,
+  BookOpenCheck,
 } from 'lucide-react';
 import { useAppStore } from '../../store';
 import { paymentsAPI, authAPI, accessAPI } from '../../lib/api';
@@ -29,12 +31,14 @@ interface SidebarProps {
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/issue-navigator', icon: Compass, label: 'Describe Your Issue', badge: 'New', roles: ['client'] },
+  { to: '/legal-aid-check', icon: HeartHandshake, label: 'Free Legal Aid Check', roles: ['client'] },
   { to: '/assistant', icon: Bot, label: 'AI Assistant', badge: 'AI' },
   { to: '/cases', icon: Scale, label: 'Case Analysis' },
   { to: '/documents', icon: FileText, label: 'Documents' },
   { to: '/lawyers', icon: Users, label: 'Find Lawyers', roles: ['client'] },
   { to: '/research', icon: Search, label: 'Legal Research' },
   { to: '/education', icon: GraduationCap, label: 'Education' },
+  { to: '/rights', icon: BookOpenCheck, label: 'Know Your Rights' },
   { to: '/pricing', icon: CreditCard, label: 'Plans & Billing' },
 ];
 

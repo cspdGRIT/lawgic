@@ -12,7 +12,9 @@ const QUICK_ACTIONS = [
   { label: 'Ask AI Lawyer', icon: '🤖', href: '/assistant', desc: 'Chat with Lawgic AI' },
   { label: 'Find Advocate', icon: '👨‍⚖️', href: '/lawyers', desc: 'AI-matched lawyers', roles: ['client'] },
   { label: 'Legal Research', icon: '🔍', href: '/research', desc: 'Search statutes & cases' },
+  { label: 'Free Legal Aid Check', icon: '🤝', href: '/legal-aid-check', desc: 'See if NALSA covers you free', roles: ['client'] },
   { label: 'Learn Law', icon: '📚', href: '/education', desc: '10 courses on Indian law' },
+  { label: 'Know Your Rights', icon: '📖', href: '/rights', desc: 'Shareable rights guides' },
 ]
 
 function StatCard({ value, label, icon }: { value: string | number; label: string; icon: string }) {

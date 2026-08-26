@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { generateSessionId, getWSUrl, getAccessToken } from '../lib/api'
+import { useSpeechRecognition } from '../hooks/useSpeechRecognition'
 import { clsx } from 'clsx'
 
 interface Message {
@@ -34,6 +35,17 @@ export default function AiAssistant() {
   const [sessionId] = useState(() => generateSessionId())
   const wsRef = useRef<WebSocket | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const baseInputRef = useRef('')
+  const { listening, start, stop, supported: micSupported } = useSpeechRecognition((r) => {
+    const combined = (baseInputRef.current ? baseInputRef.current + ' ' : '') + r.transcript
+    setInput(combined)
+    if (r.isFinal) baseInputRef.current = combined
+  })
+  function toggleMic() {
+    if (listening) { stop(); return }
+    baseInputRef.current = input
+    start()
+  }
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
   const scrollToBottom = () => bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -191,6 +203,17 @@ export default function AiAssistant() {
           className="flex-1 bg-transparent text-white text-sm resize-none outline-none placeholder-gray-600 max-h-32"
           style={{ minHeight: '24px' }}
         />
+        {micSupported && (
+          <button
+            onClick={toggleMic}
+            title={listening ? 'Stop dictating' : 'Speak instead of typing'}
+            className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm flex-shrink-0 transition-colors ${
+              listening ? 'bg-red-600 text-white animate-pulse' : 'bg-zinc-800 text-gray-300 hover:bg-zinc-700'
+            }`}
+          >
+            🎤
+          </button>
+        )}
         <button
           onClick={sendMessage}
           disabled={!input.trim() || !connected}
