@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Lawgic</string>
+    <string name="title_activity_main">Lawgic</string>
+    <string name="package_name">com.lawgic.app</string>
+    <string name="custom_url_scheme">com.lawgic.app</string>
+</resources>
