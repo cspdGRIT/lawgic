@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useAuthStore } from './store'
@@ -67,6 +67,36 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   return user?.user_type === 'admin' ? <>{children}</> : <Navigate to="/dashboard" replace />
 }
 
+// index.html has one static <title> for the whole app — every route showed the same
+// tab title and the same browser-history entry name. Prefix-matched so /rights/:slug
+// falls through to the /rights entry without needing one per slug.
+const ROUTE_TITLES: [string, string][] = [
+  ['/dashboard', 'Dashboard'],
+  ['/issue-navigator', 'Describe Your Issue'],
+  ['/legal-aid-check', 'Free Legal Aid Check'],
+  ['/assistant', 'AI Assistant'],
+  ['/cases', 'Case Analysis'],
+  ['/documents', 'Document Generator'],
+  ['/lawyers', 'Lawyer Marketplace'],
+  ['/research', 'Legal Research'],
+  ['/education', 'Education'],
+  ['/pricing', 'Plans & Billing'],
+  ['/admin/requests', 'Access Requests'],
+  ['/access-pending', 'Access Pending'],
+  ['/rights', 'Know Your Rights'],
+  ['/register', 'Create Account'],
+  ['/login', 'Sign In'],
+]
+
+function RouteTitle() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    const match = ROUTE_TITLES.find(([prefix]) => pathname === prefix || pathname.startsWith(`${prefix}/`))
+    document.title = match ? `${match[1]} — Lawgic` : 'Lawgic.com — The Legal AId'
+  }, [pathname])
+  return null
+}
+
 // A tab left open across a deploy keeps running the JS it loaded at page-load — that
 // stale bundle calling into a changed API shape is what produced the "X is not a
 // function" crashes people were hitting until they manually hard-refreshed. This
@@ -95,6 +125,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <RouteTitle />
         <QuickExit />
         {updateAvailable && <UpdateBanner />}
         <AuthInit>

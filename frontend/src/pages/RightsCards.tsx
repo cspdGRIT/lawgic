@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { RIGHTS_CARDS } from '../data/rightsCards'
+import { useAuthStore } from '../store'
 
 function ShareButton({ title, url }: { title: string; url: string }) {
   async function share() {
@@ -88,6 +89,7 @@ function CardDetail({ slug }: { slug: string }) {
 }
 
 function CardList() {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <div className="text-center mb-8">
@@ -111,11 +113,13 @@ function CardList() {
           </Link>
         ))}
       </div>
-      <div className="text-center mt-10">
-        <Link to="/login" className="text-sm text-gray-500 hover:text-white transition-colors">
-          Already have a Lawgic account? Sign in →
-        </Link>
-      </div>
+      {!isAuthenticated && (
+        <div className="text-center mt-10">
+          <Link to="/login" className="text-sm text-gray-500 hover:text-white transition-colors">
+            Already have a Lawgic account? Sign in →
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

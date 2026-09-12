@@ -49,7 +49,13 @@ export default function AiAssistant() {
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
   const scrollToBottom = () => bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  useEffect(scrollToBottom, [messages])
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  const reconnectAttemptsRef = useRef(0)
+  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const unmountedRef = useRef(false)
 
   const connectWS = useCallback(() => {
     const token = getAccessToken()
@@ -58,10 +64,27 @@ export default function AiAssistant() {
     const ws = new WebSocket(getWSUrl(sessionId, token))
     wsRef.current = ws
 
-    ws.onopen = () => setConnected(true)
+    ws.onopen = () => {
+      reconnectAttemptsRef.current = 0
+      setConnected(true)
+    }
     ws.onclose = () => {
       setConnected(false)
-      setTimeout(connectWS, 3000)
+      // A bubble left mid-stream from the dropped connection will never resolve on its
+      // own — mark it so the user isn't staring at a permanent typing indicator.
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.loading
+            ? { ...m, loading: false, content: m.content ? `${m.content}\n\n_(connection dropped — response incomplete)_` : 'Connection dropped before a response came through. Please try again.' }
+            : m
+        )
+      )
+      if (unmountedRef.current) return
+      // Exponential backoff (1s, 2s, 4s ... capped at 30s) instead of a flat 3s retry
+      // forever — a real outage shouldn't have the client hammering the server.
+      const delay = Math.min(1000 * 2 ** reconnectAttemptsRef.current, 30000)
+      reconnectAttemptsRef.current += 1
+      reconnectTimeoutRef.current = setTimeout(connectWS, delay)
     }
 
     ws.onmessage = (evt) => {
@@ -101,8 +124,13 @@ export default function AiAssistant() {
   }, [sessionId])
 
   useEffect(() => {
+    unmountedRef.current = false
     connectWS()
-    return () => wsRef.current?.close()
+    return () => {
+      unmountedRef.current = true
+      if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current)
+      wsRef.current?.close()
+    }
   }, [connectWS])
 
   function sendMessage() {
@@ -207,11 +235,14 @@ export default function AiAssistant() {
           <button
             onClick={toggleMic}
             title={listening ? 'Stop dictating' : 'Speak instead of typing'}
+            aria-pressed={listening}
+            aria-label={listening ? 'Stop dictating' : 'Speak instead of typing'}
             className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm flex-shrink-0 transition-colors ${
               listening ? 'bg-red-600 text-white animate-pulse' : 'bg-zinc-800 text-gray-300 hover:bg-zinc-700'
             }`}
           >
             🎤
+            <span className="sr-only" aria-live="polite">{listening ? 'Listening' : ''}</span>
           </button>
         )}
         <button

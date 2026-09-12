@@ -40,17 +40,26 @@ export function isSpeechRecognitionSupported(): boolean {
 export function useSpeechRecognition(onResult: (r: RecognitionResult) => void, lang = 'en-IN') {
   const [listening, setListening] = useState(false)
   const recognitionRef = useRef<any>(null)
+  // React state updates aren't synchronous — a fast double-click on the mic button
+  // (both calls landing before the `listening` re-render) could otherwise create a
+  // second SpeechRecognition instance and overwrite recognitionRef, orphaning the
+  // first: mic stays on, browser permission indicator stays lit, nothing left to stop
+  // it. This ref is set the instant start() begins, so the second call sees it and bails.
+  const activeRef = useRef(false)
 
   useEffect(() => {
     return () => {
+      activeRef.current = false
       recognitionRef.current?.stop?.()
     }
   }, [])
 
   function start() {
+    if (activeRef.current) return
     const Ctor = getSpeechRecognitionCtor()
     if (!Ctor) return
 
+    activeRef.current = true
     const recognition = new Ctor()
     recognition.lang = lang
     recognition.continuous = true
@@ -60,8 +69,14 @@ export function useSpeechRecognition(onResult: (r: RecognitionResult) => void, l
       const result = event.results[event.results.length - 1]
       onResult({ transcript: result[0].transcript, isFinal: result.isFinal })
     }
-    recognition.onerror = () => setListening(false)
-    recognition.onend = () => setListening(false)
+    recognition.onerror = () => {
+      activeRef.current = false
+      setListening(false)
+    }
+    recognition.onend = () => {
+      activeRef.current = false
+      setListening(false)
+    }
 
     recognitionRef.current = recognition
     recognition.start()
@@ -69,6 +84,7 @@ export function useSpeechRecognition(onResult: (r: RecognitionResult) => void, l
   }
 
   function stop() {
+    activeRef.current = false
     recognitionRef.current?.stop?.()
     setListening(false)
   }
