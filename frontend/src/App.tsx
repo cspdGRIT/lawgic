@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import { useAuthStore } from './store'
 import { authAPI } from './lib/api'
 import { initVersionCheck } from './lib/versionCheck'
@@ -9,19 +9,32 @@ import AppLayout from './components/layout/AppLayout'
 import Landing from './pages/Landing'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
-import Dashboard from './pages/Dashboard'
-import AccessPending from './pages/AccessPending'
-import AdminRequests from './pages/AdminRequests'
-import IssueNavigator from './pages/IssueNavigator'
-import AiAssistant from './pages/AiAssistant'
-import CaseAnalysis from './pages/CaseAnalysis'
-import DocumentGenerator from './pages/DocumentGenerator'
-import LawyerMarketplace from './pages/LawyerMarketplace'
-import LegalResearch from './pages/LegalResearch'
-import Education from './pages/Education'
-import Pricing from './pages/Pricing'
-import LegalAidCheck from './pages/LegalAidCheck'
-import RightsCards from './pages/RightsCards'
+// Everything past the signup/login funnel is lazy-loaded — a first-time visitor on
+// Landing/Login/Register (the pages that matter most for "no friction getting
+// registered") previously downloaded and parsed all 13 of these too, just to see a
+// marketing page. Keeping those three eager avoids a loading flash in the one place
+// it would actually hurt (mid-signup); everything else gets a route-level chunk.
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const AccessPending = lazy(() => import('./pages/AccessPending'))
+const AdminRequests = lazy(() => import('./pages/AdminRequests'))
+const IssueNavigator = lazy(() => import('./pages/IssueNavigator'))
+const AiAssistant = lazy(() => import('./pages/AiAssistant'))
+const CaseAnalysis = lazy(() => import('./pages/CaseAnalysis'))
+const DocumentGenerator = lazy(() => import('./pages/DocumentGenerator'))
+const LawyerMarketplace = lazy(() => import('./pages/LawyerMarketplace'))
+const LegalResearch = lazy(() => import('./pages/LegalResearch'))
+const Education = lazy(() => import('./pages/Education'))
+const Pricing = lazy(() => import('./pages/Pricing'))
+const LegalAidCheck = lazy(() => import('./pages/LegalAidCheck'))
+const RightsCards = lazy(() => import('./pages/RightsCards'))
+
+function RouteFallback() {
+  return (
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+    </div>
+  )
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -129,44 +142,46 @@ export default function App() {
         <QuickExit />
         {updateAvailable && <UpdateBanner />}
         <AuthInit>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            {/* Public and unauthenticated on purpose — shared rights cards need to
-                open for anyone who clicks a link, not just logged-in users. */}
-            <Route path="/rights" element={<RightsCards />} />
-            <Route path="/rights/:slug" element={<RightsCards />} />
-            <Route
-              path="/access-pending"
-              element={
-                <ProtectedRoute>
-                  <AccessPending />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="issue-navigator" element={<IssueNavigator />} />
-              <Route path="legal-aid-check" element={<LegalAidCheck />} />
-              <Route path="assistant" element={<AiAssistant />} />
-              <Route path="cases" element={<CaseAnalysis />} />
-              <Route path="documents" element={<DocumentGenerator />} />
-              <Route path="lawyers" element={<LawyerMarketplace />} />
-              <Route path="research" element={<LegalResearch />} />
-              <Route path="education" element={<Education />} />
-              <Route path="pricing" element={<Pricing />} />
-              <Route path="admin/requests" element={<AdminRoute><AdminRequests /></AdminRoute>} />
-            </Route>
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              {/* Public and unauthenticated on purpose — shared rights cards need to
+                  open for anyone who clicks a link, not just logged-in users. */}
+              <Route path="/rights" element={<RightsCards />} />
+              <Route path="/rights/:slug" element={<RightsCards />} />
+              <Route
+                path="/access-pending"
+                element={
+                  <ProtectedRoute>
+                    <AccessPending />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="issue-navigator" element={<IssueNavigator />} />
+                <Route path="legal-aid-check" element={<LegalAidCheck />} />
+                <Route path="assistant" element={<AiAssistant />} />
+                <Route path="cases" element={<CaseAnalysis />} />
+                <Route path="documents" element={<DocumentGenerator />} />
+                <Route path="lawyers" element={<LawyerMarketplace />} />
+                <Route path="research" element={<LegalResearch />} />
+                <Route path="education" element={<Education />} />
+                <Route path="pricing" element={<Pricing />} />
+                <Route path="admin/requests" element={<AdminRoute><AdminRequests /></AdminRoute>} />
+              </Route>
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
         </AuthInit>
       </BrowserRouter>
     </QueryClientProvider>

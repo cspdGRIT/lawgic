@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 
 from app.core.config import settings
 from app.core.database import create_tables
@@ -31,6 +32,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# Starlette excludes text/event-stream by default, so this doesn't touch the SSE
+# endpoints (case analysis, document generation, issue navigator) — only regular
+# JSON responses (legal research results, chat history, lawyer listings, etc.) get
+# compressed.
+app.add_middleware(GZipMiddleware, minimum_size=500)
 
 # Browsing every resource is free — the ₹72 approval gate is enforced narrowly, only
 # on the specific "give me a result" endpoints (see app/core/access.py usages in

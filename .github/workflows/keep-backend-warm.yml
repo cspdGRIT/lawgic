@@ -1,0 +1,25 @@
+name: Keep backend warm
+
+# Render's free plan spins the container down after ~15 minutes with no inbound
+# traffic; the next real visitor then eats a 30-60s cold start before anything
+# responds — directly hurts "blazing fast" and makes signup feel broken on a first
+# visit. This is a free stopgap (public repo = unlimited Actions minutes): ping
+# /health often enough that the service never sees 15 idle minutes. The real fix is
+# upgrading the Render plan off free (see frontend/MOBILE_PUBLISHING.md-adjacent
+# notes) — this just buys back the free-tier user experience in the meantime.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping health endpoint
+        run: |
+          status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 60 https://lawgic-qy66.onrender.com/health)
+          echo "health check -> HTTP $status"
+          if [ "$status" != "200" ]; then
+            echo "::warning::Backend health check returned $status"
+          fi
