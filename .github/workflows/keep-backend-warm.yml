@@ -16,10 +16,21 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping health endpoint
+      # The ping itself is often what wakes a spun-down container — a single attempt
+      # with a tight timeout fails hard on exactly the cold starts this workflow
+      # exists to paper over (measured one at 52s; GitHub Actions' default shell runs
+      # with `set -e`, so curl timing out used to kill the step before it even got to
+      # log anything). Retry through the cold start instead of treating it as failure.
+      - name: Ping health endpoint (retrying through a cold start)
         run: |
-          status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 60 https://lawgic-qy66.onrender.com/health)
-          echo "health check -> HTTP $status"
-          if [ "$status" != "200" ]; then
-            echo "::warning::Backend health check returned $status"
-          fi
+          url="https://lawgic-qy66.onrender.com/health"
+          for attempt in 1 2 3 4; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 100 "$url" || echo "000")
+            echo "attempt $attempt -> HTTP $status"
+            if [ "$status" = "200" ]; then
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::warning::Backend health check failed after 4 attempts (last status: $status)"
+          exit 1
